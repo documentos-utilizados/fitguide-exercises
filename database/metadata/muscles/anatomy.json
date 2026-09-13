@@ -1,0 +1,186 @@
+{
+  "front": [
+    {
+      "id": "shoulders",
+      "label_key": "cat_shoulders",
+      "label_x": 10.0,
+      "label_y": 38.0,
+      "anchor_x": 132.0,
+      "anchor_y": 54.0,
+      "is_left": true,
+      "has_line": true
+    },
+    {
+      "id": "biceps",
+      "label_key": "cat_biceps",
+      "label_x": 10.0,
+      "label_y": 92.0,
+      "anchor_x": 122.0,
+      "anchor_y": 80.0,
+      "is_left": true,
+      "has_line": true
+    },
+    {
+      "id": "obliques",
+      "label_key": "cat_obliques",
+      "label_x": 10.0,
+      "label_y": 146.0,
+      "anchor_x": 142.0,
+      "anchor_y": 98.0,
+      "is_left": true,
+      "has_line": true
+    },
+    {
+      "id": "abductors",
+      "label_key": "cat_abductors",
+      "label_x": 10.0,
+      "label_y": 200.0,
+      "anchor_x": 141.0,
+      "anchor_y": 165.0,
+      "is_left": true,
+      "has_line": true
+    },
+    {
+      "id": "quadriceps",
+      "label_key": "cat_quadriceps",
+      "label_x": 10.0,
+      "label_y": 254.0,
+      "anchor_x": 144.0,
+      "anchor_y": 172.0,
+      "is_left": true,
+      "has_line": true
+    },
+    {
+      "id": "chest",
+      "label_key": "cat_chest",
+      "label_x": 230.0,
+      "label_y": 38.0,
+      "anchor_x": 178.0,
+      "anchor_y": 65.0,
+      "is_left": false,
+      "has_line": true
+    },
+    {
+      "id": "abs",
+      "label_key": "cat_abs",
+      "label_x": 230.0,
+      "label_y": 92.0,
+      "anchor_x": 160.0,
+      "anchor_y": 95.0,
+      "is_left": false,
+      "has_line": true
+    },
+    {
+      "id": "forearms",
+      "label_key": "cat_forearms",
+      "label_x": 230.0,
+      "label_y": 146.0,
+      "anchor_x": 200.0,
+      "anchor_y": 108.0,
+      "is_left": false,
+      "has_line": true
+    },
+    {
+      "id": "adductors",
+      "label_key": "cat_adductors",
+      "label_x": 230.0,
+      "label_y": 200.0,
+      "anchor_x": 168.0,
+      "anchor_y": 172.0,
+      "is_left": false,
+      "has_line": true
+    },
+    {
+      "id": "cardio",
+      "label_key": "cat_cardio",
+      "label_x": 230.0,
+      "label_y": 254.0,
+      "anchor_x": 0.0,
+      "anchor_y": 0.0,
+      "is_left": false,
+      "has_line": false
+    }
+  ],
+  "back": [
+    {
+      "id": "triceps",
+      "label_key": "cat_triceps",
+      "label_x": 10.0,
+      "label_y": 50.0,
+      "anchor_x": 122.0,
+      "anchor_y": 80.0,
+      "is_left": true,
+      "has_line": true
+    },
+    {
+      "id": "lower_back",
+      "label_key": "cat_lower_back",
+      "label_x": 10.0,
+      "label_y": 118.0,
+      "anchor_x": 160.0,
+      "anchor_y": 105.0,
+      "is_left": true,
+      "has_line": true
+    },
+    {
+      "id": "hamstrings",
+      "label_key": "cat_hamstrings",
+      "label_x": 10.0,
+      "label_y": 186.0,
+      "anchor_x": 144.0,
+      "anchor_y": 180.0,
+      "is_left": true,
+      "has_line": true
+    },
+    {
+      "id": "calves",
+      "label_key": "cat_calves",
+      "label_x": 10.0,
+      "label_y": 254.0,
+      "anchor_x": 144.0,
+      "anchor_y": 238.0,
+      "is_left": true,
+      "has_line": true
+    },
+    {
+      "id": "traps",
+      "label_key": "cat_traps",
+      "label_x": 230.0,
+      "label_y": 50.0,
+      "anchor_x": 160.0,
+      "anchor_y": 54.0,
+      "is_left": false,
+      "has_line": true
+    },
+    {
+      "id": "lats",
+      "label_key": "cat_lats",
+      "label_x": 230.0,
+      "label_y": 118.0,
+      "anchor_x": 176.0,
+      "anchor_y": 78.0,
+      "is_left": false,
+      "has_line": true
+    },
+    {
+      "id": "glutes",
+      "label_key": "cat_glutes",
+      "label_x": 230.0,
+      "label_y": 186.0,
+      "anchor_x": 175.0,
+      "anchor_y": 146.0,
+      "is_left": false,
+      "has_line": true
+    },
+    {
+      "id": "cardio",
+      "label_key": "cat_cardio",
+      "label_x": 230.0,
+      "label_y": 254.0,
+      "anchor_x": 0.0,
+      "anchor_y": 0.0,
+      "is_left": false,
+      "has_line": false
+    }
+  ]
+}

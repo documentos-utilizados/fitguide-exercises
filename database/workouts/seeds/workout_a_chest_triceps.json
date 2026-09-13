@@ -1,0 +1,49 @@
+{
+  "id": "workout_a_chest_triceps",
+  "name_key": "workout_a_chest_triceps",
+  "category_key": "cat_hypertrophy",
+  "days": [
+    "MON",
+    "WED"
+  ],
+  "estimated_duration_min": 50,
+  "cover_image_url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop",
+  "exercises": [
+    {
+      "exercise_id": "Barbell_Bench_Press_-_Medium_Grip",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 60.0,
+      "rest_time_seconds": 60,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Triceps_Pushdown",
+      "sets": 3,
+      "reps": "12-15",
+      "weight_kg": 25.0,
+      "rest_time_seconds": 45,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Dumbbell_Shoulder_Press",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 18.0,
+      "rest_time_seconds": 60,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Side_Lateral_Raise",
+      "sets": 3,
+      "reps": "12-15",
+      "weight_kg": 10.0,
+      "rest_time_seconds": 45,
+      "is_time_based": false,
+      "time_seconds": 0
+    }
+  ]
+}
