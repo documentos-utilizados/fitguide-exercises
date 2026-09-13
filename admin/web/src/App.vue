@@ -78,6 +78,7 @@
           <TranslationValidator 
             :exercises="exercises"
             :metadata="metadata"
+            @metadata-updated="loadMetadata"
           />
         </section>
 

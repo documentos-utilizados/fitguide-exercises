@@ -1,5 +1,5 @@
 {
-  "pull": "Pull",
-  "push": "Push",
-  "static": "Static"
+  "empurrar": "Push",
+  "estático": "Static",
+  "tração": "Pull"
 }

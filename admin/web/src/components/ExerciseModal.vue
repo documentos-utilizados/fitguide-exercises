@@ -33,15 +33,23 @@
         <div class="form-grid-3">
           <div class="form-group">
             <label>Categoria *</label>
-            <select v-model="form.category" required>
-              <option value="strength">Força (strength)</option>
-              <option value="cardio">Cardio</option>
-              <option value="stretching">Alongamento (stretching)</option>
-              <option value="plyometrics">Pliometria (plyometrics)</option>
-              <option value="powerlifting">Powerlifting</option>
-              <option value="olympic weightlifting">LPO (olympic weightlifting)</option>
-              <option value="strongman">Strongman</option>
-            </select>
+            <div v-if="!isCreatingNewCategory">
+              <select v-model="form.category" @change="onCategoryChange" required>
+                <option v-for="(label, key) in metadata.categories?.pt || {}" :key="key" :value="key">
+                  {{ label }} ({{ key }})
+                </option>
+                <option value="__new__">+ Criar Nova Categoria...</option>
+              </select>
+            </div>
+            <div v-else class="input-with-action">
+              <input 
+                type="text" 
+                v-model="customCategoryInput" 
+                placeholder="Ex: pilates, funcional, crossfit..." 
+                required
+              />
+              <button type="button" class="btn btn-secondary btn-sm" @click="cancelNewCategory">Voltar</button>
+            </div>
           </div>
 
           <div class="form-group">
@@ -235,6 +243,9 @@ const saving = ref(false)
 const errorMessage = ref('')
 const fileInputRef = ref(null)
 
+const isCreatingNewCategory = ref(false)
+const customCategoryInput = ref('')
+
 const pendingUpload = ref(null)
 const isUploading = ref(false)
 const uploadError = ref('')
@@ -259,6 +270,18 @@ const primaryMuscleModel = computed({
     form.primaryMuscles = val ? [val] : []
   }
 })
+
+function onCategoryChange(e) {
+  if (e.target.value === '__new__') {
+    isCreatingNewCategory.value = true
+    customCategoryInput.value = ''
+  }
+}
+
+function cancelNewCategory() {
+  isCreatingNewCategory.value = false
+  form.category = 'strength'
+}
 
 function addInstruction() {
   form.instructions.push('')
@@ -340,10 +363,24 @@ async function handleSubmit() {
   errorMessage.value = ''
 
   try {
+    let finalCategory = form.category
+    if (isCreatingNewCategory.value) {
+      const sanitized = customCategoryInput.value
+        .trim()
+        .toLowerCase()
+        .replace(/[\s-]+/g, '_')
+        .replace(/[^a-z0-9_]/g, '')
+      if (!sanitized) {
+        throw new Error('Informe um nome válido para a nova categoria')
+      }
+      finalCategory = sanitized
+    }
+
     const payload = {
       ...form,
       id: form.id.trim(),
       name: form.name.trim(),
+      category: finalCategory,
       instructions: form.instructions.filter(i => i.trim() !== ''),
       images: form.images.filter(i => i.trim() !== '')
     }

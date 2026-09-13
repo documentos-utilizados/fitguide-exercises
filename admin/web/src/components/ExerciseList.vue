@@ -20,13 +20,9 @@
 
         <select v-model="selectedCategory">
           <option value="">Todas as Categorias</option>
-          <option value="strength">Força</option>
-          <option value="cardio">Cardio</option>
-          <option value="stretching">Alongamento</option>
-          <option value="plyometrics">Pliometria</option>
-          <option value="powerlifting">Powerlifting</option>
-          <option value="olympic weightlifting">LPO</option>
-          <option value="strongman">Strongman</option>
+          <option v-for="(label, key) in metadata.categories?.pt || {}" :key="key" :value="key">
+            {{ label }}
+          </option>
         </select>
 
         <select v-model="selectedLevel">

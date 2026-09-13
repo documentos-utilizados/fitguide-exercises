@@ -6,7 +6,13 @@
           :class="['tab-btn', { active: activeSubTab === 'compare' }]"
           @click="activeSubTab = 'compare'"
         >
-          🔍 Comparador Lado a Lado
+          🔍 Exercício Lado a Lado
+        </button>
+        <button 
+          :class="['tab-btn', { active: activeSubTab === 'categories' }]"
+          @click="activeSubTab = 'categories'"
+        >
+          🏷️ Comparador de Categorias ({{ categoryComparisonList.length }})
         </button>
         <button 
           :class="['tab-btn', { active: activeSubTab === 'audit' }]"
@@ -399,13 +405,261 @@
           </div>
         </div>
       </section>
+
+      <section v-show="activeSubTab === 'categories'" class="sub-tab-content">
+        <div class="audit-kpi-grid">
+          <div class="kpi-card">
+            <span class="kpi-title">Categorias em PT-BR</span>
+            <span class="kpi-val">{{ categoryCountPt }}</span>
+            <span class="kpi-sub">database/metadata/categories/pt.json</span>
+          </div>
+
+          <div class="kpi-card">
+            <span class="kpi-title">Categorias em EN</span>
+            <span class="kpi-val">{{ categoryCountEn }}</span>
+            <span class="kpi-sub">database/metadata/categories/en.json</span>
+          </div>
+
+          <div class="kpi-card">
+            <span class="kpi-title">Paridade de Categorias</span>
+            <span :class="['kpi-val', isCategoryParityPerfect ? 'text-success' : 'text-warning']">
+              {{ isCategoryParityPerfect ? '100% Sincronizado' : `${categoryMismatchCount} Divergência(s)` }}
+            </span>
+            <span class="kpi-sub">Chaves em snake_case</span>
+          </div>
+
+          <div class="kpi-card">
+            <span class="kpi-title">Total de Exercícios Mapeados</span>
+            <span class="kpi-val text-primary">{{ totalCategorizedExercises }}</span>
+            <span class="kpi-sub">Distribuição nos catálogos</span>
+          </div>
+        </div>
+
+        <div class="category-compare-card">
+          <div class="category-toolbar">
+            <div class="form-group flex-1">
+              <label>Buscar Categoria / Chave:</label>
+              <input 
+                type="text" 
+                v-model="categorySearch" 
+                placeholder="Ex: olympic_weightlifting, cardio, Força..." 
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Filtro de Status:</label>
+              <select v-model="categoryFilterStatus">
+                <option value="all">Todas as Categorias ({{ categoryComparisonList.length }})</option>
+                <option value="synced">Apenas Sincronizadas ({{ syncedCategoriesCount }})</option>
+                <option value="mismatch">Com Divergência ({{ categoryMismatchCount }})</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary btn-add-cat" @click="openCreateCategory">
+              ✨ Nova Categoria
+            </button>
+          </div>
+
+          <div class="category-table-wrap">
+            <table class="category-table">
+              <thead>
+                <tr>
+                  <th>Chave Canônica (snake_case)</th>
+                  <th>Rótulo PT-BR (🇧🇷)</th>
+                  <th>Rótulo EN (🇺🇸)</th>
+                  <th>Recurso Android / strings.xml</th>
+                  <th>Exercícios (PT / EN)</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="cat in filteredCategoryList" :key="cat.key">
+                  <td>
+                    <div class="key-chip">
+                      <code>{{ cat.key }}</code>
+                      <button class="btn-copy-chip" title="Copiar chave" @click="copyText(cat.key, 'Chave copiada!')">📋</button>
+                    </div>
+                  </td>
+                  <td>
+                    <span v-if="cat.labelPt" class="label-badge label-pt">{{ cat.labelPt }}</span>
+                    <span v-else class="badge badge-warning">Não definido em PT</span>
+                  </td>
+                  <td>
+                    <span v-if="cat.labelEn" class="label-badge label-en">{{ cat.labelEn }}</span>
+                    <span v-else class="badge badge-warning">Não definido em EN</span>
+                  </td>
+                  <td>
+                    <div class="key-chip android-chip">
+                      <code>@string/cat_{{ cat.key }}</code>
+                      <button class="btn-copy-chip" title="Copiar recurso Android" @click="copyText(`@string/cat_${cat.key}`, 'Recurso copiado!')">📋</button>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="count-badge">
+                      🇧🇷 {{ cat.countPt }} ex &bull; 🇺🇸 {{ cat.countEn }} ex
+                    </span>
+                  </td>
+                  <td>
+                    <span v-if="cat.status === 'synced'" class="badge badge-success">✅ Sincronizado</span>
+                    <span v-else-if="cat.status === 'missing_en'" class="badge badge-warning">⚠️ Falta em EN</span>
+                    <span v-else class="badge badge-danger">⚠️ Falta em PT</span>
+                  </td>
+                  <td>
+                    <div class="table-actions-group">
+                      <button 
+                        class="btn btn-outline btn-xs" 
+                        title="Editar Categoria"
+                        @click="openEditCategory(cat)"
+                      >
+                        ✏️ Editar
+                      </button>
+                      <button 
+                        class="btn btn-secondary btn-xs" 
+                        @click="toggleInspectCategory(cat.key)"
+                      >
+                        {{ inspectedCategoryKey === cat.key ? 'Fechar ✕' : 'Ver 🔍' }}
+                      </button>
+                      <button 
+                        class="btn btn-danger btn-xs" 
+                        title="Excluir Categoria"
+                        @click="handleDeleteCategory(cat)"
+                      >
+                        🗑️
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div v-if="showCategoryModal" class="modal-backdrop" @click.self="showCategoryModal = false">
+            <div class="category-modal-card">
+              <div class="modal-header">
+                <h3>{{ categoryModalMode === 'create' ? '✨ Nova Categoria' : '✏️ Editar Categoria' }}</h3>
+                <button class="btn-close" @click="showCategoryModal = false">&times;</button>
+              </div>
+
+              <div class="modal-body">
+                <div v-if="categoryModalError" class="modal-error-box">
+                  {{ categoryModalError }}
+                </div>
+
+                <div class="form-group">
+                  <label>Nome em Português (PT-BR) *</label>
+                  <input 
+                    type="text" 
+                    v-model="categoryForm.labelPt" 
+                    @input="onCategoryLabelPtInput"
+                    placeholder="Ex: Mobilidade Articular"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label>Chave Canônica / Slug (snake_case) *</label>
+                  <div class="input-with-action">
+                    <input 
+                      type="text" 
+                      v-model="categoryForm.key" 
+                      @input="isAutoSlug = false"
+                      :disabled="categoryModalMode === 'edit'"
+                      placeholder="Ex: mobilidade_articular"
+                      required
+                    />
+                    <span v-if="categoryModalMode === 'create'" class="input-hint-chip">
+                      {{ isAutoSlug ? 'Auto' : 'Manual' }}
+                    </span>
+                  </div>
+                  <small class="field-hint" v-if="categoryModalMode === 'create'">
+                    Identificador no app Android: <code>@string/cat_{{ categoryForm.key || 'chave' }}</code>
+                  </small>
+                </div>
+
+                <div class="form-group">
+                  <label>Nome em Inglês (EN)</label>
+                  <div class="input-with-btn">
+                    <input 
+                      type="text" 
+                      v-model="categoryForm.labelEn" 
+                      placeholder="Ex: Joint Mobility"
+                    />
+                    <button 
+                      type="button" 
+                      class="btn btn-secondary btn-sm" 
+                      :disabled="translatingEn || !categoryForm.labelPt"
+                      @click="autoTranslateCategoryEn"
+                      title="Traduzir automaticamente do Português"
+                    >
+                      <span v-if="translatingEn" class="spinner-inline"></span>
+                      <span v-else>✨ Traduzir</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-secondary" @click="showCategoryModal = false" :disabled="categorySaving">
+                  Cancelar
+                </button>
+                <button class="btn btn-primary" @click="handleSaveCategory" :disabled="categorySaving">
+                  <span v-if="categorySaving" class="spinner-inline"></span>
+                  <span v-else>{{ categoryModalMode === 'create' ? 'Salvar Categoria' : 'Atualizar Categoria' }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="inspectedCategory" class="category-drilldown-panel">
+            <div class="drilldown-header">
+              <div class="drilldown-title">
+                <h5>Exercícios na categoria: <code>{{ inspectedCategory.key }}</code></h5>
+                <span class="badge badge-primary">{{ inspectedCategoryExercises.length }} encontrados</span>
+              </div>
+              <button class="btn btn-secondary btn-sm" @click="inspectedCategoryKey = null">Fechar Painel</button>
+            </div>
+
+            <div v-if="inspectedCategoryExercises.length === 0" class="empty-drilldown">
+              Nenhum exercício encontrado com esta categoria.
+            </div>
+
+            <div v-else class="drilldown-grid">
+              <div 
+                v-for="item in inspectedCategoryExercises" 
+                :key="item.id" 
+                class="drilldown-item-card"
+              >
+                <div class="drilldown-item-header">
+                  <code>{{ item.id }}</code>
+                  <button class="btn btn-outline btn-xs" @click="inspectExercise(item.id)">
+                    Ver Comparativo 🔍
+                  </button>
+                </div>
+                <div class="drilldown-item-names">
+                  <div class="item-name-pt">🇧🇷 {{ item.namePt || '—' }}</div>
+                  <div class="item-name-en">🇺🇸 {{ item.nameEn || '—' }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { fetchTranslationAudit, fetchTranslationCompare, fetchExerciseById } from '../api'
+import { 
+  fetchTranslationAudit, 
+  fetchTranslationCompare, 
+  fetchExerciseById, 
+  fetchExercises,
+  saveCategory,
+  deleteCategory,
+  translateText
+} from '../api'
 
 const props = defineProps({
   exercises: {
@@ -417,6 +671,8 @@ const props = defineProps({
     default: () => ({})
   }
 })
+
+const emit = defineEmits(['metadata-updated'])
 
 const activeSubTab = ref('compare')
 const loading = ref(false)
@@ -433,6 +689,12 @@ const payloadLang = ref('pt')
 const payloadExerciseId = ref('')
 const payloadExerciseData = ref(null)
 const copyFeedback = ref('')
+
+const exercisesPtList = ref([])
+const exercisesEnList = ref([])
+const categorySearch = ref('')
+const categoryFilterStatus = ref('all')
+const inspectedCategoryKey = ref(null)
 
 const isParityPerfect = computed(() => {
   const missingEn = auditReport.value?.missing_in_en?.length || 0
@@ -490,10 +752,163 @@ const payloadFormattedJson = computed(() => {
   return JSON.stringify(payloadExerciseData.value, null, 2)
 })
 
+const categoryComparisonList = computed(() => {
+  const ptCats = props.metadata.categories?.pt || {}
+  const enCats = props.metadata.categories?.en || {}
+
+  const allKeys = new Set([
+    ...Object.keys(ptCats),
+    ...Object.keys(enCats)
+  ])
+
+  for (const ex of exercisesPtList.value) {
+    if (ex.category) {
+      allKeys.add(ex.category.trim().toLowerCase().replace(/[\s-]+/g, '_'))
+    }
+  }
+  for (const ex of exercisesEnList.value) {
+    if (ex.category) {
+      allKeys.add(ex.category.trim().toLowerCase().replace(/[\s-]+/g, '_'))
+    }
+  }
+
+  const list = []
+  for (const key of Array.from(allKeys).sort()) {
+    const labelPt = ptCats[key] || ''
+    const labelEn = enCats[key] || ''
+
+    const countPt = exercisesPtList.value.filter(ex => {
+      const c = (ex.category || '').trim().toLowerCase().replace(/[\s-]+/g, '_')
+      return c === key
+    }).length
+
+    const countEn = exercisesEnList.value.filter(ex => {
+      const c = (ex.category || '').trim().toLowerCase().replace(/[\s-]+/g, '_')
+      return c === key
+    }).length
+
+    let status = 'synced'
+    if (labelPt && !labelEn) {
+      status = 'missing_en'
+    } else if (!labelPt && labelEn) {
+      status = 'missing_pt'
+    }
+
+    list.push({
+      key,
+      labelPt,
+      labelEn,
+      countPt,
+      countEn,
+      status
+    })
+  }
+
+  return list
+})
+
+const categoryCountPt = computed(() => Object.keys(props.metadata.categories?.pt || {}).length)
+const categoryCountEn = computed(() => Object.keys(props.metadata.categories?.en || {}).length)
+
+const categoryMismatchCount = computed(() => {
+  return categoryComparisonList.value.filter(c => c.status !== 'synced').length
+})
+
+const isCategoryParityPerfect = computed(() => categoryMismatchCount.value === 0)
+const syncedCategoriesCount = computed(() => categoryComparisonList.value.filter(c => c.status === 'synced').length)
+
+const totalCategorizedExercises = computed(() => {
+  return exercisesPtList.value.length || props.exercises.length
+})
+
+const filteredCategoryList = computed(() => {
+  let list = categoryComparisonList.value
+
+  if (categoryFilterStatus.value === 'synced') {
+    list = list.filter(c => c.status === 'synced')
+  } else if (categoryFilterStatus.value === 'mismatch') {
+    list = list.filter(c => c.status !== 'synced')
+  }
+
+  if (categorySearch.value.trim()) {
+    const q = categorySearch.value.trim().toLowerCase()
+    list = list.filter(c => 
+      c.key.toLowerCase().includes(q) ||
+      c.labelPt.toLowerCase().includes(q) ||
+      c.labelEn.toLowerCase().includes(q)
+    )
+  }
+
+  return list
+})
+
+const inspectedCategory = computed(() => {
+  if (!inspectedCategoryKey.value) return null
+  return categoryComparisonList.value.find(c => c.key === inspectedCategoryKey.value) || null
+})
+
+const inspectedCategoryExercises = computed(() => {
+  if (!inspectedCategoryKey.value) return []
+  const key = inspectedCategoryKey.value
+
+  const ptMap = new Map()
+  for (const ex of exercisesPtList.value) {
+    const c = (ex.category || '').trim().toLowerCase().replace(/[\s-]+/g, '_')
+    if (c === key) {
+      ptMap.set(ex.id, ex.name)
+    }
+  }
+
+  const enMap = new Map()
+  for (const ex of exercisesEnList.value) {
+    const c = (ex.category || '').trim().toLowerCase().replace(/[\s-]+/g, '_')
+    if (c === key) {
+      enMap.set(ex.id, ex.name)
+    }
+  }
+
+  const allIds = new Set([...ptMap.keys(), ...enMap.keys()])
+  const result = []
+  for (const id of Array.from(allIds).sort()) {
+    result.push({
+      id,
+      namePt: ptMap.get(id) || '',
+      nameEn: enMap.get(id) || ''
+    })
+  }
+
+  return result
+})
+
+function toggleInspectCategory(key) {
+  if (inspectedCategoryKey.value === key) {
+    inspectedCategoryKey.value = null
+  } else {
+    inspectedCategoryKey.value = key
+  }
+}
+
+function copyText(text, feedbackMsg) {
+  if (!text) return
+  navigator.clipboard.writeText(text)
+  copyFeedback.value = feedbackMsg || 'Copiado!'
+  setTimeout(() => {
+    copyFeedback.value = ''
+  }, 2000)
+}
+
 async function loadData() {
   loading.value = true
   try {
-    auditReport.value = await fetchTranslationAudit()
+    const [audit, ptList, enList] = await Promise.all([
+      fetchTranslationAudit(),
+      fetchExercises('pt').catch(() => props.exercises || []),
+      fetchExercises('en').catch(() => [])
+    ])
+
+    auditReport.value = audit
+    exercisesPtList.value = ptList || []
+    exercisesEnList.value = enList || []
 
     if (!selectedExerciseId.value && props.exercises.length > 0) {
       selectedExerciseId.value = props.exercises[0].id
@@ -553,6 +968,131 @@ function copyPayloadJson() {
 
 function onImgErr(event) {
   event.target.style.opacity = '0.3'
+}
+
+const showCategoryModal = ref(false)
+const categoryModalMode = ref('create')
+const categoryForm = ref({
+  key: '',
+  labelPt: '',
+  labelEn: ''
+})
+const isAutoSlug = ref(true)
+const categoryModalError = ref('')
+const categorySaving = ref(false)
+const translatingEn = ref(false)
+
+function slugifyCategory(text) {
+  return (text || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[\s-]+/g, '_')
+    .replace(/[^a-z0-9_]/g, '')
+    .replace(/__+/g, '_')
+}
+
+function openCreateCategory() {
+  categoryForm.value = {
+    key: '',
+    labelPt: '',
+    labelEn: ''
+  }
+  isAutoSlug.value = true
+  categoryModalError.value = ''
+  categoryModalMode.value = 'create'
+  showCategoryModal.value = true
+}
+
+function openEditCategory(cat) {
+  categoryForm.value = {
+    key: cat.key,
+    labelPt: cat.labelPt || '',
+    labelEn: cat.labelEn || ''
+  }
+  isAutoSlug.value = false
+  categoryModalError.value = ''
+  categoryModalMode.value = 'edit'
+  showCategoryModal.value = true
+}
+
+function onCategoryLabelPtInput() {
+  if (isAutoSlug.value && categoryModalMode.value === 'create') {
+    categoryForm.value.key = slugifyCategory(categoryForm.value.labelPt)
+  }
+}
+
+async function autoTranslateCategoryEn() {
+  if (!categoryForm.value.labelPt.trim()) return
+  translatingEn.value = true
+  categoryModalError.value = ''
+  try {
+    const res = await translateText(categoryForm.value.labelPt.trim(), 'pt', 'en')
+    if (res.translated) {
+      categoryForm.value.labelEn = res.translated
+    }
+  } catch (err) {
+    categoryModalError.value = `Erro ao traduzir: ${err.message}`
+  } finally {
+    translatingEn.value = false
+  }
+}
+
+async function handleSaveCategory() {
+  const pt = categoryForm.value.labelPt.trim()
+  if (!pt) {
+    categoryModalError.value = 'O nome da categoria em português é obrigatório.'
+    return
+  }
+
+  let key = categoryForm.value.key.trim()
+  if (!key) {
+    key = slugifyCategory(pt)
+    categoryForm.value.key = key
+  }
+
+  if (!key) {
+    categoryModalError.value = 'Chave canônica inválida.'
+    return
+  }
+
+  categorySaving.value = true
+  categoryModalError.value = ''
+
+  try {
+    await saveCategory({
+      key,
+      labelPt: pt,
+      labelEn: categoryForm.value.labelEn.trim()
+    })
+    showCategoryModal.value = false
+    emit('metadata-updated')
+    await loadData()
+  } catch (err) {
+    categoryModalError.value = err.message || 'Erro ao salvar categoria'
+  } finally {
+    categorySaving.value = false
+  }
+}
+
+async function handleDeleteCategory(cat) {
+  let msg = `Deseja realmente excluir a categoria "${cat.labelPt || cat.key}" (${cat.key})?`
+  if (cat.countPt > 0 || cat.countEn > 0) {
+    msg += `\n\n⚠️ ATENÇÃO: Esta categoria possui ${cat.countPt} exercício(s) em PT e ${cat.countEn} em EN associados a ela!`
+  }
+
+  if (!confirm(msg)) {
+    return
+  }
+
+  try {
+    await deleteCategory(cat.key)
+    emit('metadata-updated')
+    await loadData()
+  } catch (err) {
+    alert(`Erro ao excluir categoria: ${err.message}`)
+  }
 }
 
 onMounted(() => {
@@ -1066,14 +1606,386 @@ onMounted(() => {
   gap: 8px;
 }
 
-.success-icon {
-  font-size: 2rem;
+.category-compare-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.category-toolbar {
+  padding: 16px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.category-table-wrap {
+  overflow-x: auto;
+}
+
+.category-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.category-table th {
+  padding: 14px 18px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.category-table td {
+  padding: 14px 18px;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.category-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.key-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+}
+
+.key-chip code {
+  color: #38bdf8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.android-chip code {
+  color: #a78bfa;
+}
+
+.btn-copy-chip {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  opacity: 0.6;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.btn-copy-chip:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.label-badge {
+  display: inline-block;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.label-pt {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--primary);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.label-en {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.count-badge {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.category-drilldown-panel {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.drilldown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drilldown-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.drilldown-title h5 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.drilldown-title code {
+  color: var(--primary);
+  background: var(--bg-input);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.empty-drilldown {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.drilldown-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.drilldown-item-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.drilldown-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.drilldown-item-header code {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drilldown-item-names {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
+.item-name-pt {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.item-name-en {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.btn-add-cat {
+  white-space: nowrap;
+}
+
+.table-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btn-xs {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.category-modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalScale 0.2s ease-out;
+}
+
+@keyframes modalScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.btn-close:hover {
+  color: var(--danger);
+}
+
+.modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-error-box {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--danger);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.input-with-btn {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.input-with-btn input {
+  flex: 1;
+}
+
+.input-with-action {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.input-with-action input {
+  width: 100%;
+  padding-right: 60px;
+}
+
+.input-hint-chip {
+  position: absolute;
+  right: 10px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-input);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.field-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.field-hint code {
+  color: var(--primary);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.spinner-inline {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 900px) {
   .compare-grid,
-  .audit-kpi-grid {
+  .audit-kpi-grid,
+  .category-toolbar {
     grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
   }
 }
 </style>

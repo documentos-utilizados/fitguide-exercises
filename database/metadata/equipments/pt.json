@@ -1,14 +1,14 @@
 {
-  "bands": "Elásticos",
-  "barbell": "Barra",
-  "body only": "Peso Corporal",
-  "cable": "Cabo",
-  "dumbbell": "Haltere",
-  "e-z curl bar": "Barra W",
-  "exercise ball": "Bola de Exercício",
-  "foam roll": "Rolo de Espuma",
+  "barra": "Barra",
+  "barra_w": "Barra W",
+  "bola_de_exercício": "Bola de Exercício",
+  "bola_medicinal": "Bola Medicinal",
+  "cabo": "Cabo",
+  "elásticos": "Elásticos",
+  "haltere": "Haltere",
   "kettlebells": "Kettlebells",
-  "machine": "Máquina",
-  "medicine ball": "Bola Medicinal",
-  "other": "Outro"
+  "máquina": "Máquina",
+  "outro": "Outro",
+  "peso_corporal": "Peso Corporal",
+  "rolo_de_espuma": "Rolo de Espuma"
 }

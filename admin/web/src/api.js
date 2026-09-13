@@ -112,3 +112,45 @@ export async function triggerBuild() {
   }
   return data
 }
+
+export async function saveCategory(category) {
+  const res = await fetch(`${API_BASE}/metadata/category`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      key: category.key,
+      label_pt: category.labelPt || category.label_pt,
+      label_en: category.labelEn || category.label_en
+    })
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.error || 'Falha ao salvar categoria')
+  }
+  return res.json()
+}
+
+export async function deleteCategory(key) {
+  const res = await fetch(`${API_BASE}/metadata/category?key=${encodeURIComponent(key)}`, {
+    method: 'DELETE'
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.error || 'Falha ao excluir categoria')
+  }
+  return res.json()
+}
+
+export async function translateText(text, source = 'pt', target = 'en') {
+  const res = await fetch(`${API_BASE}/translate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text, source, target })
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.error || 'Falha ao traduzir texto')
+  }
+  return res.json()
+}
+

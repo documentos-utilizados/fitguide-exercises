@@ -14,6 +14,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o fitguide-admin .
 
 FROM python:3.11-alpine
 RUN apk add --no-cache bash ca-certificates
+RUN pip install --no-cache-dir deep-translator
 WORKDIR /app
 
 COPY --from=go-builder /app/server/fitguide-admin /app/fitguide-admin

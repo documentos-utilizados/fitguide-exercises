@@ -59,6 +59,23 @@ type BuildResponse struct {
 	Error   string `json:"error,omitempty"`
 }
 
+type CategoryPayload struct {
+	Key     string `json:"key"`
+	LabelPt string `json:"label_pt"`
+	LabelEn string `json:"label_en"`
+}
+
+type TranslateRequest struct {
+	Text   string `json:"text"`
+	Source string `json:"source"`
+	Target string `json:"target"`
+}
+
+type TranslateResponse struct {
+	Translated string `json:"translated"`
+	Source     string `json:"source"`
+}
+
 type TranslationMismatch struct {
 	ID        string `json:"id"`
 	NamePt    string `json:"name_pt"`
@@ -294,6 +311,248 @@ func handleMetadata(baseDir string) http.HandlerFunc {
 
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(response)
+	}
+}
+
+func sanitizeMetadataKey(s string) string {
+	s = strings.TrimSpace(strings.ToLower(s))
+	s = strings.ReplaceAll(s, " ", "_")
+	s = strings.ReplaceAll(s, "-", "_")
+	var b strings.Builder
+	for _, r := range s {
+		switch r {
+		case 'á', 'à', 'ã', 'â', 'ä':
+			b.WriteRune('a')
+		case 'é', 'è', 'ê', 'ë':
+			b.WriteRune('e')
+		case 'í', 'ì', 'î', 'ï':
+			b.WriteRune('i')
+		case 'ó', 'ò', 'õ', 'ô', 'ö':
+			b.WriteRune('o')
+		case 'ú', 'ù', 'û', 'ü':
+			b.WriteRune('u')
+		case 'ç':
+			b.WriteRune('c')
+		case '_':
+			b.WriteRune('_')
+		default:
+			if (r >= 'a' && r <= 'z') || (r >= '0' && r <= '9') {
+				b.WriteRune(r)
+			}
+		}
+	}
+	res := b.String()
+	for strings.Contains(res, "__") {
+		res = strings.ReplaceAll(res, "__", "_")
+	}
+	return strings.Trim(res, "_")
+}
+
+func executeTranslation(baseDir, text, source, target string) string {
+	if strings.TrimSpace(text) == "" {
+		return ""
+	}
+	script := fmt.Sprintf(`import sys, os
+sys.path.insert(0, os.getcwd())
+try:
+    from scripts.translator import translate_term
+    print(translate_term(%q, source=%q, target=%q), end="")
+except Exception:
+    print(%q, end="")
+`, text, source, target, text)
+
+	cmd := exec.Command("python3", "-c", script)
+	cmd.Dir = baseDir
+	out, err := cmd.Output()
+	if err != nil || len(out) == 0 {
+		return text
+	}
+	return strings.TrimSpace(string(out))
+}
+
+func handleMetadataCategory(baseDir string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ptPath := filepath.Join(baseDir, "database", "metadata", "categories", "pt.json")
+		enPath := filepath.Join(baseDir, "database", "metadata", "categories", "en.json")
+
+		loadMap := func(path string) map[string]string {
+			m := make(map[string]string)
+			data, err := os.ReadFile(path)
+			if err == nil {
+				json.Unmarshal(data, &m)
+			}
+			return m
+		}
+
+		saveMap := func(path string, m map[string]string) error {
+			if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+				return err
+			}
+			formatted, err := json.MarshalIndent(m, "", "  ")
+			if err != nil {
+				return err
+			}
+			formatted = append(formatted, '\n')
+			return os.WriteFile(path, formatted, 0644)
+		}
+
+		switch r.Method {
+		case http.MethodPost, http.MethodPut:
+			body, err := io.ReadAll(r.Body)
+			if err != nil {
+				http.Error(w, `{"error": "corpo de requisição inválido"}`, http.StatusBadRequest)
+				return
+			}
+
+			var payload CategoryPayload
+			if err := json.Unmarshal(body, &payload); err != nil {
+				http.Error(w, fmt.Sprintf(`{"error": "JSON inválido: %s"}`, err.Error()), http.StatusBadRequest)
+				return
+			}
+
+			payload.LabelPt = strings.TrimSpace(payload.LabelPt)
+			payload.LabelEn = strings.TrimSpace(payload.LabelEn)
+			payload.Key = strings.TrimSpace(payload.Key)
+
+			if payload.LabelPt == "" && payload.LabelEn == "" && payload.Key == "" {
+				http.Error(w, `{"error": "nome da categoria é obrigatório"}`, http.StatusBadRequest)
+				return
+			}
+
+			if payload.Key == "" {
+				if payload.LabelPt != "" {
+					payload.Key = sanitizeMetadataKey(payload.LabelPt)
+				} else {
+					payload.Key = sanitizeMetadataKey(payload.LabelEn)
+				}
+			} else {
+				payload.Key = sanitizeMetadataKey(payload.Key)
+			}
+
+			if payload.Key == "" {
+				http.Error(w, `{"error": "chave de categoria inválida"}`, http.StatusBadRequest)
+				return
+			}
+
+			if payload.LabelPt == "" && payload.LabelEn != "" {
+				payload.LabelPt = executeTranslation(baseDir, payload.LabelEn, "en", "pt")
+			}
+
+			if payload.LabelEn == "" && payload.LabelPt != "" {
+				payload.LabelEn = executeTranslation(baseDir, payload.LabelPt, "pt", "en")
+			}
+
+			ptMap := loadMap(ptPath)
+			enMap := loadMap(enPath)
+
+			ptMap[payload.Key] = payload.LabelPt
+			enMap[payload.Key] = payload.LabelEn
+
+			if err := saveMap(ptPath, ptMap); err != nil {
+				http.Error(w, fmt.Sprintf(`{"error": "falha ao salvar pt.json: %s"}`, err.Error()), http.StatusInternalServerError)
+				return
+			}
+
+			if err := saveMap(enPath, enMap); err != nil {
+				http.Error(w, fmt.Sprintf(`{"error": "falha ao salvar en.json: %s"}`, err.Error()), http.StatusInternalServerError)
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success":  true,
+				"category": payload,
+			})
+
+		case http.MethodDelete:
+			key := r.URL.Query().Get("key")
+			if strings.TrimSpace(key) == "" {
+				var bodyData struct {
+					Key string `json:"key"`
+				}
+				if body, err := io.ReadAll(r.Body); err == nil {
+					json.Unmarshal(body, &bodyData)
+					key = bodyData.Key
+				}
+			}
+
+			key = sanitizeMetadataKey(key)
+			if key == "" {
+				http.Error(w, `{"error": "parâmetro key é obrigatório"}`, http.StatusBadRequest)
+				return
+			}
+
+			ptMap := loadMap(ptPath)
+			enMap := loadMap(enPath)
+
+			delete(ptMap, key)
+			delete(enMap, key)
+
+			if err := saveMap(ptPath, ptMap); err != nil {
+				http.Error(w, fmt.Sprintf(`{"error": "falha ao atualizar pt.json: %s"}`, err.Error()), http.StatusInternalServerError)
+				return
+			}
+
+			if err := saveMap(enPath, enMap); err != nil {
+				http.Error(w, fmt.Sprintf(`{"error": "falha ao atualizar en.json: %s"}`, err.Error()), http.StatusInternalServerError)
+				return
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": true,
+				"key":     key,
+			})
+
+		default:
+			http.Error(w, `{"error": "método não permitido"}`, http.StatusMethodNotAllowed)
+		}
+	}
+}
+
+func handleTranslate(baseDir string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, `{"error": "método não permitido"}`, http.StatusMethodNotAllowed)
+			return
+		}
+
+		body, err := io.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, `{"error": "corpo de requisição inválido"}`, http.StatusBadRequest)
+			return
+		}
+
+		var req TranslateRequest
+		if err := json.Unmarshal(body, &req); err != nil {
+			http.Error(w, fmt.Sprintf(`{"error": "JSON inválido: %s"}`, err.Error()), http.StatusBadRequest)
+			return
+		}
+
+		req.Text = strings.TrimSpace(req.Text)
+		if req.Text == "" {
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(TranslateResponse{Translated: "", Source: ""})
+			return
+		}
+
+		if req.Source == "" {
+			req.Source = "pt"
+		}
+		if req.Target == "" {
+			req.Target = "en"
+		}
+
+		translated := executeTranslation(baseDir, req.Text, req.Source, req.Target)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(TranslateResponse{
+			Translated: translated,
+			Source:     req.Text,
+		})
 	}
 }
 
@@ -753,6 +1012,8 @@ func main() {
 
 	mux.HandleFunc("/api/exercises", enableCORS(handleExercises(baseDir)))
 	mux.HandleFunc("/api/metadata", enableCORS(handleMetadata(baseDir)))
+	mux.HandleFunc("/api/metadata/category", enableCORS(handleMetadataCategory(baseDir)))
+	mux.HandleFunc("/api/translate", enableCORS(handleTranslate(baseDir)))
 	mux.HandleFunc("/api/workouts", enableCORS(handleWorkouts(baseDir)))
 	mux.HandleFunc("/api/translations/audit", enableCORS(handleTranslationAudit(baseDir)))
 	mux.HandleFunc("/api/translations/compare", enableCORS(handleTranslationCompare(baseDir)))
