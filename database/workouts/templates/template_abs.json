@@ -1,0 +1,54 @@
+{
+  "id": "template_abs",
+  "name_key": "template_abs",
+  "category_key": "cat_endurance",
+  "days": [],
+  "estimated_duration_min": 15,
+  "exercises": [
+    {
+      "exercise_id": "Plank",
+      "sets": 4,
+      "reps": "",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 35,
+      "is_time_based": true,
+      "time_seconds": 20
+    },
+    {
+      "exercise_id": "Crunches",
+      "sets": 4,
+      "reps": "",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 35,
+      "is_time_based": true,
+      "time_seconds": 20
+    },
+    {
+      "exercise_id": "Ab_Roller",
+      "sets": 4,
+      "reps": "",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 35,
+      "is_time_based": true,
+      "time_seconds": 20
+    },
+    {
+      "exercise_id": "Russian_Twist",
+      "sets": 4,
+      "reps": "",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 35,
+      "is_time_based": true,
+      "time_seconds": 20
+    },
+    {
+      "exercise_id": "Air_Bike",
+      "sets": 4,
+      "reps": "",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 35,
+      "is_time_based": true,
+      "time_seconds": 20
+    }
+  ]
+}
