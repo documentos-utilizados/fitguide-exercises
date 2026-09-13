@@ -24,6 +24,12 @@
             🏋️ Treinos & Fichas ({{ totalWorkouts }})
           </button>
           <button 
+            :class="['nav-item', { active: currentTab === 'validator' }]" 
+            @click="currentTab = 'validator'"
+          >
+            🌐 Validador i18n
+          </button>
+          <button 
             :class="['nav-item', { active: currentTab === 'build' }]" 
             @click="currentTab = 'build'"
           >
@@ -68,6 +74,13 @@
           />
         </section>
 
+        <section v-show="currentTab === 'validator'">
+          <TranslationValidator 
+            :exercises="exercises"
+            :metadata="metadata"
+          />
+        </section>
+
         <section v-show="currentTab === 'build'">
           <BuildController @build-completed="onBuildCompleted" />
         </section>
@@ -90,6 +103,7 @@ import { fetchExercises, fetchMetadata, fetchWorkouts, deleteExercise } from './
 import ExerciseList from './components/ExerciseList.vue'
 import ExerciseModal from './components/ExerciseModal.vue'
 import WorkoutBuilder from './components/WorkoutBuilder.vue'
+import TranslationValidator from './components/TranslationValidator.vue'
 import BuildController from './components/BuildController.vue'
 
 const currentTab = ref('exercises')
@@ -122,7 +136,7 @@ function showToast(msg, type = 'success') {
 
 async function loadExercises() {
   try {
-    exercises.value = await fetchExercises()
+    exercises.value = await fetchExercises('pt')
   } catch (err) {
     showToast(`Erro ao carregar exercícios: ${err.message}`, 'error')
   }

@@ -1,13 +1,13 @@
 const API_BASE = '/api'
 
-export async function fetchExercises() {
-  const res = await fetch(`${API_BASE}/exercises`)
+export async function fetchExercises(lang = 'pt') {
+  const res = await fetch(`${API_BASE}/exercises?lang=${encodeURIComponent(lang)}`)
   if (!res.ok) throw new Error('Falha ao buscar exercícios')
   return res.json()
 }
 
-export async function fetchExerciseById(id) {
-  const res = await fetch(`${API_BASE}/exercises?id=${encodeURIComponent(id)}`)
+export async function fetchExerciseById(id, lang = 'pt') {
+  const res = await fetch(`${API_BASE}/exercises?id=${encodeURIComponent(id)}&lang=${encodeURIComponent(lang)}`)
   if (!res.ok) throw new Error(`Exercício ${id} não encontrado`)
   return res.json()
 }
@@ -90,6 +90,18 @@ export async function uploadImage(file, relativePath) {
   return res.json()
 }
 
+export async function fetchTranslationAudit() {
+  const res = await fetch(`${API_BASE}/translations/audit`)
+  if (!res.ok) throw new Error('Falha ao obter auditoria de traduções')
+  return res.json()
+}
+
+export async function fetchTranslationCompare(id) {
+  const res = await fetch(`${API_BASE}/translations/compare?id=${encodeURIComponent(id)}`)
+  if (!res.ok) throw new Error(`Falha ao comparar traduções do exercício ${id}`)
+  return res.json()
+}
+
 export async function triggerBuild() {
   const res = await fetch(`${API_BASE}/build`, {
     method: 'POST'
@@ -100,4 +112,3 @@ export async function triggerBuild() {
   }
   return data
 }
-

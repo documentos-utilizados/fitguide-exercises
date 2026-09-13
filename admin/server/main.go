@@ -59,6 +59,27 @@ type BuildResponse struct {
 	Error   string `json:"error,omitempty"`
 }
 
+type TranslationMismatch struct {
+	ID        string `json:"id"`
+	NamePt    string `json:"name_pt"`
+	NameEn    string `json:"name_en"`
+	Field     string `json:"field"`
+	ValuePt   string `json:"value_pt"`
+	ValueEn   string `json:"value_en"`
+	Severity  string `json:"severity"`
+	Message   string `json:"message"`
+}
+
+type TranslationAuditReport struct {
+	Languages       []string              `json:"languages"`
+	Counts          map[string]int        `json:"counts"`
+	MissingInEn     []string              `json:"missing_in_en"`
+	MissingInPt     []string              `json:"missing_in_pt"`
+	StepMismatches  []TranslationMismatch `json:"step_mismatches"`
+	ImageMismatches []TranslationMismatch `json:"image_mismatches"`
+	TotalDiscrepancies int                `json:"total_discrepancies"`
+}
+
 func enableCORS(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -105,7 +126,13 @@ func getStaticDir() string {
 
 func handleExercises(baseDir string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		exercisesDir := filepath.Join(baseDir, "database", "exercises", "pt")
+		lang := r.URL.Query().Get("lang")
+		if lang == "" {
+			lang = "pt"
+		}
+		lang = filepath.Clean(lang)
+
+		exercisesDir := filepath.Join(baseDir, "database", "exercises", lang)
 
 		switch r.Method {
 		case http.MethodGet:
@@ -386,6 +413,142 @@ func handleWorkouts(baseDir string) http.HandlerFunc {
 	}
 }
 
+func handleTranslationAudit(baseDir string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			http.Error(w, `{"error": "method not allowed"}`, http.StatusMethodNotAllowed)
+			return
+		}
+
+		ptDir := filepath.Join(baseDir, "database", "exercises", "pt")
+		enDir := filepath.Join(baseDir, "database", "exercises", "en")
+
+		readDirMap := func(dir string) (map[string]Exercise, error) {
+			result := make(map[string]Exercise)
+			entries, err := os.ReadDir(dir)
+			if err != nil {
+				return result, err
+			}
+			for _, e := range entries {
+				if !strings.HasSuffix(e.Name(), ".json") {
+					continue
+				}
+				content, err := os.ReadFile(filepath.Join(dir, e.Name()))
+				if err != nil {
+					continue
+				}
+				var ex Exercise
+				if err := json.Unmarshal(content, &ex); err == nil && ex.ID != "" {
+					result[ex.ID] = ex
+				}
+			}
+			return result, nil
+		}
+
+		ptMap, _ := readDirMap(ptDir)
+		enMap, _ := readDirMap(enDir)
+
+		report := TranslationAuditReport{
+			Languages:       []string{"pt", "en"},
+			Counts:          map[string]int{"pt": len(ptMap), "en": len(enMap)},
+			MissingInEn:     []string{},
+			MissingInPt:     []string{},
+			StepMismatches:  []TranslationMismatch{},
+			ImageMismatches: []TranslationMismatch{},
+		}
+
+		for id, ptEx := range ptMap {
+			enEx, ok := enMap[id]
+			if !ok {
+				report.MissingInEn = append(report.MissingInEn, id)
+				continue
+			}
+
+			if len(ptEx.Instructions) != len(enEx.Instructions) {
+				report.StepMismatches = append(report.StepMismatches, TranslationMismatch{
+					ID:       id,
+					NamePt:   ptEx.Name,
+					NameEn:   enEx.Name,
+					Field:    "instructions",
+					ValuePt:  fmt.Sprintf("%d passos", len(ptEx.Instructions)),
+					ValueEn:  fmt.Sprintf("%d passos", len(enEx.Instructions)),
+					Severity: "warning",
+					Message:  fmt.Sprintf("Diferença no número de instruções (PT: %d vs EN: %d)", len(ptEx.Instructions), len(enEx.Instructions)),
+				})
+			}
+
+			if len(ptEx.Images) != len(enEx.Images) {
+				report.ImageMismatches = append(report.ImageMismatches, TranslationMismatch{
+					ID:       id,
+					NamePt:   ptEx.Name,
+					NameEn:   enEx.Name,
+					Field:    "images",
+					ValuePt:  fmt.Sprintf("%d fotos", len(ptEx.Images)),
+					ValueEn:  fmt.Sprintf("%d fotos", len(enEx.Images)),
+					Severity: "warning",
+					Message:  fmt.Sprintf("Diferença na quantidade de fotos (PT: %d vs EN: %d)", len(ptEx.Images), len(enEx.Images)),
+				})
+			}
+		}
+
+		for id := range enMap {
+			if _, ok := ptMap[id]; !ok {
+				report.MissingInPt = append(report.MissingInPt, id)
+			}
+		}
+
+		sort.Strings(report.MissingInEn)
+		sort.Strings(report.MissingInPt)
+
+		report.TotalDiscrepancies = len(report.MissingInEn) + len(report.MissingInPt) + len(report.StepMismatches) + len(report.ImageMismatches)
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(report)
+	}
+}
+
+func handleTranslationCompare(baseDir string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			http.Error(w, `{"error": "method not allowed"}`, http.StatusMethodNotAllowed)
+			return
+		}
+
+		id := r.URL.Query().Get("id")
+		if strings.TrimSpace(id) == "" {
+			http.Error(w, `{"error": "id parameter is required"}`, http.StatusBadRequest)
+			return
+		}
+
+		ptFile := filepath.Join(baseDir, "database", "exercises", "pt", fmt.Sprintf("%s.json", id))
+		enFile := filepath.Join(baseDir, "database", "exercises", "en", fmt.Sprintf("%s.json", id))
+
+		result := map[string]interface{}{
+			"id":        id,
+			"languages": make(map[string]interface{}),
+		}
+
+		langsMap := result["languages"].(map[string]interface{})
+
+		if data, err := os.ReadFile(ptFile); err == nil {
+			var ptEx Exercise
+			if err := json.Unmarshal(data, &ptEx); err == nil {
+				langsMap["pt"] = ptEx
+			}
+		}
+
+		if data, err := os.ReadFile(enFile); err == nil {
+			var enEx Exercise
+			if err := json.Unmarshal(data, &enEx); err == nil {
+				langsMap["en"] = enEx
+			}
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(result)
+	}
+}
+
 func handleBuild(baseDir string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
@@ -566,6 +729,8 @@ func handleSPA(staticDir string) http.HandlerFunc {
     <li><code>GET /api/exercises</code></li>
     <li><code>GET /api/metadata</code></li>
     <li><code>GET /api/workouts</code></li>
+    <li><code>GET /api/translations/audit</code></li>
+    <li><code>GET /api/translations/compare</code></li>
     <li><code>POST /api/upload-image</code></li>
     <li><code>POST /api/build</code></li>
     <li><code>GET /images/*</code></li>
@@ -589,6 +754,8 @@ func main() {
 	mux.HandleFunc("/api/exercises", enableCORS(handleExercises(baseDir)))
 	mux.HandleFunc("/api/metadata", enableCORS(handleMetadata(baseDir)))
 	mux.HandleFunc("/api/workouts", enableCORS(handleWorkouts(baseDir)))
+	mux.HandleFunc("/api/translations/audit", enableCORS(handleTranslationAudit(baseDir)))
+	mux.HandleFunc("/api/translations/compare", enableCORS(handleTranslationCompare(baseDir)))
 	mux.HandleFunc("/api/upload-image", enableCORS(handleUploadImage(baseDir)))
 	mux.HandleFunc("/api/build", enableCORS(handleBuild(baseDir)))
 	mux.HandleFunc("/images/", enableCORS(handleServeImages(baseDir)))
