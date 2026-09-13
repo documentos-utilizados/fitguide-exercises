@@ -1,0 +1,31 @@
+{
+  "id": "workout_c_legs_core",
+  "name_key": "workout_c_legs_core",
+  "category_key": "cat_endurance",
+  "days": [
+    "WED",
+    "SAT"
+  ],
+  "estimated_duration_min": 60,
+  "cover_image_url": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=600&auto=format&fit=crop",
+  "exercises": [
+    {
+      "exercise_id": "Barbell_Full_Squat",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 70.0,
+      "rest_time_seconds": 90,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Side_Lateral_Raise",
+      "sets": 3,
+      "reps": "12-15",
+      "weight_kg": 8.0,
+      "rest_time_seconds": 45,
+      "is_time_based": false,
+      "time_seconds": 0
+    }
+  ]
+}

@@ -1,0 +1,1379 @@
+[
+  {
+    "id": "workout_a_chest_triceps",
+    "name_key": "workout_a_chest_triceps",
+    "category_key": "cat_hypertrophy",
+    "days": [
+      "MON",
+      "WED"
+    ],
+    "estimated_duration_min": 50,
+    "cover_image_url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop",
+    "exercises": [
+      {
+        "exercise_id": "Barbell_Bench_Press_-_Medium_Grip",
+        "name": "Supino Reto com Barra (Pegada Média)",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "peitoral"
+        ],
+        "secondaryMuscles": [
+          "ombros",
+          "tríceps"
+        ],
+        "equipment": "barra",
+        "mechanic": "composto",
+        "force": "empurrar",
+        "instructions": [
+          "Deite-se em um banco plano. Usando um aperto de largura média (uma aderência que cria um ângulo de 90 graus no meio do movimento entre os antebraços e os braços superiores), levante a barra do rack e segure-a diretamente sobre você com os braços fechados. Esta será sua posição inicial.",
+          "A partir da posição inicial, respire e comece a descer lentamente até que a barra toque seu peito médio.",
+          "Depois de uma breve pausa, empurre a barra de volta para a posição inicial enquanto expira. Concentre-se em empurrar a barra usando os músculos do peito. Tranque os braços e esprema o peito na posição contraída no topo do movimento, segure por um segundo e comece a descer lentamente novamente. Dica: Idealmente, diminuir o peso deve levar cerca de duas vezes mais tempo do que elevá-lo.",
+          "Repita o movimento para a quantidade prescrita de repetições.",
+          "Quando terminar, coloque a barra de volta no rack."
+        ],
+        "images": [
+          "Barbell_Bench_Press_-_Medium_Grip/0.jpg",
+          "Barbell_Bench_Press_-_Medium_Grip/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 60.0,
+        "rest_time_seconds": 60,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Triceps_Pushdown",
+        "name": "Tríceps Pulley",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "tríceps"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "cabo",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Anexe uma barra reta ou angulada a uma polia alta e pegue com um aperto de mão (palmas viradas para baixo) na largura do ombro.",
+          "De pé com o tronco reto e uma inclinação muito pequena para a frente, aproxime os braços superiores do corpo e perpendicular ao chão. Os antebraços devem estar apontando para a polia enquanto seguram a barra. Esta é a sua posição inicial.",
+          "Usando o tríceps, traga a barra para baixo até que ela toque a frente de suas coxas e os braços estejam totalmente estendidos perpendicularmente ao chão. Os braços superiores devem sempre permanecer estacionários ao lado do tronco e apenas os antebraços devem se mover. Expire enquanto realiza esse movimento.",
+          "Depois de uma segunda espera na posição contraída, leve a barra lentamente até o ponto de partida. Respire enquanto realiza este passo.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Triceps_Pushdown/0.jpg",
+          "Triceps_Pushdown/1.jpg"
+        ],
+        "sets": 3,
+        "reps": "12-15",
+        "weight_kg": 25.0,
+        "rest_time_seconds": 45,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Dumbbell_Shoulder_Press",
+        "name": "Desenvolvimento de Ombros com Halteres",
+        "category": "strength",
+        "level": "intermediário",
+        "primaryMuscles": [
+          "ombros"
+        ],
+        "secondaryMuscles": [
+          "tríceps"
+        ],
+        "equipment": "haltere",
+        "mechanic": "composto",
+        "force": "empurrar",
+        "instructions": [
+          "Enquanto segura um haltere em cada mão, sente-se em um banco de imprensa militar ou banco de utilidade que tem apoio de volta. Coloque os halteres em cima de suas coxas.",
+          "Agora eleve os halteres à altura do ombro um de cada vez usando suas coxas para ajudar a impulsioná-los para a posição.",
+          "Certifique-se de girar os pulsos para que as palmas das mãos estejam voltadas para a frente. Esta é a sua posição inicial.",
+          "Agora, expire e empurre os halteres para cima até que eles toquem no topo.",
+          "Em seguida, após uma breve pausa na posição superior contraída, diminua lentamente os pesos de volta para a posição inicial enquanto inala.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Dumbbell_Shoulder_Press/0.jpg",
+          "Dumbbell_Shoulder_Press/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 18.0,
+        "rest_time_seconds": 60,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Side_Lateral_Raise",
+        "name": "Elevação Lateral com Halteres",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "ombros"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Escolha um par de halteres e ficar com um tronco reto e os halteres ao seu lado no comprimento dos braços com as palmas da mão voltadas para você. Esta será a sua posição inicial.",
+          "Enquanto mantém o tronco em uma posição estacionária (sem oscilação), levante os halteres para o seu lado com uma ligeira curva no cotovelo e as mãos ligeiramente inclinadas para a frente como se derramando água em um copo. Continue a subir até que os braços estejam paralelos ao chão. Expire enquanto executa este movimento e faça uma pausa por um segundo no topo.",
+          "Abaixe os halteres para baixo lentamente para a posição inicial enquanto você inala.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Side_Lateral_Raise/0.jpg",
+          "Side_Lateral_Raise/1.jpg"
+        ],
+        "sets": 3,
+        "reps": "12-15",
+        "weight_kg": 10.0,
+        "rest_time_seconds": 45,
+        "is_time_based": false,
+        "time_seconds": 0
+      }
+    ],
+    "language": "pt"
+  },
+  {
+    "id": "workout_b_back_biceps",
+    "name_key": "workout_b_back_biceps",
+    "category_key": "cat_strength",
+    "days": [
+      "TUE",
+      "FRI"
+    ],
+    "estimated_duration_min": 45,
+    "cover_image_url": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop",
+    "exercises": [
+      {
+        "exercise_id": "Barbell_Deadlift",
+        "name": "Levantamento Terra com Barra",
+        "category": "strength",
+        "level": "intermediário",
+        "primaryMuscles": [
+          "lombar"
+        ],
+        "secondaryMuscles": [
+          "panturrilhas",
+          "antebraços",
+          "glúteos",
+          "isquiotibiais",
+          "dorsais",
+          "costas (meio)",
+          "quadríceps",
+          "trapézio"
+        ],
+        "equipment": "barra",
+        "mechanic": "composto",
+        "force": "tração",
+        "instructions": [
+          "Fique na frente de uma barra carregada.",
+          "Mantendo a parte de trás o mais reta possível, dobre os joelhos, dobre para a frente e segure a barra usando um meio (largura do ombro) overhand grip. Esta será a posição inicial do exercício. Dica: Se for difícil segurar a barra com este aperto, alterne sua aderência ou use pulseiras.",
+          "Enquanto segura a barra, inicie o elevador empurrando com as pernas enquanto simultaneamente leva seu tronco para a posição vertical enquanto você expira. Na posição vertical, coloque o peito para fora e contraia as costas trazendo as omoplatas de volta. Pense em como os soldados do exército olham quando estão em pé na atenção.",
+          "Volte para a posição inicial, dobrando-se nos joelhos, ao mesmo tempo inclinando o tronco para a frente na cintura, mantendo as costas retas. Quando os pesos na barra tocam o chão, você está de volta na posição inicial e pronto para realizar outra repetição.",
+          "Execute a quantidade de repetições prescritas no programa."
+        ],
+        "images": [
+          "Barbell_Deadlift/0.jpg",
+          "Barbell_Deadlift/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "8",
+        "weight_kg": 120.0,
+        "rest_time_seconds": 60,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Wide-Grip_Lat_Pulldown",
+        "name": "Puxada Aberta Frontal",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "dorsais"
+        ],
+        "secondaryMuscles": [
+          "bíceps",
+          "costas (meio)",
+          "ombros"
+        ],
+        "equipment": "cabo",
+        "mechanic": "composto",
+        "force": "tração",
+        "instructions": [
+          "Sente-se em uma máquina de puxar para baixo com uma barra larga anexada à polia superior. Certifique-se de ajustar a joelheira da máquina para se ajustar à sua altura. Essas almofadas impedirão que seu corpo seja levantado pela resistência anexada à barra.",
+          "Pegue a barra com as palmas voltadas para a frente usando o aperto prescrito. Nota sobre os apertos: Para um aperto largo, suas mãos precisam ser espaçadas a uma distância maior do que a largura do ombro. Para um aperto médio, suas mãos precisam ser espaçadas a uma distância igual à largura do ombro e para um aperto próximo a uma distância menor do que a largura do ombro.",
+          "Como você tem ambos os braços estendidos na frente de você segurando a barra na largura de aderência escolhida, traga seu tronco de volta em torno de 30 graus ou mais, criando uma curvatura na parte inferior das costas e colocando o peito para fora. Esta é a sua posição inicial.",
+          "medida que você expira, traga a barra para baixo até que ela toque seu peito superior, puxando os ombros e os braços para baixo e para trás. Dica: Concentre-se em apertar os músculos das costas, uma vez que você atinja a posição contratada completa. O tronco superior deve permanecer estacionário e apenas os braços devem se mover. Os antebraços não devem fazer outro trabalho, exceto segurar a barra; portanto, não tente puxar a barra usando os antebraços.",
+          "Depois de um segundo na posição contraída apertando as omoplatas juntas, levante lentamente a barra de volta à posição inicial quando seus braços estiverem totalmente estendidos e os lats estiverem totalmente esticados. Inspire durante esta parte do movimento.",
+          "Repita este movimento para a quantidade prescrita de repetições."
+        ],
+        "images": [
+          "Wide-Grip_Lat_Pulldown/0.jpg",
+          "Wide-Grip_Lat_Pulldown/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 45.0,
+        "rest_time_seconds": 60,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Barbell_Curl",
+        "name": "Rosca Direta com Barra",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "bíceps"
+        ],
+        "secondaryMuscles": [
+          "antebraços"
+        ],
+        "equipment": "barra",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Levante-se com o tronco na posição vertical enquanto segura uma barra no punho da largura do ombro. A palma das suas mãos deve estar voltada para a frente e os cotovelos devem estar perto do tronco. Esta será a sua posição inicial.",
+          "Enquanto segura os braços parados, enrole os pesos para a frente enquanto contrai o bíceps enquanto expira. Dica: Apenas os antebraços devem se mover.",
+          "Continue o movimento até que seu bíceps esteja totalmente contraído e a barra esteja no nível do ombro. Mantenha a posição contraída por um segundo e esprema o bíceps com força.",
+          "Lentamente, comece a trazer a barra de volta à posição inicial enquanto respira.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Barbell_Curl/0.jpg",
+          "Barbell_Curl/1.jpg"
+        ],
+        "sets": 3,
+        "reps": "10-12",
+        "weight_kg": 24.0,
+        "rest_time_seconds": 45,
+        "is_time_based": false,
+        "time_seconds": 0
+      }
+    ],
+    "language": "pt"
+  },
+  {
+    "id": "workout_c_legs_core",
+    "name_key": "workout_c_legs_core",
+    "category_key": "cat_endurance",
+    "days": [
+      "WED",
+      "SAT"
+    ],
+    "estimated_duration_min": 60,
+    "cover_image_url": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=600&auto=format&fit=crop",
+    "exercises": [
+      {
+        "exercise_id": "Barbell_Full_Squat",
+        "name": "Agachamento Completo com Barra",
+        "category": "strength",
+        "level": "intermediário",
+        "primaryMuscles": [
+          "quadríceps"
+        ],
+        "secondaryMuscles": [
+          "panturrilhas",
+          "glúteos",
+          "isquiotibiais",
+          "lombar"
+        ],
+        "equipment": "barra",
+        "mechanic": "composto",
+        "force": "empurrar",
+        "instructions": [
+          "Este exercício é melhor realizado dentro de um rack de agachamento para fins de segurança. Para começar, primeiro defina a barra em um rack logo acima do nível do ombro. Uma vez que a altura correta é escolhida e a barra é carregada, pise sob a barra e coloque a parte de trás de seus ombros (ligeiramente abaixo do pescoço) através dela.",
+          "Segure a barra usando os dois braços de cada lado e levante-a do rack, primeiro empurrando com as pernas e, ao mesmo tempo, endireitando o tronco.",
+          "Afaste-se do rack e posicione as pernas usando uma postura média de largura de ombro com os dedos dos pés ligeiramente apontados. Mantenha a cabeça erguida o tempo todo e mantenha as costas retas. Esta será sua posição inicial.",
+          "Comece a abaixar lentamente a barra, dobrando os joelhos e sentado de volta com os quadris como você manter uma postura reta com a cabeça para cima. Continue para baixo até que seus isquiotibiais estão em seus bezerros. Inspire como você executar esta parte do movimento.",
+          "Comece a levantar a barra enquanto expira, empurrando o chão com o calcanhar ou o meio do pé enquanto endireita as pernas e estende os quadris para voltar à posição inicial.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Barbell_Full_Squat/0.jpg",
+          "Barbell_Full_Squat/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 70.0,
+        "rest_time_seconds": 90,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Side_Lateral_Raise",
+        "name": "Elevação Lateral com Halteres",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "ombros"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Escolha um par de halteres e ficar com um tronco reto e os halteres ao seu lado no comprimento dos braços com as palmas da mão voltadas para você. Esta será a sua posição inicial.",
+          "Enquanto mantém o tronco em uma posição estacionária (sem oscilação), levante os halteres para o seu lado com uma ligeira curva no cotovelo e as mãos ligeiramente inclinadas para a frente como se derramando água em um copo. Continue a subir até que os braços estejam paralelos ao chão. Expire enquanto executa este movimento e faça uma pausa por um segundo no topo.",
+          "Abaixe os halteres para baixo lentamente para a posição inicial enquanto você inala.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Side_Lateral_Raise/0.jpg",
+          "Side_Lateral_Raise/1.jpg"
+        ],
+        "sets": 3,
+        "reps": "12-15",
+        "weight_kg": 8.0,
+        "rest_time_seconds": 45,
+        "is_time_based": false,
+        "time_seconds": 0
+      }
+    ],
+    "language": "pt"
+  },
+  {
+    "id": "template_abs",
+    "name_key": "template_abs",
+    "category_key": "cat_endurance",
+    "days": [],
+    "estimated_duration_min": 15,
+    "exercises": [
+      {
+        "exercise_id": "Plank",
+        "name": "Prancha Isométrica",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "abdominais"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "peso corporal",
+        "mechanic": "isolamento",
+        "force": "estático",
+        "instructions": [
+          "Entre em uma posição propensa no chão, apoiando seu peso em seus dedos dos pés e antebraços. Seus braços estão dobrados e diretamente abaixo do ombro.",
+          "Mantenha seu corpo reto em todos os momentos e mantenha essa posição o maior tempo possível. Para aumentar a dificuldade, um braço ou perna pode ser levantado."
+        ],
+        "images": [
+          "Plank/0.jpg",
+          "Plank/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 35,
+        "is_time_based": true,
+        "time_seconds": 20
+      },
+      {
+        "exercise_id": "Crunches",
+        "name": "Abdominal",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "abdominais"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "peso corporal",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Deite-se de costas com os pés no chão, ou descansando em um banco com os joelhos dobrados em um ângulo de 90 graus. Se você estiver descansando os pés em um banco, coloque-os de três a quatro centímetros de distância e aponte os dedos para dentro para que eles toquem.",
+          "Agora coloque as mãos levemente em ambos os lados da cabeça mantendo os cotovelos. Dica: Não tranque os dedos atrás da cabeça.",
+          "Ao empurrar o pequeno de suas costas para baixo no chão para melhor isolar seus músculos abdominais, comece a rolar os ombros do chão.",
+          "Continue a empurrar para baixo o máximo que puder com a parte inferior das costas enquanto contrai seus abdominais e expira. Seus ombros devem subir do chão apenas cerca de quatro polegadas, e sua parte inferior das costas deve permanecer no chão. No topo do movimento, contraia seus abdominais com força e mantenha a contração por um segundo. Dica: Concentre-se em movimento lento e controlado - não se engane usando o impulso.",
+          "Após a contração de um segundo, comece a descer lentamente novamente para a posição inicial à medida que você inala.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Crunches/0.jpg",
+          "Crunches/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 35,
+        "is_time_based": true,
+        "time_seconds": 20
+      },
+      {
+        "exercise_id": "Ab_Roller",
+        "name": "Abdominal com Roda",
+        "category": "strength",
+        "level": "intermediário",
+        "primaryMuscles": [
+          "abdominais"
+        ],
+        "secondaryMuscles": [
+          "ombros"
+        ],
+        "equipment": "outro",
+        "mechanic": "composto",
+        "force": "tração",
+        "instructions": [
+          "Segure o Ab Roller com as duas mãos e ajoelhe-se no chão.",
+          "Agora coloque o rolo abdominal no chão à sua frente para que você esteja em todas as suas mãos e joelhos (como em uma posição de flexão de joelhos). Esta será a sua posição inicial.",
+          "Role lentamente o rolo do abdômen para a frente, esticando seu corpo em uma posição reta. Dica: Desça o mais longe que puder sem tocar o chão com seu corpo. Respire durante esta parte do movimento.",
+          "Depois de uma pausa na posição esticada, comece a puxar-se de volta para a posição inicial à medida que expira. Dica: Vá devagar e mantenha o abdômen apertado o tempo todo."
+        ],
+        "images": [
+          "Ab_Roller/0.jpg",
+          "Ab_Roller/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 35,
+        "is_time_based": true,
+        "time_seconds": 20
+      },
+      {
+        "exercise_id": "Russian_Twist",
+        "name": "Giro Russo",
+        "category": "strength",
+        "level": "intermediário",
+        "primaryMuscles": [
+          "abdominais"
+        ],
+        "secondaryMuscles": [
+          "lombar"
+        ],
+        "equipment": "peso corporal",
+        "mechanic": "composto",
+        "force": "tração",
+        "instructions": [
+          "Deite-se no chão colocando os pés sob algo que não se moverá ou segurando um parceiro. Suas pernas devem ser dobradas nos joelhos.",
+          "Eleve sua parte superior do corpo para que ela crie uma forma V imaginária com suas coxas. Seus braços devem ser totalmente estendidos na frente de você perpendicular ao seu tronco e com as mãos apertadas. Esta é a posição inicial.",
+          "Torça o tronco para o lado direito até que seus braços estejam paralelos com o chão enquanto respira.",
+          "Segure a contração por um segundo e volte para a posição inicial enquanto respira. Agora mova para o lado oposto executando as mesmas técnicas que você aplicou para o lado direito.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Russian_Twist/0.jpg",
+          "Russian_Twist/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 35,
+        "is_time_based": true,
+        "time_seconds": 20
+      },
+      {
+        "exercise_id": "Air_Bike",
+        "name": "Abdominal Bicicleta",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "abdominais"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "peso corporal",
+        "mechanic": "composto",
+        "force": "tração",
+        "instructions": [
+          "Deite-se no chão com a parte inferior das costas pressionada no chão. Para este exercício, você precisará colocar as mãos ao lado da cabeça. Tenha cuidado, no entanto, para não se esforçar com o pescoço enquanto você o executa. Agora levante os ombros na posição crocante.",
+          "Traga os joelhos até onde eles são perpendiculares ao chão, com as pernas inferiores paralelas ao chão. Esta será a sua posição inicial.",
+          "Agora, simultaneamente, passe lentamente por um movimento de pedal de bicicleta chutando para a frente com a perna direita e trazendo o joelho da perna esquerda. Traga seu cotovelo direito perto do joelho esquerdo, triturando para o lado, enquanto você expira.",
+          "Volte para a posição inicial enquanto você respira.",
+          "Crunch para o lado oposto como você pedalar as pernas e trazer mais perto do cotovelo esquerdo para o joelho direito e expirar.",
+          "Continue alternando desta maneira até que todas as repetições recomendadas para cada lado tenham sido concluídas."
+        ],
+        "images": [
+          "Air_Bike/0.jpg",
+          "Air_Bike/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 35,
+        "is_time_based": true,
+        "time_seconds": 20
+      }
+    ],
+    "language": "pt"
+  },
+  {
+    "id": "template_back",
+    "name_key": "template_back",
+    "category_key": "cat_hypertrophy",
+    "days": [],
+    "estimated_duration_min": 45,
+    "exercises": [
+      {
+        "exercise_id": "Pullups",
+        "name": "Barra Fixa",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "dorsais"
+        ],
+        "secondaryMuscles": [
+          "bíceps",
+          "costas (meio)"
+        ],
+        "equipment": "peso corporal",
+        "mechanic": "composto",
+        "force": "tração",
+        "instructions": [
+          "Pegue a barra pull-up com as palmas voltadas para a frente usando o aperto prescrito. Nota sobre os apertos: Para um aperto largo, suas mãos precisam ser espaçadas a uma distância maior do que a largura do ombro. Para um aperto médio, suas mãos precisam ser espaçadas a uma distância igual à largura do ombro e para um aperto próximo a uma distância menor do que a largura do ombro.",
+          "Como você tem ambos os braços estendidos na frente de você segurando a barra na largura de aderência escolhida, traga seu tronco de volta em torno de 30 graus ou mais, criando uma curvatura na parte inferior das costas e colocando o peito para fora. Esta é a sua posição inicial.",
+          "Puxe o tronco para cima até que a barra toque a parte superior do peito, puxando os ombros e os braços para baixo e para trás. Expire enquanto você executa essa parte do movimento. Dica: Concentre-se em apertar os músculos das costas uma vez que você atinja a posição contratada completa. O tronco superior deve permanecer estacionário à medida que se move pelo espaço e apenas os braços devem se mover. Os antebraços não devem fazer outro trabalho além de segurar a barra.",
+          "Depois de um segundo na posição contraída, comece a inalar e abaixe lentamente o tronco de volta para a posição inicial quando seus braços estiverem totalmente estendidos e os braços estiverem totalmente esticados.",
+          "Repita este movimento para a quantidade prescrita de repetições."
+        ],
+        "images": [
+          "Pullups/0.jpg",
+          "Pullups/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 80,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Barbell_Deadlift",
+        "name": "Levantamento Terra com Barra",
+        "category": "strength",
+        "level": "intermediário",
+        "primaryMuscles": [
+          "lombar"
+        ],
+        "secondaryMuscles": [
+          "panturrilhas",
+          "antebraços",
+          "glúteos",
+          "isquiotibiais",
+          "dorsais",
+          "costas (meio)",
+          "quadríceps",
+          "trapézio"
+        ],
+        "equipment": "barra",
+        "mechanic": "composto",
+        "force": "tração",
+        "instructions": [
+          "Fique na frente de uma barra carregada.",
+          "Mantendo a parte de trás o mais reta possível, dobre os joelhos, dobre para a frente e segure a barra usando um meio (largura do ombro) overhand grip. Esta será a posição inicial do exercício. Dica: Se for difícil segurar a barra com este aperto, alterne sua aderência ou use pulseiras.",
+          "Enquanto segura a barra, inicie o elevador empurrando com as pernas enquanto simultaneamente leva seu tronco para a posição vertical enquanto você expira. Na posição vertical, coloque o peito para fora e contraia as costas trazendo as omoplatas de volta. Pense em como os soldados do exército olham quando estão em pé na atenção.",
+          "Volte para a posição inicial, dobrando-se nos joelhos, ao mesmo tempo inclinando o tronco para a frente na cintura, mantendo as costas retas. Quando os pesos na barra tocam o chão, você está de volta na posição inicial e pronto para realizar outra repetição.",
+          "Execute a quantidade de repetições prescritas no programa."
+        ],
+        "images": [
+          "Barbell_Deadlift/0.jpg",
+          "Barbell_Deadlift/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 80,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "One-Arm_Dumbbell_Row",
+        "name": "Remada Unilateral com Haltere",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "costas (meio)"
+        ],
+        "secondaryMuscles": [
+          "bíceps",
+          "dorsais",
+          "ombros"
+        ],
+        "equipment": "haltere",
+        "mechanic": "composto",
+        "force": "tração",
+        "instructions": [
+          "Escolha um banco plano e coloque um haltere em cada lado dele.",
+          "Coloque a perna direita em cima da extremidade do banco, dobre o tronco para a frente da cintura até que sua parte superior do corpo esteja paralela ao chão e coloque a mão direita na outra extremidade do banco para apoio.",
+          "Use a mão esquerda para pegar o haltere no chão e segure o peso enquanto mantém sua parte inferior das costas reta. A palma da mão deve estar voltada para o seu tronco. Esta será sua posição inicial.",
+          "Puxe a resistência diretamente para o lado do peito, mantendo o braço superior perto de seu lado e mantendo o tronco parado. Respire para fora enquanto você executa este passo. Dica: Concentre-se em apertar os músculos das costas uma vez que você atingir a posição contratada completa. Além disso, certifique-se de que a força é realizada com os músculos das costas e não os braços. Finalmente, o tronco superior deve permanecer parado e apenas os braços devem se mover. Os antebraços não devem se mover.",
+          "Reduza a resistência diretamente para a posição inicial. Respire enquanto executa este passo.",
+          "Repita o movimento para a quantidade especificada de repetições.",
+          "Alterne os lados e repita novamente com o outro braço."
+        ],
+        "images": [
+          "One-Arm_Dumbbell_Row/0.jpg",
+          "One-Arm_Dumbbell_Row/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 80,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "T-Bar_Row_with_Handle",
+        "name": "Remada Cavalinho com Puxador (Remada T)",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "costas (meio)"
+        ],
+        "secondaryMuscles": [
+          "bíceps",
+          "dorsais"
+        ],
+        "equipment": "barra",
+        "mechanic": "composto",
+        "force": "tração",
+        "instructions": [
+          "Posicione uma barra em uma mina terrestre ou em um canto para evitar que ela se mova. Carregue um peso apropriado na ponta.",
+          "Fique sobre a barra e posicione uma alça de linha D dupla ao redor da barra ao lado do colarinho. Usando seus quadris e pernas, suba para uma posição de pé.",
+          "Assuma uma postura ampla com os quadris para trás e o peito para cima. Seus braços devem ser estendidos. Esta será sua posição inicial.",
+          "Puxe o peso para o abdômen superior, retraindo as omoplatas e flexionando os cotovelos. Não empurre o peso ou trapaceie durante o movimento.",
+          "Após uma breve pausa, retorne à posição inicial."
+        ],
+        "images": [
+          "T-Bar_Row_with_Handle/0.jpg",
+          "T-Bar_Row_with_Handle/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 80,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Wide-Grip_Lat_Pulldown",
+        "name": "Puxada Aberta Frontal",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "dorsais"
+        ],
+        "secondaryMuscles": [
+          "bíceps",
+          "costas (meio)",
+          "ombros"
+        ],
+        "equipment": "cabo",
+        "mechanic": "composto",
+        "force": "tração",
+        "instructions": [
+          "Sente-se em uma máquina de puxar para baixo com uma barra larga anexada à polia superior. Certifique-se de ajustar a joelheira da máquina para se ajustar à sua altura. Essas almofadas impedirão que seu corpo seja levantado pela resistência anexada à barra.",
+          "Pegue a barra com as palmas voltadas para a frente usando o aperto prescrito. Nota sobre os apertos: Para um aperto largo, suas mãos precisam ser espaçadas a uma distância maior do que a largura do ombro. Para um aperto médio, suas mãos precisam ser espaçadas a uma distância igual à largura do ombro e para um aperto próximo a uma distância menor do que a largura do ombro.",
+          "Como você tem ambos os braços estendidos na frente de você segurando a barra na largura de aderência escolhida, traga seu tronco de volta em torno de 30 graus ou mais, criando uma curvatura na parte inferior das costas e colocando o peito para fora. Esta é a sua posição inicial.",
+          "medida que você expira, traga a barra para baixo até que ela toque seu peito superior, puxando os ombros e os braços para baixo e para trás. Dica: Concentre-se em apertar os músculos das costas, uma vez que você atinja a posição contratada completa. O tronco superior deve permanecer estacionário e apenas os braços devem se mover. Os antebraços não devem fazer outro trabalho, exceto segurar a barra; portanto, não tente puxar a barra usando os antebraços.",
+          "Depois de um segundo na posição contraída apertando as omoplatas juntas, levante lentamente a barra de volta à posição inicial quando seus braços estiverem totalmente estendidos e os lats estiverem totalmente esticados. Inspire durante esta parte do movimento.",
+          "Repita este movimento para a quantidade prescrita de repetições."
+        ],
+        "images": [
+          "Wide-Grip_Lat_Pulldown/0.jpg",
+          "Wide-Grip_Lat_Pulldown/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 80,
+        "is_time_based": false,
+        "time_seconds": 0
+      }
+    ],
+    "language": "pt"
+  },
+  {
+    "id": "template_biceps",
+    "name_key": "template_biceps",
+    "category_key": "cat_hypertrophy",
+    "days": [],
+    "estimated_duration_min": 30,
+    "exercises": [
+      {
+        "exercise_id": "Barbell_Curl",
+        "name": "Rosca Direta com Barra",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "bíceps"
+        ],
+        "secondaryMuscles": [
+          "antebraços"
+        ],
+        "equipment": "barra",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Levante-se com o tronco na posição vertical enquanto segura uma barra no punho da largura do ombro. A palma das suas mãos deve estar voltada para a frente e os cotovelos devem estar perto do tronco. Esta será a sua posição inicial.",
+          "Enquanto segura os braços parados, enrole os pesos para a frente enquanto contrai o bíceps enquanto expira. Dica: Apenas os antebraços devem se mover.",
+          "Continue o movimento até que seu bíceps esteja totalmente contraído e a barra esteja no nível do ombro. Mantenha a posição contraída por um segundo e esprema o bíceps com força.",
+          "Lentamente, comece a trazer a barra de volta à posição inicial enquanto respira.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Barbell_Curl/0.jpg",
+          "Barbell_Curl/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Dumbbell_Alternate_Bicep_Curl",
+        "name": "Rosca Bíceps Alternada com Halteres",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "bíceps"
+        ],
+        "secondaryMuscles": [
+          "antebraços"
+        ],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Fique de pé (torso ereto) com um haltere em cada mão segurada no comprimento dos braços. Os cotovelos devem estar perto do tronco e as palmas das mãos devem estar viradas para as coxas.",
+          "Enquanto segura o braço parado, enrole o peso direito enquanto você gira a palma das mãos até que elas estejam voltadas para a frente. Neste ponto, continue contraindo o bíceps enquanto você expira até que seu bíceps esteja totalmente contraído e os halteres estejam no nível do ombro. Mantenha a posição contraída por um segundo enquanto você aperta o bíceps. Dica: Apenas os antebraços devem se mover.",
+          "Lentamente, comece a trazer o haltere de volta para a posição inicial enquanto respira. Dica: Lembre-se de torcer as palmas das mãos de volta para a posição inicial (de frente para as coxas) à medida que você desce.",
+          "Repita o movimento com a mão esquerda. Isso equivale a uma repetição.",
+          "Continue alternando desta forma para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Dumbbell_Alternate_Bicep_Curl/0.jpg",
+          "Dumbbell_Alternate_Bicep_Curl/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Concentration_Curls",
+        "name": "Rosca Concentrada com Haltere",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "bíceps"
+        ],
+        "secondaryMuscles": [
+          "antebraços"
+        ],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Sente-se em um banco plano com um haltere na frente de você entre as pernas. Suas pernas devem ser espalhadas com os joelhos dobrados e os pés no chão.",
+          "Use o braço direito para pegar o haltere para cima. Coloque a parte de trás do braço direito na parte superior da coxa direita interna. Gire a palma da mão até que ela esteja voltada para frente, longe da coxa. Dica: Seu braço deve ser estendido e o haltere deve estar acima do chão. Esta será sua posição inicial.",
+          "Enquanto segura o braço parado, enrole os pesos para a frente enquanto contrai o bíceps enquanto expira. Apenas os antebraços devem se mover. Continue o movimento até que seu bíceps esteja totalmente contraído e os halteres estejam no nível do ombro. Dica: No topo do movimento, certifique-se de que o dedo mínimo do seu braço seja maior que o polegar. Isso garante uma boa contração. Segure a posição contratada por um segundo enquanto aperta o bíceps.",
+          "Lentamente, comece a trazer os halteres de volta à posição inicial enquanto respira. Cuidado: Evite movimentos oscilantes a qualquer momento.",
+          "Repita para a quantidade recomendada de repetições. Em seguida, repita o movimento com o braço esquerdo."
+        ],
+        "images": [
+          "Concentration_Curls/0.jpg",
+          "Concentration_Curls/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Hammer_Curls",
+        "name": "Rosca Martelo com Halteres",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "bíceps"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Levante-se com o tronco na posição vertical e um haltere em cada mão sendo realizada no comprimento dos braços. Os cotovelos devem estar perto do tronco.",
+          "As palmas das mãos devem estar voltadas para o seu tronco. Esta será a sua posição inicial.",
+          "Agora, enquanto segura o braço parado, expire e enrole o peso para a frente enquanto contrai o bíceps. Continue a aumentar o peso até que o bíceps esteja totalmente contraído e o haltere esteja no nível do ombro. Mantenha a posição contraída por um breve momento enquanto aperta o bíceps. Dica: Concentre-se em manter o cotovelo estacionário e apenas mover o antebraço.",
+          "Após a breve pausa, inale e comece lentamente a descer os halteres de volta para a posição inicial.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Hammer_Curls/0.jpg",
+          "Hammer_Curls/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Reverse_Barbell_Curl",
+        "name": "Rosca Inversa com Barra",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "bíceps"
+        ],
+        "secondaryMuscles": [
+          "antebraços"
+        ],
+        "equipment": "barra",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Levante-se com o tronco na posição vertical enquanto segura uma barra na largura do ombro com os cotovelos perto do tronco. A palma das suas mãos deve estar voltada para baixo (aperto pronado). Esta será a sua posição inicial.",
+          "Enquanto mantém os braços parados, enrole os pesos enquanto contrai o bíceps enquanto expira. Apenas os antebraços devem se mover. Continue o movimento até que seu bíceps esteja totalmente contraído e a barra esteja no nível do ombro. Mantenha a posição contraída por um segundo enquanto aperta o músculo.",
+          "Lentamente, comece a trazer a barra de volta à posição inicial enquanto respira.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Reverse_Barbell_Curl/0.jpg",
+          "Reverse_Barbell_Curl/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      }
+    ],
+    "language": "pt"
+  },
+  {
+    "id": "template_full_arms",
+    "name_key": "template_full_arms",
+    "category_key": "cat_hypertrophy",
+    "days": [],
+    "estimated_duration_min": 45,
+    "exercises": [
+      {
+        "exercise_id": "Barbell_Curl",
+        "name": "Rosca Direta com Barra",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "bíceps"
+        ],
+        "secondaryMuscles": [
+          "antebraços"
+        ],
+        "equipment": "barra",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Levante-se com o tronco na posição vertical enquanto segura uma barra no punho da largura do ombro. A palma das suas mãos deve estar voltada para a frente e os cotovelos devem estar perto do tronco. Esta será a sua posição inicial.",
+          "Enquanto segura os braços parados, enrole os pesos para a frente enquanto contrai o bíceps enquanto expira. Dica: Apenas os antebraços devem se mover.",
+          "Continue o movimento até que seu bíceps esteja totalmente contraído e a barra esteja no nível do ombro. Mantenha a posição contraída por um segundo e esprema o bíceps com força.",
+          "Lentamente, comece a trazer a barra de volta à posição inicial enquanto respira.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Barbell_Curl/0.jpg",
+          "Barbell_Curl/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Bench_Dips",
+        "name": "Tríceps no Banco",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "tríceps"
+        ],
+        "secondaryMuscles": [
+          "peitoral",
+          "ombros"
+        ],
+        "equipment": "peso corporal",
+        "mechanic": "composto",
+        "force": "empurrar",
+        "instructions": [
+          "Para este exercício, você precisará colocar um banco atrás das costas. Com o banco perpendicular ao seu corpo, e enquanto olha para longe dele, segure o banco em sua borda com as mãos totalmente estendidas, separadas na largura do ombro. As pernas serão estendidas para a frente, dobradas na cintura e perpendiculares ao seu tronco. Esta será sua posição inicial.",
+          "Abaixe lentamente o corpo enquanto você inala, dobrando-se nos cotovelos até que você se abaixe o suficiente para onde há um ângulo ligeiramente menor que 90 graus entre o braço e o antebraço. Dica: Mantenha os cotovelos o mais próximo possível durante todo o movimento. Os antebraços devem sempre estar apontando para baixo.",
+          "Usando seu tríceps para trazer seu tronco para cima novamente, levante-se de volta para a posição inicial.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Bench_Dips/0.jpg",
+          "Bench_Dips/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Dumbbell_Alternate_Bicep_Curl",
+        "name": "Rosca Bíceps Alternada com Halteres",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "bíceps"
+        ],
+        "secondaryMuscles": [
+          "antebraços"
+        ],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Fique de pé (torso ereto) com um haltere em cada mão segurada no comprimento dos braços. Os cotovelos devem estar perto do tronco e as palmas das mãos devem estar viradas para as coxas.",
+          "Enquanto segura o braço parado, enrole o peso direito enquanto você gira a palma das mãos até que elas estejam voltadas para a frente. Neste ponto, continue contraindo o bíceps enquanto você expira até que seu bíceps esteja totalmente contraído e os halteres estejam no nível do ombro. Mantenha a posição contraída por um segundo enquanto você aperta o bíceps. Dica: Apenas os antebraços devem se mover.",
+          "Lentamente, comece a trazer o haltere de volta para a posição inicial enquanto respira. Dica: Lembre-se de torcer as palmas das mãos de volta para a posição inicial (de frente para as coxas) à medida que você desce.",
+          "Repita o movimento com a mão esquerda. Isso equivale a uma repetição.",
+          "Continue alternando desta forma para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Dumbbell_Alternate_Bicep_Curl/0.jpg",
+          "Dumbbell_Alternate_Bicep_Curl/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Standing_Dumbbell_Triceps_Extension",
+        "name": "Tríceps Francês em Pé com Haltere",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "tríceps"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Para começar, levante-se com um haltere segurado por ambas as mãos. Seus pés devem ser sobre a largura do ombro distante um do outro. Use lentamente ambas as mãos para agarrar o haltere e levantá-lo sobre sua cabeça até que ambos os braços estejam totalmente estendidos.",
+          "A resistência deve estar descansando nas palmas das mãos com os polegares ao redor. A palma das mãos deve estar voltada para o teto. Esta será sua posição inicial.",
+          "Mantendo os braços superiores próximos à cabeça com os cotovelos e perpendiculares ao chão, reduza a resistência em um movimento semicircular atrás da cabeça até que os antebraços toquem seu bíceps. Dica: Os braços superiores devem permanecer estacionários e apenas os antebraços devem se mover. Respire enquanto você executa este passo.",
+          "Volte para a posição inicial usando o tríceps para levantar o haltere. Respire enquanto você executa este passo.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Standing_Dumbbell_Triceps_Extension/0.jpg",
+          "Standing_Dumbbell_Triceps_Extension/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Hammer_Curls",
+        "name": "Rosca Martelo com Halteres",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "bíceps"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Levante-se com o tronco na posição vertical e um haltere em cada mão sendo realizada no comprimento dos braços. Os cotovelos devem estar perto do tronco.",
+          "As palmas das mãos devem estar voltadas para o seu tronco. Esta será a sua posição inicial.",
+          "Agora, enquanto segura o braço parado, expire e enrole o peso para a frente enquanto contrai o bíceps. Continue a aumentar o peso até que o bíceps esteja totalmente contraído e o haltere esteja no nível do ombro. Mantenha a posição contraída por um breve momento enquanto aperta o bíceps. Dica: Concentre-se em manter o cotovelo estacionário e apenas mover o antebraço.",
+          "Após a breve pausa, inale e comece lentamente a descer os halteres de volta para a posição inicial.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Hammer_Curls/0.jpg",
+          "Hammer_Curls/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Tricep_Dumbbell_Kickback",
+        "name": "Tríceps Coice com Haltere",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "tríceps"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Comece com um haltere em cada mão e as palmas das mãos voltadas para o tronco. Mantenha as costas retas com uma ligeira curvatura nos joelhos e dobre para a frente na cintura. Seu tronco deve ser quase paralelo ao chão. Certifique-se de manter a cabeça erguida. Seus braços devem estar próximos ao seu tronco e paralelos ao chão. Seus antebraços devem ser apontados para o chão enquanto você segura os pesos. Deve haver uma posição inicial de 90 graus entre o antebraço e a posição inicial.",
+          "Agora, enquanto mantém os braços parados, expire e use o tríceps para levantar os pesos até que o braço esteja totalmente estendido. Concentre-se em mover o antebraço.",
+          "Depois de uma breve pausa na contração superior, inale e diminua lentamente os halteres de volta para a posição inicial.",
+          "Repita o movimento para a quantidade prescrita de repetições."
+        ],
+        "images": [
+          "Tricep_Dumbbell_Kickback/0.jpg",
+          "Tricep_Dumbbell_Kickback/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      }
+    ],
+    "language": "pt"
+  },
+  {
+    "id": "template_legs",
+    "name_key": "template_legs",
+    "category_key": "cat_hypertrophy",
+    "days": [],
+    "estimated_duration_min": 50,
+    "exercises": [
+      {
+        "exercise_id": "Barbell_Squat",
+        "name": "Agachamento Livre com Barra",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "quadríceps"
+        ],
+        "secondaryMuscles": [
+          "panturrilhas",
+          "glúteos",
+          "isquiotibiais",
+          "lombar"
+        ],
+        "equipment": "barra",
+        "mechanic": "composto",
+        "force": "empurrar",
+        "instructions": [
+          "Este exercício é melhor realizado dentro de um rack de agachamento para fins de segurança. Para começar, primeiro defina a barra em um rack para logo abaixo do nível do ombro. Uma vez que a altura correta é escolhida e a barra é carregada, pise sob a barra e coloque a parte de trás de seus ombros (ligeiramente abaixo do pescoço) através dela.",
+          "Segure a barra usando os dois braços de cada lado e levante-a do rack, primeiro empurrando com as pernas e, ao mesmo tempo, endireitando o tronco.",
+          "Afaste-se do rack e posicione as pernas usando uma postura média de largura do ombro com os dedos dos pés ligeiramente apontados. Mantenha a cabeça erguida o tempo todo e também mantenha as costas retas. Esta será sua posição inicial. (Nota: Para os fins desta discussão, usaremos a postura média descrita acima, que visa o desenvolvimento geral; no entanto, você pode escolher qualquer uma das três posturas discutidas na seção de posturas dos pés).",
+          "Comece a abaixar lentamente a barra, dobrando os joelhos e quadris como você manter uma postura reta com a cabeça para cima. Continue para baixo até que o ângulo entre a perna superior e as panturrilhas torna-se ligeiramente inferior a 90 graus. Inspire enquanto você executa esta parte do movimento. Dica: Se você realizou o exercício corretamente, a frente dos joelhos deve fazer uma linha reta imaginária com os dedos dos pés que é perpendicular à frente. Se seus joelhos são passados que o exercício imaginário é (se)",
+          "Comece a levantar a barra enquanto você expira, empurrando o chão com o calcanhar do pé enquanto você endireita as pernas novamente e volta para a posição inicial.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Barbell_Squat/0.jpg",
+          "Barbell_Squat/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 110,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Barbell_Lunge",
+        "name": "Afundo com Barra",
+        "category": "strength",
+        "level": "intermediário",
+        "primaryMuscles": [
+          "quadríceps"
+        ],
+        "secondaryMuscles": [
+          "panturrilhas",
+          "glúteos",
+          "isquiotibiais"
+        ],
+        "equipment": "barra",
+        "mechanic": "composto",
+        "force": "empurrar",
+        "instructions": [
+          "Este exercício é melhor realizado dentro de um rack de agachamento para fins de segurança. Para começar, primeiro defina a barra em um rack logo abaixo do nível do ombro. Uma vez que a altura correta é escolhida e a barra é carregada, pise sob a barra e coloque a parte de trás de seus ombros (ligeiramente abaixo do pescoço) através dela.",
+          "Segure a barra usando os dois braços de cada lado e levante-a do rack, primeiro empurrando com as pernas e, ao mesmo tempo, endireitando o tronco.",
+          "Afaste-se do rack e dê um passo à frente com a perna direita e agache-se pelos quadris, mantendo o tronco na posição vertical e mantendo o equilíbrio. Inspire à medida que desce. Nota: Não permita que seu joelho vá além dos dedos dos pés enquanto desce, pois isso colocará estresse indevido na articulação do joelho. li>",
+          "Usando principalmente o calcanhar do pé, empurre para cima e volte para a posição inicial enquanto expira.",
+          "Repita o movimento para a quantidade recomendada de repetições e, em seguida, execute com a perna esquerda."
+        ],
+        "images": [
+          "Barbell_Lunge/0.jpg",
+          "Barbell_Lunge/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 110,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Leg_Extensions",
+        "name": "Cadeira Extensora",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "quadríceps"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "máquina",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Para este exercício, você precisará usar uma máquina de extensão de joelho. Primeiro escolha seu peso e sente-se na máquina com as pernas sob a almofada (pés apontados para a frente) e as mãos segurando as barras laterais. Esta será a sua posição inicial. Dica: Você precisará ajustar a almofada para que ela caia em cima da perna (logo acima dos pés). Além disso, certifique-se de que suas pernas formem um ângulo de 90 graus abaixo da perna. Se a máquina estiver inclinada.",
+          "Usando o quadríceps, estenda as pernas ao máximo enquanto expira. Certifique-se de que o resto do corpo permaneça parado no assento. Pausar um segundo na posição contraída.",
+          "Reduza lentamente o peso de volta para a posição original à medida que você inala, garantindo que você não ultrapasse o limite de ângulo de 90 graus.",
+          "Repita para a quantidade recomendada de vezes."
+        ],
+        "images": [
+          "Leg_Extensions/0.jpg",
+          "Leg_Extensions/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 110,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Lying_Leg_Curls",
+        "name": "Mesa Flexora (Deitado)",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "isquiotibiais"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "máquina",
+        "mechanic": "isolamento",
+        "force": "tração",
+        "instructions": [
+          "Ajuste a alavanca da máquina para ajustar sua altura e deite-se de frente para baixo na máquina de curva de perna com a almofada da alavanca na parte de trás de suas pernas (apenas alguns centímetros sob as panturrilhas). Dica: De preferência use uma máquina de curva de perna que é angulada em oposição ao plano, uma vez que uma posição angulada é mais favorável para o recrutamento de isquiotibiais.",
+          "Mantendo o tronco plano no banco, certifique-se de que suas pernas estejam totalmente esticadas e pegue as alças laterais da máquina. Posicione os dedos dos pés em linha reta (ou você também pode usar qualquer uma das outras duas posições descritas na seção de posicionamento do pé). Esta será sua posição inicial.",
+          "Ao expirar, enrole as pernas o mais longe possível sem levantar as pernas superiores da almofada. Depois de atingir a posição totalmente contraída, segure-a por um segundo.",
+          "Como você inalar, trazer as pernas de volta para a posição inicial. Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Lying_Leg_Curls/0.jpg",
+          "Lying_Leg_Curls/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 110,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Standing_Calf_Raises",
+        "name": "Elevação de Panturrilha em Pé",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "panturrilhas"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "máquina",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Ajuste a alavanca acolchoada da máquina de elevação da panturrilha para se ajustar à sua altura.",
+          "Coloque os ombros sob as almofadas fornecidas e posicione os dedos dos pés voltados para a frente (ou usando qualquer uma das duas outras posições descritas no início do capítulo). As bolas dos pés devem ser fixadas em cima do bloco da panturrilha com os calcanhares estendidos. Empurre a alavanca para cima estendendo os quadris e os joelhos até que seu tronco esteja ereto. Os joelhos devem ser mantidos com uma ligeira curvatura; nunca bloqueados. Os dedos devem estar voltados para a frente, para fora ou para dentro.",
+          "Levante os calcanhares enquanto expira, estendendo os tornozelos o mais alto possível e flexionando a panturrilha. Certifique-se de que o joelho é mantido parado em todos os momentos. Não deve haver flexão a qualquer momento. Mantenha a posição contraída por um segundo antes de começar a voltar para baixo.",
+          "Volte lentamente para a posição inicial enquanto respira, baixando os calcanhares enquanto dobra os tornozelos até que os bezerros sejam esticados.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Standing_Calf_Raises/0.jpg",
+          "Standing_Calf_Raises/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 110,
+        "is_time_based": false,
+        "time_seconds": 0
+      }
+    ],
+    "language": "pt"
+  },
+  {
+    "id": "template_triceps",
+    "name_key": "template_triceps",
+    "category_key": "cat_hypertrophy",
+    "days": [],
+    "estimated_duration_min": 30,
+    "exercises": [
+      {
+        "exercise_id": "Triceps_Pushdown",
+        "name": "Tríceps Pulley",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "tríceps"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "cabo",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Anexe uma barra reta ou angulada a uma polia alta e pegue com um aperto de mão (palmas viradas para baixo) na largura do ombro.",
+          "De pé com o tronco reto e uma inclinação muito pequena para a frente, aproxime os braços superiores do corpo e perpendicular ao chão. Os antebraços devem estar apontando para a polia enquanto seguram a barra. Esta é a sua posição inicial.",
+          "Usando o tríceps, traga a barra para baixo até que ela toque a frente de suas coxas e os braços estejam totalmente estendidos perpendicularmente ao chão. Os braços superiores devem sempre permanecer estacionários ao lado do tronco e apenas os antebraços devem se mover. Expire enquanto realiza esse movimento.",
+          "Depois de uma segunda espera na posição contraída, leve a barra lentamente até o ponto de partida. Respire enquanto realiza este passo.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Triceps_Pushdown/0.jpg",
+          "Triceps_Pushdown/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Standing_Dumbbell_Triceps_Extension",
+        "name": "Tríceps Francês em Pé com Haltere",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "tríceps"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Para começar, levante-se com um haltere segurado por ambas as mãos. Seus pés devem ser sobre a largura do ombro distante um do outro. Use lentamente ambas as mãos para agarrar o haltere e levantá-lo sobre sua cabeça até que ambos os braços estejam totalmente estendidos.",
+          "A resistência deve estar descansando nas palmas das mãos com os polegares ao redor. A palma das mãos deve estar voltada para o teto. Esta será sua posição inicial.",
+          "Mantendo os braços superiores próximos à cabeça com os cotovelos e perpendiculares ao chão, reduza a resistência em um movimento semicircular atrás da cabeça até que os antebraços toquem seu bíceps. Dica: Os braços superiores devem permanecer estacionários e apenas os antebraços devem se mover. Respire enquanto você executa este passo.",
+          "Volte para a posição inicial usando o tríceps para levantar o haltere. Respire enquanto você executa este passo.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Standing_Dumbbell_Triceps_Extension/0.jpg",
+          "Standing_Dumbbell_Triceps_Extension/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Tricep_Dumbbell_Kickback",
+        "name": "Tríceps Coice com Haltere",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "tríceps"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "haltere",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Comece com um haltere em cada mão e as palmas das mãos voltadas para o tronco. Mantenha as costas retas com uma ligeira curvatura nos joelhos e dobre para a frente na cintura. Seu tronco deve ser quase paralelo ao chão. Certifique-se de manter a cabeça erguida. Seus braços devem estar próximos ao seu tronco e paralelos ao chão. Seus antebraços devem ser apontados para o chão enquanto você segura os pesos. Deve haver uma posição inicial de 90 graus entre o antebraço e a posição inicial.",
+          "Agora, enquanto mantém os braços parados, expire e use o tríceps para levantar os pesos até que o braço esteja totalmente estendido. Concentre-se em mover o antebraço.",
+          "Depois de uma breve pausa na contração superior, inale e diminua lentamente os halteres de volta para a posição inicial.",
+          "Repita o movimento para a quantidade prescrita de repetições."
+        ],
+        "images": [
+          "Tricep_Dumbbell_Kickback/0.jpg",
+          "Tricep_Dumbbell_Kickback/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Lying_Triceps_Press",
+        "name": "Tríceps Testa Deitado com Halteres",
+        "category": "strength",
+        "level": "intermediário",
+        "primaryMuscles": [
+          "tríceps"
+        ],
+        "secondaryMuscles": [],
+        "equipment": "barra W",
+        "mechanic": "isolamento",
+        "force": "empurrar",
+        "instructions": [
+          "Deite-se em um banco plano com uma barra de e-z (minha preferência) ou uma barra reta colocada no chão atrás de sua cabeça e seus pés no chão.",
+          "Pegue a barra atrás de você, usando um aperto médio (pronatado) e levante a barra na frente de você no comprimento dos braços. Dica: Os braços devem ser perpendiculares ao tronco e ao chão. Os cotovelos devem ser dobrados. Esta é a posição inicial.",
+          "medida que você respira, diminua lentamente o peso até que a barra toque levemente sua testa, mantendo os braços e cotovelos parados.",
+          "Nesse ponto, use o tríceps para trazer o peso de volta para a posição inicial à medida que você expira.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Lying_Triceps_Press/0.jpg",
+          "Lying_Triceps_Press/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      },
+      {
+        "exercise_id": "Bench_Dips",
+        "name": "Tríceps no Banco",
+        "category": "strength",
+        "level": "iniciante",
+        "primaryMuscles": [
+          "tríceps"
+        ],
+        "secondaryMuscles": [
+          "peitoral",
+          "ombros"
+        ],
+        "equipment": "peso corporal",
+        "mechanic": "composto",
+        "force": "empurrar",
+        "instructions": [
+          "Para este exercício, você precisará colocar um banco atrás das costas. Com o banco perpendicular ao seu corpo, e enquanto olha para longe dele, segure o banco em sua borda com as mãos totalmente estendidas, separadas na largura do ombro. As pernas serão estendidas para a frente, dobradas na cintura e perpendiculares ao seu tronco. Esta será sua posição inicial.",
+          "Abaixe lentamente o corpo enquanto você inala, dobrando-se nos cotovelos até que você se abaixe o suficiente para onde há um ângulo ligeiramente menor que 90 graus entre o braço e o antebraço. Dica: Mantenha os cotovelos o mais próximo possível durante todo o movimento. Os antebraços devem sempre estar apontando para baixo.",
+          "Usando seu tríceps para trazer seu tronco para cima novamente, levante-se de volta para a posição inicial.",
+          "Repita para a quantidade recomendada de repetições."
+        ],
+        "images": [
+          "Bench_Dips/0.jpg",
+          "Bench_Dips/1.jpg"
+        ],
+        "sets": 4,
+        "reps": "10-12",
+        "weight_kg": 0.0,
+        "rest_time_seconds": 50,
+        "is_time_based": false,
+        "time_seconds": 0
+      }
+    ],
+    "language": "pt"
+  }
+]

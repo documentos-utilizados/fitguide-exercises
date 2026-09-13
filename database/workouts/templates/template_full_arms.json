@@ -1,0 +1,63 @@
+{
+  "id": "template_full_arms",
+  "name_key": "template_full_arms",
+  "category_key": "cat_hypertrophy",
+  "days": [],
+  "estimated_duration_min": 45,
+  "exercises": [
+    {
+      "exercise_id": "Barbell_Curl",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 50,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Bench_Dips",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 50,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Dumbbell_Alternate_Bicep_Curl",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 50,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Standing_Dumbbell_Triceps_Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 50,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Hammer_Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 50,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Tricep_Dumbbell_Kickback",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 50,
+      "is_time_based": false,
+      "time_seconds": 0
+    }
+  ]
+}

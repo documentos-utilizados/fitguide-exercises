@@ -1,0 +1,54 @@
+{
+  "id": "template_back",
+  "name_key": "template_back",
+  "category_key": "cat_hypertrophy",
+  "days": [],
+  "estimated_duration_min": 45,
+  "exercises": [
+    {
+      "exercise_id": "Pullups",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 80,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Barbell_Deadlift",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 80,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "One-Arm_Dumbbell_Row",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 80,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "T-Bar_Row_with_Handle",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 80,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Wide-Grip_Lat_Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 80,
+      "is_time_based": false,
+      "time_seconds": 0
+    }
+  ]
+}

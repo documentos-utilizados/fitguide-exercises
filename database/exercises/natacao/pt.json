@@ -1,0 +1,19 @@
+{
+  "id": "natacao",
+  "name": "natacao",
+  "force": null,
+  "level": "iniciante",
+  "mechanic": null,
+  "equipment": null,
+  "primaryMuscles": [
+    "Costas (meio)"
+  ],
+  "secondaryMuscles": [],
+  "instructions": [
+    "natacao abc"
+  ],
+  "category": "strength",
+  "images": [
+    "natacao/0.jpg"
+  ]
+}

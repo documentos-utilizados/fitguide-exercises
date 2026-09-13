@@ -1,0 +1,16 @@
+services:
+  admin:
+    build:
+      context: ..
+      dockerfile: admin/Dockerfile
+    container_name: fitguide-admin
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - FITGUIDE_BASE_DIR=/app
+      - FITGUIDE_STATIC_DIR=/app/admin/web/dist
+    volumes:
+      - ../database:/app/database
+      - ../scripts:/app/scripts
+    restart: unless-stopped

@@ -1,0 +1,54 @@
+{
+  "id": "template_legs",
+  "name_key": "template_legs",
+  "category_key": "cat_hypertrophy",
+  "days": [],
+  "estimated_duration_min": 50,
+  "exercises": [
+    {
+      "exercise_id": "Barbell_Squat",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 110,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Barbell_Lunge",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 110,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Leg_Extensions",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 110,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Lying_Leg_Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 110,
+      "is_time_based": false,
+      "time_seconds": 0
+    },
+    {
+      "exercise_id": "Standing_Calf_Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "weight_kg": 0.0,
+      "rest_time_seconds": 110,
+      "is_time_based": false,
+      "time_seconds": 0
+    }
+  ]
+}
