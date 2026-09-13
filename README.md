@@ -7,9 +7,8 @@ Open Exercise Dataset in `JSON` format (870+ exercises) with complete support fo
 ```
 fitguide-exercises/
 ├── database/                       <-- Camada de Dados e Conteúdo
-│   ├── exercises/                  <-- Exercícios individuais
-│   │   ├── pt/                     <-- JSONs e fotos em PT-BR (Fonte da Verdade)
-│   │   └── en/                     <-- JSONs e fotos em EN
+│   ├── exercises/                  <-- Exercícios em pastas individuais (<id>/)
+│   │   └── <exercise_id>/          <-- pt.json, en.json, 0.jpg, 1.jpg
 │   ├── metadata/                   <-- Dicionários e taxonomias
 │   │   ├── categories/             <-- pt.json, en.json
 │   │   ├── equipments/             <-- pt.json, en.json
@@ -52,7 +51,7 @@ fitguide-exercises/
 
 ### Painel Administrativo (Web & API)
 
-O projeto conta com um painel visual (Vue 3 + Go) para cadastro e edição de exercícios em `database/exercises/pt/`, gerenciamento de treinos/fichas em `database/workouts/`, upload de imagens e disparo manual de compilação dos datasets.
+O projeto conta com um painel visual (Vue 3 + Go) para cadastro e edição de exercícios em `database/exercises/`, gerenciamento de treinos/fichas em `database/workouts/`, upload de imagens e disparo manual de compilação dos datasets.
 
 #### 🐳 Executando com Docker (Recomendado)
 

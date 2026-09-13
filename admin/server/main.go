@@ -1,8 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"image"
+	_ "image/gif"
+	"image/jpeg"
+	_ "image/png"
 	"io"
 	"net/http"
 	"os"
@@ -149,13 +154,13 @@ func handleExercises(baseDir string) http.HandlerFunc {
 		}
 		lang = filepath.Clean(lang)
 
-		exercisesDir := filepath.Join(baseDir, "database", "exercises", lang)
+		exercisesBaseDir := filepath.Join(baseDir, "database", "exercises")
 
 		switch r.Method {
 		case http.MethodGet:
 			id := r.URL.Query().Get("id")
 			if id != "" {
-				filePath := filepath.Join(exercisesDir, fmt.Sprintf("%s.json", id))
+				filePath := filepath.Join(exercisesBaseDir, id, fmt.Sprintf("%s.json", lang))
 				data, err := os.ReadFile(filePath)
 				if err != nil {
 					http.Error(w, `{"error": "exercise not found"}`, http.StatusNotFound)
@@ -166,18 +171,19 @@ func handleExercises(baseDir string) http.HandlerFunc {
 				return
 			}
 
-			files, err := os.ReadDir(exercisesDir)
+			entries, err := os.ReadDir(exercisesBaseDir)
 			if err != nil {
 				http.Error(w, `{"error": "failed to read exercises directory"}`, http.StatusInternalServerError)
 				return
 			}
 
-			exercises := make([]Exercise, 0, len(files))
-			for _, file := range files {
-				if !strings.HasSuffix(file.Name(), ".json") {
+			exercises := make([]Exercise, 0, len(entries))
+			for _, entry := range entries {
+				if !entry.IsDir() {
 					continue
 				}
-				content, err := os.ReadFile(filepath.Join(exercisesDir, file.Name()))
+				filePath := filepath.Join(exercisesBaseDir, entry.Name(), fmt.Sprintf("%s.json", lang))
+				content, err := os.ReadFile(filePath)
 				if err != nil {
 					continue
 				}
@@ -237,7 +243,13 @@ func handleExercises(baseDir string) http.HandlerFunc {
 			}
 			formatted = append(formatted, '\n')
 
-			filePath := filepath.Join(exercisesDir, fmt.Sprintf("%s.json", ex.ID))
+			exFolder := filepath.Join(exercisesBaseDir, ex.ID)
+			if err := os.MkdirAll(exFolder, 0755); err != nil {
+				http.Error(w, fmt.Sprintf(`{"error": "failed to create directory: %s"}`, err.Error()), http.StatusInternalServerError)
+				return
+			}
+
+			filePath := filepath.Join(exFolder, fmt.Sprintf("%s.json", lang))
 			if err := os.WriteFile(filePath, formatted, 0644); err != nil {
 				http.Error(w, fmt.Sprintf(`{"error": "failed to write file: %s"}`, err.Error()), http.StatusInternalServerError)
 				return
@@ -248,15 +260,25 @@ func handleExercises(baseDir string) http.HandlerFunc {
 			w.Write(formatted)
 
 		case http.MethodDelete:
-			id := r.URL.Query().Get("id")
-			if strings.TrimSpace(id) == "" {
-				http.Error(w, `{"error": "id parameter is required"}`, http.StatusBadRequest)
+			id := strings.TrimSpace(r.URL.Query().Get("id"))
+			if id == "" || id == "undefined" || id == "null" {
+				http.Error(w, `{"error": "id parameter is required and must be valid"}`, http.StatusBadRequest)
+				return
+			}
+			id = filepath.Clean(id)
+			if strings.Contains(id, "..") || strings.Contains(id, "/") || strings.Contains(id, "\\") {
+				http.Error(w, `{"error": "invalid id parameter"}`, http.StatusBadRequest)
 				return
 			}
 
-			filePath := filepath.Join(exercisesDir, fmt.Sprintf("%s.json", id))
-			if err := os.Remove(filePath); err != nil {
-				http.Error(w, fmt.Sprintf(`{"error": "failed to delete file: %s"}`, err.Error()), http.StatusInternalServerError)
+			exFolder := filepath.Join(exercisesBaseDir, id)
+			if _, err := os.Stat(exFolder); os.IsNotExist(err) {
+				http.Error(w, fmt.Sprintf(`{"error": "exercise %s not found"}`, id), http.StatusNotFound)
+				return
+			}
+
+			if err := os.RemoveAll(exFolder); err != nil {
+				http.Error(w, fmt.Sprintf(`{"error": "failed to delete exercise: %s"}`, err.Error()), http.StatusInternalServerError)
 				return
 			}
 
@@ -679,33 +701,36 @@ func handleTranslationAudit(baseDir string) http.HandlerFunc {
 			return
 		}
 
-		ptDir := filepath.Join(baseDir, "database", "exercises", "pt")
-		enDir := filepath.Join(baseDir, "database", "exercises", "en")
+		exercisesBaseDir := filepath.Join(baseDir, "database", "exercises")
 
-		readDirMap := func(dir string) (map[string]Exercise, error) {
-			result := make(map[string]Exercise)
-			entries, err := os.ReadDir(dir)
-			if err != nil {
-				return result, err
-			}
-			for _, e := range entries {
-				if !strings.HasSuffix(e.Name(), ".json") {
+		ptMap := make(map[string]Exercise)
+		enMap := make(map[string]Exercise)
+
+		entries, err := os.ReadDir(exercisesBaseDir)
+		if err == nil {
+			for _, entry := range entries {
+				if !entry.IsDir() {
 					continue
 				}
-				content, err := os.ReadFile(filepath.Join(dir, e.Name()))
-				if err != nil {
-					continue
+				exID := entry.Name()
+
+				ptFile := filepath.Join(exercisesBaseDir, exID, "pt.json")
+				if content, err := os.ReadFile(ptFile); err == nil {
+					var ex Exercise
+					if err := json.Unmarshal(content, &ex); err == nil && ex.ID != "" {
+						ptMap[ex.ID] = ex
+					}
 				}
-				var ex Exercise
-				if err := json.Unmarshal(content, &ex); err == nil && ex.ID != "" {
-					result[ex.ID] = ex
+
+				enFile := filepath.Join(exercisesBaseDir, exID, "en.json")
+				if content, err := os.ReadFile(enFile); err == nil {
+					var ex Exercise
+					if err := json.Unmarshal(content, &ex); err == nil && ex.ID != "" {
+						enMap[ex.ID] = ex
+					}
 				}
 			}
-			return result, nil
 		}
-
-		ptMap, _ := readDirMap(ptDir)
-		enMap, _ := readDirMap(enDir)
 
 		report := TranslationAuditReport{
 			Languages:       []string{"pt", "en"},
@@ -779,8 +804,8 @@ func handleTranslationCompare(baseDir string) http.HandlerFunc {
 			return
 		}
 
-		ptFile := filepath.Join(baseDir, "database", "exercises", "pt", fmt.Sprintf("%s.json", id))
-		enFile := filepath.Join(baseDir, "database", "exercises", "en", fmt.Sprintf("%s.json", id))
+		ptFile := filepath.Join(baseDir, "database", "exercises", id, "pt.json")
+		enFile := filepath.Join(baseDir, "database", "exercises", id, "en.json")
 
 		result := map[string]interface{}{
 			"id":        id,
@@ -891,16 +916,11 @@ func handleUploadImage(baseDir string) http.HandlerFunc {
 			return
 		}
 
-		targetEn := filepath.Join(baseDir, "database", "exercises", "en", relativePath)
-		targetPt := filepath.Join(baseDir, "database", "exercises", "pt", relativePath)
-
-		if err := os.MkdirAll(filepath.Dir(targetEn), 0755); err != nil {
-			http.Error(w, fmt.Sprintf(`{"error":"Erro ao criar diretório: %s"}`, err.Error()), http.StatusInternalServerError)
-			return
-		}
-		if err := os.MkdirAll(filepath.Dir(targetPt), 0755); err != nil {
-			http.Error(w, fmt.Sprintf(`{"error":"Erro ao criar diretório: %s"}`, err.Error()), http.StatusInternalServerError)
-			return
+		ext := strings.ToLower(filepath.Ext(relativePath))
+		if ext != ".jpg" && ext != ".jpeg" {
+			relativePath = strings.TrimSuffix(relativePath, filepath.Ext(relativePath)) + ".jpg"
+		} else if ext == ".jpeg" {
+			relativePath = strings.TrimSuffix(relativePath, ".jpeg") + ".jpg"
 		}
 
 		fileBytes, err := io.ReadAll(file)
@@ -909,12 +929,28 @@ func handleUploadImage(baseDir string) http.HandlerFunc {
 			return
 		}
 
-		if err := os.WriteFile(targetEn, fileBytes, 0644); err != nil {
-			http.Error(w, fmt.Sprintf(`{"error":"Erro ao salvar imagem em exercises_en: %s"}`, err.Error()), http.StatusInternalServerError)
+		var finalBytes []byte
+		img, _, decodeErr := image.Decode(bytes.NewReader(fileBytes))
+		if decodeErr == nil {
+			var buf bytes.Buffer
+			if encodeErr := jpeg.Encode(&buf, img, &jpeg.Options{Quality: 90}); encodeErr == nil {
+				finalBytes = buf.Bytes()
+			} else {
+				finalBytes = fileBytes
+			}
+		} else {
+			finalBytes = fileBytes
+		}
+
+		targetFile := filepath.Join(baseDir, "database", "exercises", relativePath)
+
+		if err := os.MkdirAll(filepath.Dir(targetFile), 0755); err != nil {
+			http.Error(w, fmt.Sprintf(`{"error":"Erro ao criar diretório: %s"}`, err.Error()), http.StatusInternalServerError)
 			return
 		}
-		if err := os.WriteFile(targetPt, fileBytes, 0644); err != nil {
-			http.Error(w, fmt.Sprintf(`{"error":"Erro ao salvar imagem em exercises_pt: %s"}`, err.Error()), http.StatusInternalServerError)
+
+		if err := os.WriteFile(targetFile, finalBytes, 0644); err != nil {
+			http.Error(w, fmt.Sprintf(`{"error":"Erro ao salvar imagem: %s"}`, err.Error()), http.StatusInternalServerError)
 			return
 		}
 
@@ -938,16 +974,10 @@ func handleServeImages(baseDir string) http.HandlerFunc {
 			return
 		}
 
-		candidates := []string{
-			filepath.Join(baseDir, "database", "exercises", "en", relPath),
-			filepath.Join(baseDir, "database", "exercises", "pt", relPath),
-		}
-
-		for _, path := range candidates {
-			if info, err := os.Stat(path); err == nil && !info.IsDir() {
-				http.ServeFile(w, r, path)
-				return
-			}
+		targetFile := filepath.Join(baseDir, "database", "exercises", relPath)
+		if info, err := os.Stat(targetFile); err == nil && !info.IsDir() {
+			http.ServeFile(w, r, targetFile)
+			return
 		}
 
 		http.NotFound(w, r)

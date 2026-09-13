@@ -4,7 +4,7 @@ import glob
 import sys
 
 def main():
-    dest_dir = "./database/exercises/pt"
+    dest_dir = "./database/exercises"
     schema_path = "./database/schemas/exercise.schema.json"
     dist_path = "./database/dist/exercises_pt.json"
     
@@ -12,7 +12,7 @@ def main():
         print(f"Directory {dest_dir} does not exist.")
         sys.exit(1)
         
-    json_files = glob.glob(os.path.join(dest_dir, "*.json"))
+    json_files = glob.glob(os.path.join(dest_dir, "*", "pt.json"))
     print(f"Found {len(json_files)} translated exercise files in {dest_dir}.")
     
     schema = None

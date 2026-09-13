@@ -179,13 +179,22 @@ function openEditModal(exercise) {
 }
 
 async function handleDeleteExercise(exercise) {
-  if (!confirm(`Tem certeza que deseja excluir o exercício "${exercise.name}" (${exercise.id})?`)) {
+  if (!exercise) return
+  const exId = typeof exercise === 'object' ? exercise.id : exercise
+  const exName = (typeof exercise === 'object' && exercise.name) ? exercise.name : exId
+
+  if (!exId || exId === 'undefined' || exId === 'null') {
+    showToast('ID do exercício inválido para exclusão.', 'error')
+    return
+  }
+
+  if (!confirm(`Tem certeza que deseja excluir o exercício "${exName}" (${exId})?`)) {
     return
   }
 
   try {
-    await deleteExercise(exercise.id)
-    showToast(`Exercício "${exercise.id}" excluído com sucesso.`)
+    await deleteExercise(exId)
+    showToast(`Exercício "${exId}" excluído com sucesso.`)
     await loadExercises()
   } catch (err) {
     showToast(`Erro ao excluir: ${err.message}`, 'error')

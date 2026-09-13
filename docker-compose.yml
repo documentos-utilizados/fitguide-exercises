@@ -1,9 +1,8 @@
 services:
   admin:
-    build:
-      context: .
-      dockerfile: admin/Dockerfile
-    container_name: fitguide-admin
+    image: python:3.11-alpine
+    container_name: fitguide-admin-app
+    command: sh -c "apk add --no-cache bash ca-certificates >/dev/null 2>&1 && pip install --no-cache-dir deep-translator >/dev/null 2>&1 && /app/fitguide-admin"
     ports:
       - "8080:8080"
     environment:
@@ -13,4 +12,6 @@ services:
     volumes:
       - ./database:/app/database
       - ./scripts:/app/scripts
+      - ./admin/server/fitguide-admin:/app/fitguide-admin
+      - ./admin/web/dist:/app/admin/web/dist
     restart: unless-stopped

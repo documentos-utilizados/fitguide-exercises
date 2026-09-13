@@ -26,6 +26,9 @@ export async function saveExercise(exercise) {
 }
 
 export async function deleteExercise(id) {
+  if (!id || id === 'undefined' || id === 'null') {
+    throw new Error('ID do exercício é obrigatório para exclusão')
+  }
   const res = await fetch(`${API_BASE}/exercises?id=${encodeURIComponent(id)}`, {
     method: 'DELETE'
   })

@@ -267,13 +267,13 @@
           <div class="kpi-card">
             <span class="kpi-title">Catálogo em Português</span>
             <span class="kpi-val">{{ auditReport?.counts?.pt || 0 }}</span>
-            <span class="kpi-sub">database/exercises/pt/</span>
+            <span class="kpi-sub">database/exercises/*/pt.json</span>
           </div>
 
           <div class="kpi-card">
             <span class="kpi-title">Catálogo em Inglês</span>
             <span class="kpi-val">{{ auditReport?.counts?.en || 0 }}</span>
-            <span class="kpi-sub">database/exercises/en/</span>
+            <span class="kpi-sub">database/exercises/*/en.json</span>
           </div>
 
           <div class="kpi-card">

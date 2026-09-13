@@ -13,8 +13,8 @@
       <div class="filters">
         <select v-model="selectedMuscle">
           <option value="">Todos os Músculos</option>
-          <option v-for="(label, key) in metadata.muscles?.pt || {}" :key="key" :value="label">
-            {{ label }}
+          <option v-for="item in availableMuscles" :key="item" :value="item">
+            {{ item }}
           </option>
         </select>
 
@@ -34,8 +34,8 @@
 
         <select v-model="selectedEquipment">
           <option value="">Todos os Equipamentos</option>
-          <option v-for="(label, key) in metadata.equipments?.pt || {}" :key="key" :value="label">
-            {{ label }}
+          <option v-for="item in availableEquipments" :key="item" :value="item">
+            {{ item }}
           </option>
         </select>
 
@@ -46,7 +46,7 @@
     </div>
 
     <div class="list-meta">
-      <span>Exibindo <strong>{{ filteredExercises.length }}</strong> de <strong>{{ exercises.length }}</strong> exercícios em <code>exercises_pt/</code></span>
+      <span>Exibindo <strong>{{ filteredExercises.length }}</strong> de <strong>{{ exercises.length }}</strong> exercícios em <code>database/exercises/</code></span>
     </div>
 
     <div v-if="paginatedExercises.length === 0" class="empty-state">
@@ -127,6 +127,16 @@ const selectedMuscle = ref('')
 const selectedCategory = ref('')
 const selectedLevel = ref('')
 const selectedEquipment = ref('')
+const availableMuscles = computed(() => {
+  const list = Object.values(props.metadata?.muscles?.pt || {})
+  return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b))
+})
+
+const availableEquipments = computed(() => {
+  const list = Object.values(props.metadata?.equipments?.pt || {})
+  return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b))
+})
+
 const currentPage = ref(1)
 const pageSize = 24
 
@@ -172,9 +182,7 @@ const paginatedExercises = computed(() => {
 })
 
 function confirmDelete(ex) {
-  if (confirm(`Tem certeza que deseja excluir o exercício "${ex.name}" (${ex.id})?`)) {
-    emit('delete', ex.id)
-  }
+  emit('delete', ex)
 }
 </script>
 

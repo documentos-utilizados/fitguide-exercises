@@ -76,8 +76,8 @@
             <label>Equipamento</label>
             <select v-model="form.equipment">
               <option :value="null">Nenhum / Peso Corporal</option>
-              <option v-for="(label, key) in metadata.equipments?.pt || {}" :key="key" :value="label">
-                {{ label }}
+              <option v-for="item in availableEquipments" :key="item" :value="item">
+                {{ item }}
               </option>
             </select>
           </div>
@@ -96,8 +96,8 @@
             <label>Músculo Primário *</label>
             <select v-model="primaryMuscleModel" required>
               <option value="">Selecione o músculo</option>
-              <option v-for="(label, key) in metadata.muscles?.pt || {}" :key="key" :value="label">
-                {{ label }}
+              <option v-for="item in availableMuscles" :key="item" :value="item">
+                {{ item }}
               </option>
             </select>
           </div>
@@ -264,6 +264,16 @@ const form = reactive({
   images: props.exercise?.images?.length ? [...props.exercise.images] : []
 })
 
+const availableMuscles = computed(() => {
+  const list = Object.values(props.metadata?.muscles?.pt || {})
+  return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b))
+})
+
+const availableEquipments = computed(() => {
+  const list = Object.values(props.metadata?.equipments?.pt || {})
+  return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b))
+})
+
 const primaryMuscleModel = computed({
   get: () => form.primaryMuscles[0] || '',
   set: (val) => {
@@ -294,7 +304,9 @@ function removeInstruction(index) {
 }
 
 function addImageManual() {
-  const defaultPath = form.id ? `${form.id}/${form.images.length}.jpg` : ''
+  const folderName = form.id ? form.id.trim().replace(/\s+/g, '_') : 'novo_exercicio'
+  const nextIndex = form.images.length
+  const defaultPath = `${folderName}/${nextIndex}.jpg`
   form.images.push(defaultPath)
 }
 
@@ -314,9 +326,9 @@ function handleFileSelected(event) {
   if (!file) return
 
   uploadError.value = ''
-  const ext = file.name.split('.').pop() || 'jpg'
   const folderName = form.id ? form.id.trim().replace(/\s+/g, '_') : 'novo_exercicio'
-  const suggestedPath = `${folderName}/${form.images.length}.${ext}`
+  const nextIndex = form.images.length
+  const suggestedPath = `${folderName}/${nextIndex}.jpg`
 
   pendingUpload.value = {
     file,
@@ -327,16 +339,24 @@ function handleFileSelected(event) {
 
 async function confirmUpload() {
   if (!pendingUpload.value) return
-  if (!pendingUpload.value.targetPath.trim()) {
+  let targetPath = pendingUpload.value.targetPath.trim()
+  if (!targetPath) {
     uploadError.value = 'Informe o caminho/nome de destino.'
     return
+  }
+
+  if (!targetPath.toLowerCase().endsWith('.jpg')) {
+    targetPath = targetPath.replace(/\.[a-zA-Z0-9]+$/, '') + '.jpg'
+    if (!targetPath.endsWith('.jpg')) {
+      targetPath += '.jpg'
+    }
   }
 
   isUploading.value = true
   uploadError.value = ''
 
   try {
-    const res = await uploadImage(pendingUpload.value.file, pendingUpload.value.targetPath.trim())
+    const res = await uploadImage(pendingUpload.value.file, targetPath)
     form.images.push(res.path)
     cancelUpload()
   } catch (err) {

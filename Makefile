@@ -1,7 +1,7 @@
 .PHONY: all lint lint_pt check_dupes install metadata workouts admin-build admin-run docker-build docker-up docker-down
 
-sources :=$(wildcard ./database/exercises/en/*.json)
-sources_pt :=$(wildcard ./database/exercises/pt/*.json)
+sources :=$(wildcard ./database/exercises/*/en.json)
+sources_pt :=$(wildcard ./database/exercises/*/pt.json)
 sources_workouts :=$(wildcard ./database/workouts/*/*.json)
 
 all: database/dist/exercises_en.json database/dist/exercises_pt.json metadata workouts
@@ -20,9 +20,9 @@ lint_pt:
 
 check_dupes:
 	@echo "Checking duplicate IDs in English exercises..."
-	@python3 -c 'import glob, json, collections; ids = [json.load(open(f))["id"] for f in glob.glob("./database/exercises/en/*.json")]; dupes = [id for id, count in collections.Counter(ids).items() if count > 1]; print("Duplicates found:", dupes if dupes else "None")'
+	@python3 -c 'import glob, json, collections; ids = [json.load(open(f))["id"] for f in glob.glob("./database/exercises/*/en.json")]; dupes = [id for id, count in collections.Counter(ids).items() if count > 1]; print("Duplicates found:", dupes if dupes else "None")'
 	@echo "Checking duplicate IDs in Portuguese exercises..."
-	@python3 -c 'import glob, json, collections; ids = [json.load(open(f))["id"] for f in glob.glob("./database/exercises/pt/*.json")]; dupes = [id for id, count in collections.Counter(ids).items() if count > 1]; print("Duplicates found:", dupes if dupes else "None")'
+	@python3 -c 'import glob, json, collections; ids = [json.load(open(f))["id"] for f in glob.glob("./database/exercises/*/pt.json")]; dupes = [id for id, count in collections.Counter(ids).items() if count > 1]; print("Duplicates found:", dupes if dupes else "None")'
 
 install:
 	pip install check-jsonschema
