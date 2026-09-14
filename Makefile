@@ -35,10 +35,11 @@ database/dist/exercises_pt.json: $(sources_pt)
 
 admin-build:
 	cd admin/web && npm install && npm run build
-	cd admin/server && go build -o fitguide-admin .
+	cd admin/server && CGO_ENABLED=0 GOOS=linux go build -o fitguide-admin .
+	cd admin/server && go build -o fitguide-admin-local .
 
 admin-run: admin-build
-	cd admin/server && ./fitguide-admin
+	cd admin/server && ./fitguide-admin-local
 
 docker-build:
 	docker compose build

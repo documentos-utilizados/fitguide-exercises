@@ -407,238 +407,417 @@
       </section>
 
       <section v-show="activeSubTab === 'categories'" class="sub-tab-content">
-        <div class="audit-kpi-grid">
-          <div class="kpi-card">
-            <span class="kpi-title">Categorias em PT-BR</span>
-            <span class="kpi-val">{{ categoryCountPt }}</span>
-            <span class="kpi-sub">database/metadata/categories/pt.json</span>
+        <div class="category-type-nav">
+          <button 
+            :class="['cat-type-btn', { active: selectedCategoryType === 'type' }]"
+            @click="selectedCategoryType = 'type'"
+          >
+            🏋️ Tipos de Exercício ({{ categoryComparisonList.length }})
+          </button>
+          <button 
+            :class="['cat-type-btn', { active: selectedCategoryType === 'primary_muscle' }]"
+            @click="selectedCategoryType = 'primary_muscle'"
+          >
+            💪 Músculos Primários ({{ primaryMuscleComparisonList.length }})
+          </button>
+        </div>
+
+        <!-- Músculos Primários -->
+        <div v-if="selectedCategoryType === 'primary_muscle'">
+          <div class="audit-kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-title">Músculos em PT-BR</span>
+              <span class="kpi-val">{{ primaryMuscleCountPt }}</span>
+              <span class="kpi-sub">database/metadata/categories/primary_muscle/pt.json</span>
+            </div>
+
+            <div class="kpi-card">
+              <span class="kpi-title">Músculos em EN</span>
+              <span class="kpi-val">{{ primaryMuscleCountEn }}</span>
+              <span class="kpi-sub">database/metadata/categories/primary_muscle/en.json</span>
+            </div>
+
+            <div class="kpi-card">
+              <span class="kpi-title">Paridade de Músculos</span>
+              <span :class="['kpi-val', isPrimaryMuscleParityPerfect ? 'text-success' : 'text-warning']">
+                {{ isPrimaryMuscleParityPerfect ? '100% Sincronizado' : `${primaryMuscleMismatchCount} Sem Tradução` }}
+              </span>
+              <span class="kpi-sub">Tradução direta PT ↔ EN</span>
+            </div>
+
+            <div class="kpi-card">
+              <span class="kpi-title">Exercícios com Músculo Primário</span>
+              <span class="kpi-val text-primary">{{ totalExercisesWithPrimaryMuscles }}</span>
+              <span class="kpi-sub">Exercícios catalogados</span>
+            </div>
           </div>
 
-          <div class="kpi-card">
-            <span class="kpi-title">Categorias em EN</span>
-            <span class="kpi-val">{{ categoryCountEn }}</span>
-            <span class="kpi-sub">database/metadata/categories/en.json</span>
+          <div v-if="primaryMuscleActionMsg" :class="['status-alert-box', primaryMuscleActionMsg.startsWith('❌') ? 'alert-error' : 'alert-success']">
+            {{ primaryMuscleActionMsg }}
           </div>
 
-          <div class="kpi-card">
-            <span class="kpi-title">Paridade de Categorias</span>
-            <span :class="['kpi-val', isCategoryParityPerfect ? 'text-success' : 'text-warning']">
-              {{ isCategoryParityPerfect ? '100% Sincronizado' : `${categoryMismatchCount} Divergência(s)` }}
-            </span>
-            <span class="kpi-sub">Chaves em snake_case</span>
-          </div>
+          <div class="category-compare-card">
+            <div class="category-toolbar">
+              <div class="form-group flex-1">
+                <label>Buscar Músculo:</label>
+                <input 
+                  type="text" 
+                  v-model="primaryMuscleSearch" 
+                  placeholder="Ex: Peitoral, Bíceps, Quadríceps..." 
+                />
+              </div>
 
-          <div class="kpi-card">
-            <span class="kpi-title">Total de Exercícios Mapeados</span>
-            <span class="kpi-val text-primary">{{ totalCategorizedExercises }}</span>
-            <span class="kpi-sub">Distribuição nos catálogos</span>
+              <div class="form-group">
+                <label>Filtro de Status:</label>
+                <select v-model="primaryMuscleFilterStatus">
+                  <option value="all">Todos os Músculos ({{ primaryMuscleComparisonList.length }})</option>
+                  <option value="synced">Traduzidos para EN ({{ syncedPrimaryMusclesCount }})</option>
+                  <option value="missing">Sem Tradução EN ({{ primaryMuscleMismatchCount }})</option>
+                </select>
+              </div>
+
+              <div class="category-actions-group">
+                <button 
+                  class="btn btn-secondary" 
+                  :disabled="isExtractingMuscles"
+                  @click="handleExtractPrimaryMuscles"
+                  title="Varre os treinos/exercícios e extrai músculos primários únicos"
+                >
+                  <span v-if="isExtractingMuscles" class="spinner-inline"></span>
+                  <span v-else>🔄 Extrair do Catálogo</span>
+                </button>
+
+                <button 
+                  class="btn btn-primary" 
+                  :disabled="isTranslatingMuscles || primaryMuscleCountPt === 0"
+                  @click="handleTranslatePrimaryMuscles"
+                  title="Traduz os músculos primários para EN"
+                >
+                  <span v-if="isTranslatingMuscles" class="spinner-inline"></span>
+                  <span v-else>✨ Traduzir para EN</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="category-table-wrap">
+              <table class="category-table">
+                <thead>
+                  <tr>
+                    <th>Músculo em PT-BR (🇧🇷)</th>
+                    <th>Tradução EN (🇺🇸)</th>
+                    <th>Identificador Android (snake_case)</th>
+                    <th>Exercícios Vinculados</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in filteredPrimaryMuscleList" :key="item.namePt">
+                    <td>
+                      <span class="label-badge label-pt font-bold">{{ item.namePt }}</span>
+                    </td>
+                    <td>
+                      <span v-if="item.nameEn" class="label-badge label-en">{{ item.nameEn }}</span>
+                      <span v-else class="badge badge-warning">Pendente de tradução</span>
+                    </td>
+                    <td>
+                      <div class="key-chip android-chip">
+                        <code>@string/muscle_{{ item.slug }}</code>
+                        <button class="btn-copy-chip" title="Copiar recurso Android" @click="copyText(`@string/muscle_${item.slug}`, 'Recurso copiado!')">📋</button>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="count-badge">
+                        🇧🇷 {{ item.countPt }} ex &bull; 🇺🇸 {{ item.countEn }} ex
+                      </span>
+                    </td>
+                    <td>
+                      <span v-if="item.status === 'synced'" class="badge badge-success">✅ Sincronizado</span>
+                      <span v-else class="badge badge-warning">⚠️ Falta em EN</span>
+                    </td>
+                    <td>
+                      <button 
+                        class="btn btn-secondary btn-xs" 
+                        @click="toggleInspectMuscle(item.namePt)"
+                      >
+                        {{ inspectedMuscleName === item.namePt ? 'Fechar ✕' : 'Ver Exercícios 🔍' }}
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div v-if="inspectedMuscle" class="category-drilldown-panel">
+              <div class="drilldown-header">
+                <div class="drilldown-title">
+                  <h5>Exercícios com músculo primário: <code>{{ inspectedMuscle.namePt }}</code></h5>
+                  <span class="badge badge-primary">{{ inspectedMuscleExercises.length }} encontrados</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" @click="inspectedMuscleName = null">Fechar Painel</button>
+              </div>
+
+              <div v-if="inspectedMuscleExercises.length === 0" class="empty-drilldown">
+                Nenhum exercício encontrado com este músculo primário.
+              </div>
+
+              <div v-else class="drilldown-grid">
+                <div 
+                  v-for="item in inspectedMuscleExercises" 
+                  :key="item.id" 
+                  class="drilldown-item-card"
+                >
+                  <div class="drilldown-item-header">
+                    <code>{{ item.id }}</code>
+                    <button class="btn btn-outline btn-xs" @click="inspectExercise(item.id)">
+                      Ver Comparativo 🔍
+                    </button>
+                  </div>
+                  <div class="drilldown-item-names">
+                    <div class="item-name-pt">🇧🇷 {{ item.namePt || '—' }}</div>
+                    <div class="item-name-en">🇺🇸 {{ item.nameEn || '—' }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="category-compare-card">
-          <div class="category-toolbar">
-            <div class="form-group flex-1">
-              <label>Buscar Categoria / Chave:</label>
-              <input 
-                type="text" 
-                v-model="categorySearch" 
-                placeholder="Ex: olympic_weightlifting, cardio, Força..." 
-              />
+        <!-- Tipos de Exercício (Modal / Chave-Valor) -->
+        <div v-else>
+          <div class="audit-kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-title">Categorias em PT-BR</span>
+              <span class="kpi-val">{{ categoryCountPt }}</span>
+              <span class="kpi-sub">database/metadata/categories/type/pt.json</span>
             </div>
 
-            <div class="form-group">
-              <label>Filtro de Status:</label>
-              <select v-model="categoryFilterStatus">
-                <option value="all">Todas as Categorias ({{ categoryComparisonList.length }})</option>
-                <option value="synced">Apenas Sincronizadas ({{ syncedCategoriesCount }})</option>
-                <option value="mismatch">Com Divergência ({{ categoryMismatchCount }})</option>
-              </select>
+            <div class="kpi-card">
+              <span class="kpi-title">Categorias em EN</span>
+              <span class="kpi-val">{{ categoryCountEn }}</span>
+              <span class="kpi-sub">database/metadata/categories/type/en.json</span>
             </div>
 
-            <button class="btn btn-primary btn-add-cat" @click="openCreateCategory">
-              ✨ Nova Categoria
-            </button>
+            <div class="kpi-card">
+              <span class="kpi-title">Paridade de Categorias</span>
+              <span :class="['kpi-val', isCategoryParityPerfect ? 'text-success' : 'text-warning']">
+                {{ isCategoryParityPerfect ? '100% Sincronizado' : `${categoryMismatchCount} Divergência(s)` }}
+              </span>
+              <span class="kpi-sub">Chaves em snake_case</span>
+            </div>
+
+            <div class="kpi-card">
+              <span class="kpi-title">Total de Exercícios Mapeados</span>
+              <span class="kpi-val text-primary">{{ totalCategorizedExercises }}</span>
+              <span class="kpi-sub">Distribuição nos catálogos</span>
+            </div>
           </div>
 
-          <div class="category-table-wrap">
-            <table class="category-table">
-              <thead>
-                <tr>
-                  <th>Chave Canônica (snake_case)</th>
-                  <th>Rótulo PT-BR (🇧🇷)</th>
-                  <th>Rótulo EN (🇺🇸)</th>
-                  <th>Recurso Android / strings.xml</th>
-                  <th>Exercícios (PT / EN)</th>
-                  <th>Status</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="cat in filteredCategoryList" :key="cat.key">
-                  <td>
-                    <div class="key-chip">
-                      <code>{{ cat.key }}</code>
-                      <button class="btn-copy-chip" title="Copiar chave" @click="copyText(cat.key, 'Chave copiada!')">📋</button>
-                    </div>
-                  </td>
-                  <td>
-                    <span v-if="cat.labelPt" class="label-badge label-pt">{{ cat.labelPt }}</span>
-                    <span v-else class="badge badge-warning">Não definido em PT</span>
-                  </td>
-                  <td>
-                    <span v-if="cat.labelEn" class="label-badge label-en">{{ cat.labelEn }}</span>
-                    <span v-else class="badge badge-warning">Não definido em EN</span>
-                  </td>
-                  <td>
-                    <div class="key-chip android-chip">
-                      <code>@string/cat_{{ cat.key }}</code>
-                      <button class="btn-copy-chip" title="Copiar recurso Android" @click="copyText(`@string/cat_${cat.key}`, 'Recurso copiado!')">📋</button>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="count-badge">
-                      🇧🇷 {{ cat.countPt }} ex &bull; 🇺🇸 {{ cat.countEn }} ex
-                    </span>
-                  </td>
-                  <td>
-                    <span v-if="cat.status === 'synced'" class="badge badge-success">✅ Sincronizado</span>
-                    <span v-else-if="cat.status === 'missing_en'" class="badge badge-warning">⚠️ Falta em EN</span>
-                    <span v-else class="badge badge-danger">⚠️ Falta em PT</span>
-                  </td>
-                  <td>
-                    <div class="table-actions-group">
-                      <button 
-                        class="btn btn-outline btn-xs" 
-                        title="Editar Categoria"
-                        @click="openEditCategory(cat)"
-                      >
-                        ✏️ Editar
-                      </button>
-                      <button 
-                        class="btn btn-secondary btn-xs" 
-                        @click="toggleInspectCategory(cat.key)"
-                      >
-                        {{ inspectedCategoryKey === cat.key ? 'Fechar ✕' : 'Ver 🔍' }}
-                      </button>
-                      <button 
-                        class="btn btn-danger btn-xs" 
-                        title="Excluir Categoria"
-                        @click="handleDeleteCategory(cat)"
-                      >
-                        🗑️
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div v-if="showCategoryModal" class="modal-backdrop" @click.self="showCategoryModal = false">
-            <div class="category-modal-card">
-              <div class="modal-header">
-                <h3>{{ categoryModalMode === 'create' ? '✨ Nova Categoria' : '✏️ Editar Categoria' }}</h3>
-                <button class="btn-close" @click="showCategoryModal = false">&times;</button>
+          <div class="category-compare-card">
+            <div class="category-toolbar">
+              <div class="form-group flex-1">
+                <label>Buscar Categoria / Chave:</label>
+                <input 
+                  type="text" 
+                  v-model="categorySearch" 
+                  placeholder="Ex: olympic_weightlifting, cardio, Força..." 
+                />
               </div>
 
-              <div class="modal-body">
-                <div v-if="categoryModalError" class="modal-error-box">
-                  {{ categoryModalError }}
+              <div class="form-group">
+                <label>Filtro de Status:</label>
+                <select v-model="categoryFilterStatus">
+                  <option value="all">Todas as Categorias ({{ categoryComparisonList.length }})</option>
+                  <option value="synced">Apenas Sincronizadas ({{ syncedCategoriesCount }})</option>
+                  <option value="mismatch">Com Divergência ({{ categoryMismatchCount }})</option>
+                </select>
+              </div>
+
+              <button class="btn btn-primary btn-add-cat" @click="openCreateCategory">
+                ✨ Nova Categoria
+              </button>
+            </div>
+
+            <div class="category-table-wrap">
+              <table class="category-table">
+                <thead>
+                  <tr>
+                    <th>Chave Canônica (snake_case)</th>
+                    <th>Rótulo PT-BR (🇧🇷)</th>
+                    <th>Rótulo EN (🇺🇸)</th>
+                    <th>Recurso Android / strings.xml</th>
+                    <th>Exercícios (PT / EN)</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="cat in filteredCategoryList" :key="cat.key">
+                    <td>
+                      <div class="key-chip">
+                        <code>{{ cat.key }}</code>
+                        <button class="btn-copy-chip" title="Copiar chave" @click="copyText(cat.key, 'Chave copiada!')">📋</button>
+                      </div>
+                    </td>
+                    <td>
+                      <span v-if="cat.labelPt" class="label-badge label-pt">{{ cat.labelPt }}</span>
+                      <span v-else class="badge badge-warning">Não definido em PT</span>
+                    </td>
+                    <td>
+                      <span v-if="cat.labelEn" class="label-badge label-en">{{ cat.labelEn }}</span>
+                      <span v-else class="badge badge-warning">Não definido em EN</span>
+                    </td>
+                    <td>
+                      <div class="key-chip android-chip">
+                        <code>@string/cat_{{ cat.key }}</code>
+                        <button class="btn-copy-chip" title="Copiar recurso Android" @click="copyText(`@string/cat_${cat.key}`, 'Recurso copiado!')">📋</button>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="count-badge">
+                        🇧🇷 {{ cat.countPt }} ex &bull; 🇺🇸 {{ cat.countEn }} ex
+                      </span>
+                    </td>
+                    <td>
+                      <span v-if="cat.status === 'synced'" class="badge badge-success">✅ Sincronizado</span>
+                      <span v-else-if="cat.status === 'missing_en'" class="badge badge-warning">⚠️ Falta em EN</span>
+                      <span v-else class="badge badge-danger">⚠️ Falta em PT</span>
+                    </td>
+                    <td>
+                      <div class="table-actions-group">
+                        <button 
+                          class="btn btn-outline btn-xs" 
+                          title="Editar Categoria"
+                          @click="openEditCategory(cat)"
+                        >
+                          ✏️ Editar
+                        </button>
+                        <button 
+                          class="btn btn-secondary btn-xs" 
+                          @click="toggleInspectCategory(cat.key)"
+                        >
+                          {{ inspectedCategoryKey === cat.key ? 'Fechar ✕' : 'Ver 🔍' }}
+                        </button>
+                        <button 
+                          class="btn btn-danger btn-xs" 
+                          title="Excluir Categoria"
+                          @click="handleDeleteCategory(cat)"
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div v-if="showCategoryModal" class="modal-backdrop" @click.self="showCategoryModal = false">
+              <div class="category-modal-card">
+                <div class="modal-header">
+                  <h3>{{ categoryModalMode === 'create' ? '✨ Nova Categoria' : '✏️ Editar Categoria' }}</h3>
+                  <button class="btn-close" @click="showCategoryModal = false">&times;</button>
                 </div>
 
-                <div class="form-group">
-                  <label>Nome em Português (PT-BR) *</label>
-                  <input 
-                    type="text" 
-                    v-model="categoryForm.labelPt" 
-                    @input="onCategoryLabelPtInput"
-                    placeholder="Ex: Mobilidade Articular"
-                    required
-                  />
-                </div>
+                <div class="modal-body">
+                  <div v-if="categoryModalError" class="modal-error-box">
+                    {{ categoryModalError }}
+                  </div>
 
-                <div class="form-group">
-                  <label>Chave Canônica / Slug (snake_case) *</label>
-                  <div class="input-with-action">
+                  <div class="form-group">
+                    <label>Nome em Português (PT-BR) *</label>
                     <input 
                       type="text" 
-                      v-model="categoryForm.key" 
-                      @input="isAutoSlug = false"
-                      :disabled="categoryModalMode === 'edit'"
-                      placeholder="Ex: mobilidade_articular"
+                      v-model="categoryForm.labelPt" 
+                      @input="onCategoryLabelPtInput"
+                      placeholder="Ex: Mobilidade Articular"
                       required
                     />
-                    <span v-if="categoryModalMode === 'create'" class="input-hint-chip">
-                      {{ isAutoSlug ? 'Auto' : 'Manual' }}
-                    </span>
                   </div>
-                  <small class="field-hint" v-if="categoryModalMode === 'create'">
-                    Identificador no app Android: <code>@string/cat_{{ categoryForm.key || 'chave' }}</code>
-                  </small>
+
+                  <div class="form-group">
+                    <label>Chave Canônica / Slug (snake_case) *</label>
+                    <div class="input-with-action">
+                      <input 
+                        type="text" 
+                        v-model="categoryForm.key" 
+                        @input="isAutoSlug = false"
+                        :disabled="categoryModalMode === 'edit'"
+                        placeholder="Ex: mobilidade_articular"
+                        required
+                      />
+                      <span v-if="categoryModalMode === 'create'" class="input-hint-chip">
+                        {{ isAutoSlug ? 'Auto' : 'Manual' }}
+                      </span>
+                    </div>
+                    <small class="field-hint" v-if="categoryModalMode === 'create'">
+                      Identificador no app Android: <code>@string/cat_{{ categoryForm.key || 'chave' }}</code>
+                    </small>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Nome em Inglês (EN)</label>
+                    <div class="input-with-btn">
+                      <input 
+                        type="text" 
+                        v-model="categoryForm.labelEn" 
+                        placeholder="Ex: Joint Mobility"
+                      />
+                      <button 
+                        type="button" 
+                        class="btn btn-secondary btn-sm" 
+                        :disabled="translatingEn || !categoryForm.labelPt"
+                        @click="autoTranslateCategoryEn"
+                        title="Traduzir automaticamente do Português"
+                      >
+                        <span v-if="translatingEn" class="spinner-inline"></span>
+                        <span v-else>✨ Traduzir</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="form-group">
-                  <label>Nome em Inglês (EN)</label>
-                  <div class="input-with-btn">
-                    <input 
-                      type="text" 
-                      v-model="categoryForm.labelEn" 
-                      placeholder="Ex: Joint Mobility"
-                    />
-                    <button 
-                      type="button" 
-                      class="btn btn-secondary btn-sm" 
-                      :disabled="translatingEn || !categoryForm.labelPt"
-                      @click="autoTranslateCategoryEn"
-                      title="Traduzir automaticamente do Português"
-                    >
-                      <span v-if="translatingEn" class="spinner-inline"></span>
-                      <span v-else>✨ Traduzir</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="modal-footer">
-                <button class="btn btn-secondary" @click="showCategoryModal = false" :disabled="categorySaving">
-                  Cancelar
-                </button>
-                <button class="btn btn-primary" @click="handleSaveCategory" :disabled="categorySaving">
-                  <span v-if="categorySaving" class="spinner-inline"></span>
-                  <span v-else>{{ categoryModalMode === 'create' ? 'Salvar Categoria' : 'Atualizar Categoria' }}</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div v-if="inspectedCategory" class="category-drilldown-panel">
-            <div class="drilldown-header">
-              <div class="drilldown-title">
-                <h5>Exercícios na categoria: <code>{{ inspectedCategory.key }}</code></h5>
-                <span class="badge badge-primary">{{ inspectedCategoryExercises.length }} encontrados</span>
-              </div>
-              <button class="btn btn-secondary btn-sm" @click="inspectedCategoryKey = null">Fechar Painel</button>
-            </div>
-
-            <div v-if="inspectedCategoryExercises.length === 0" class="empty-drilldown">
-              Nenhum exercício encontrado com esta categoria.
-            </div>
-
-            <div v-else class="drilldown-grid">
-              <div 
-                v-for="item in inspectedCategoryExercises" 
-                :key="item.id" 
-                class="drilldown-item-card"
-              >
-                <div class="drilldown-item-header">
-                  <code>{{ item.id }}</code>
-                  <button class="btn btn-outline btn-xs" @click="inspectExercise(item.id)">
-                    Ver Comparativo 🔍
+                <div class="modal-footer">
+                  <button class="btn btn-secondary" @click="showCategoryModal = false" :disabled="categorySaving">
+                    Cancelar
+                  </button>
+                  <button class="btn btn-primary" @click="handleSaveCategory" :disabled="categorySaving">
+                    <span v-if="categorySaving" class="spinner-inline"></span>
+                    <span v-else>{{ categoryModalMode === 'create' ? 'Salvar Categoria' : 'Atualizar Categoria' }}</span>
                   </button>
                 </div>
-                <div class="drilldown-item-names">
-                  <div class="item-name-pt">🇧🇷 {{ item.namePt || '—' }}</div>
-                  <div class="item-name-en">🇺🇸 {{ item.nameEn || '—' }}</div>
+              </div>
+            </div>
+
+            <div v-if="inspectedCategory" class="category-drilldown-panel">
+              <div class="drilldown-header">
+                <div class="drilldown-title">
+                  <h5>Exercícios na categoria: <code>{{ inspectedCategory.key }}</code></h5>
+                  <span class="badge badge-primary">{{ inspectedCategoryExercises.length }} encontrados</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" @click="inspectedCategoryKey = null">Fechar Painel</button>
+              </div>
+
+              <div v-if="inspectedCategoryExercises.length === 0" class="empty-drilldown">
+                Nenhum exercício encontrado com esta categoria.
+              </div>
+
+              <div v-else class="drilldown-grid">
+                <div 
+                  v-for="item in inspectedCategoryExercises" 
+                  :key="item.id" 
+                  class="drilldown-item-card"
+                >
+                  <div class="drilldown-item-header">
+                    <code>{{ item.id }}</code>
+                    <button class="btn btn-outline btn-xs" @click="inspectExercise(item.id)">
+                      Ver Comparativo 🔍
+                    </button>
+                  </div>
+                  <div class="drilldown-item-names">
+                    <div class="item-name-pt">🇧🇷 {{ item.namePt || '—' }}</div>
+                    <div class="item-name-en">🇺🇸 {{ item.nameEn || '—' }}</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -658,7 +837,9 @@ import {
   fetchExercises,
   saveCategory,
   deleteCategory,
-  translateText
+  translateText,
+  extractPrimaryMuscleCategories,
+  translateCategories
 } from '../api'
 
 const props = defineProps({
@@ -675,6 +856,7 @@ const props = defineProps({
 const emit = defineEmits(['metadata-updated'])
 
 const activeSubTab = ref('compare')
+const selectedCategoryType = ref('type')
 const loading = ref(false)
 const loadingCompare = ref(false)
 
@@ -695,6 +877,13 @@ const exercisesEnList = ref([])
 const categorySearch = ref('')
 const categoryFilterStatus = ref('all')
 const inspectedCategoryKey = ref(null)
+
+const primaryMuscleSearch = ref('')
+const primaryMuscleFilterStatus = ref('all')
+const inspectedMuscleName = ref(null)
+const isExtractingMuscles = ref(false)
+const isTranslatingMuscles = ref(false)
+const primaryMuscleActionMsg = ref('')
 
 const isParityPerfect = computed(() => {
   const missingEn = auditReport.value?.missing_in_en?.length || 0
@@ -753,8 +942,8 @@ const payloadFormattedJson = computed(() => {
 })
 
 const categoryComparisonList = computed(() => {
-  const ptCats = props.metadata.categories?.pt || {}
-  const enCats = props.metadata.categories?.en || {}
+  const ptCats = props.metadata.categories?.type?.pt || props.metadata.categories?.pt || {}
+  const enCats = props.metadata.categories?.type?.en || props.metadata.categories?.en || {}
 
   const allKeys = new Set([
     ...Object.keys(ptCats),
@@ -807,8 +996,8 @@ const categoryComparisonList = computed(() => {
   return list
 })
 
-const categoryCountPt = computed(() => Object.keys(props.metadata.categories?.pt || {}).length)
-const categoryCountEn = computed(() => Object.keys(props.metadata.categories?.en || {}).length)
+const categoryCountPt = computed(() => Object.keys(props.metadata.categories?.type?.pt || props.metadata.categories?.pt || {}).length)
+const categoryCountEn = computed(() => Object.keys(props.metadata.categories?.type?.en || props.metadata.categories?.en || {}).length)
 
 const categoryMismatchCount = computed(() => {
   return categoryComparisonList.value.filter(c => c.status !== 'synced').length
@@ -880,11 +1069,153 @@ const inspectedCategoryExercises = computed(() => {
   return result
 })
 
+const primaryMusclePtList = computed(() => {
+  const pm = props.metadata.categories?.primary_muscle?.pt
+  if (Array.isArray(pm)) return pm
+  return []
+})
+
+const primaryMuscleEnList = computed(() => {
+  const pm = props.metadata.categories?.primary_muscle?.en
+  if (Array.isArray(pm)) return pm
+  return []
+})
+
+const primaryMuscleCountPt = computed(() => primaryMusclePtList.value.length)
+const primaryMuscleCountEn = computed(() => primaryMuscleEnList.value.length)
+
+const primaryMuscleComparisonList = computed(() => {
+  const ptList = primaryMusclePtList.value
+  const enList = primaryMuscleEnList.value
+
+  const ptToEnMap = new Map()
+  ptList.forEach((ptVal, idx) => {
+    if (enList[idx]) {
+      ptToEnMap.set(ptVal.toLowerCase(), enList[idx])
+    }
+  })
+
+  const uniquePt = Array.from(new Set(ptList.map(s => (s || '').trim().toUpperCase()))).filter(Boolean)
+
+  const list = []
+  for (const namePt of uniquePt.sort()) {
+    const nameEn = ptToEnMap.get(namePt.toLowerCase()) || ''
+    
+    const countPt = exercisesPtList.value.filter(ex => 
+      Array.isArray(ex.primaryMuscles) && ex.primaryMuscles.some(m => (m || '').trim().toLowerCase() === namePt.toLowerCase())
+    ).length
+
+    const countEn = exercisesEnList.value.filter(ex => 
+      Array.isArray(ex.primaryMuscles) && (
+        (nameEn && ex.primaryMuscles.some(m => (m || '').trim().toLowerCase() === nameEn.toLowerCase())) ||
+        ex.primaryMuscles.some(m => (m || '').trim().toLowerCase() === namePt.toLowerCase())
+      )
+    ).length
+
+    const slug = slugifyCategory(namePt)
+    let status = 'synced'
+    if (!nameEn) {
+      status = 'missing_en'
+    }
+
+    list.push({
+      namePt,
+      nameEn,
+      slug,
+      countPt,
+      countEn,
+      status
+    })
+  }
+
+  return list
+})
+
+const primaryMuscleMismatchCount = computed(() => {
+  return primaryMuscleComparisonList.value.filter(m => m.status !== 'synced').length
+})
+
+const isPrimaryMuscleParityPerfect = computed(() => primaryMuscleMismatchCount.value === 0 && primaryMuscleCountPt.value > 0)
+const syncedPrimaryMusclesCount = computed(() => primaryMuscleComparisonList.value.filter(m => m.status === 'synced').length)
+
+const totalExercisesWithPrimaryMuscles = computed(() => {
+  return exercisesPtList.value.filter(ex => Array.isArray(ex.primaryMuscles) && ex.primaryMuscles.length > 0).length
+})
+
+const filteredPrimaryMuscleList = computed(() => {
+  let list = primaryMuscleComparisonList.value
+
+  if (primaryMuscleFilterStatus.value === 'synced') {
+    list = list.filter(m => m.status === 'synced')
+  } else if (primaryMuscleFilterStatus.value === 'missing') {
+    list = list.filter(m => m.status !== 'synced')
+  }
+
+  if (primaryMuscleSearch.value.trim()) {
+    const q = primaryMuscleSearch.value.trim().toLowerCase()
+    list = list.filter(m => 
+      m.namePt.toLowerCase().includes(q) ||
+      m.nameEn.toLowerCase().includes(q) ||
+      m.slug.toLowerCase().includes(q)
+    )
+  }
+
+  return list
+})
+
+const inspectedMuscle = computed(() => {
+  if (!inspectedMuscleName.value) return null
+  return primaryMuscleComparisonList.value.find(m => m.namePt === inspectedMuscleName.value) || null
+})
+
+const inspectedMuscleExercises = computed(() => {
+  if (!inspectedMuscleName.value) return []
+  const muscleName = inspectedMuscleName.value.toLowerCase()
+  const muscleEn = (inspectedMuscle.value?.nameEn || '').toLowerCase()
+
+  const ptMap = new Map()
+  for (const ex of exercisesPtList.value) {
+    if (Array.isArray(ex.primaryMuscles) && ex.primaryMuscles.some(m => (m || '').trim().toLowerCase() === muscleName)) {
+      ptMap.set(ex.id, ex.name)
+    }
+  }
+
+  const enMap = new Map()
+  for (const ex of exercisesEnList.value) {
+    if (Array.isArray(ex.primaryMuscles) && (
+      (muscleEn && ex.primaryMuscles.some(m => (m || '').trim().toLowerCase() === muscleEn)) ||
+      ex.primaryMuscles.some(m => (m || '').trim().toLowerCase() === muscleName)
+    )) {
+      enMap.set(ex.id, ex.name)
+    }
+  }
+
+  const allIds = new Set([...ptMap.keys(), ...enMap.keys()])
+  const result = []
+  for (const id of Array.from(allIds).sort()) {
+    result.push({
+      id,
+      namePt: ptMap.get(id) || '',
+      nameEn: enMap.get(id) || ''
+    })
+  }
+
+  return result
+})
+
 function toggleInspectCategory(key) {
   if (inspectedCategoryKey.value === key) {
     inspectedCategoryKey.value = null
   } else {
     inspectedCategoryKey.value = key
+  }
+}
+
+function toggleInspectMuscle(namePt) {
+  if (inspectedMuscleName.value === namePt) {
+    inspectedMuscleName.value = null
+  } else {
+    inspectedMuscleName.value = namePt
   }
 }
 
@@ -948,22 +1279,40 @@ function inspectExercise(id) {
   loadCompare(id)
 }
 
-async function updatePayloadPreview() {
-  if (!payloadExerciseId.value) return
+async function handleExtractPrimaryMuscles() {
+  isExtractingMuscles.value = true
+  primaryMuscleActionMsg.value = ''
   try {
-    payloadExerciseData.value = await fetchExerciseById(payloadExerciseId.value, payloadLang.value)
+    const res = await extractPrimaryMuscleCategories()
+    primaryMuscleActionMsg.value = `✅ Extração concluída com sucesso! ${res.count || 0} músculos primários extraídos.`
+    emit('metadata-updated')
+    await loadData()
   } catch (err) {
-    console.error('Erro ao carregar payload:', err)
+    primaryMuscleActionMsg.value = `❌ Erro na extração: ${err.message}`
+  } finally {
+    isExtractingMuscles.value = false
+    setTimeout(() => {
+      primaryMuscleActionMsg.value = ''
+    }, 5000)
   }
 }
 
-function copyPayloadJson() {
-  if (!payloadFormattedJson.value) return
-  navigator.clipboard.writeText(payloadFormattedJson.value)
-  copyFeedback.value = '✅ Copiado com sucesso!'
-  setTimeout(() => {
-    copyFeedback.value = ''
-  }, 2500)
+async function handleTranslatePrimaryMuscles() {
+  isTranslatingMuscles.value = true
+  primaryMuscleActionMsg.value = ''
+  try {
+    const res = await translateCategories('primary_muscle', 'pt', 'en')
+    primaryMuscleActionMsg.value = `✅ Tradução concluída com sucesso! ${res.count || 0} itens traduzidos para EN.`
+    emit('metadata-updated')
+    await loadData()
+  } catch (err) {
+    primaryMuscleActionMsg.value = `❌ Erro na tradução: ${err.message}`
+  } finally {
+    isTranslatingMuscles.value = false
+    setTimeout(() => {
+      primaryMuscleActionMsg.value = ''
+    }, 5000)
+  }
 }
 
 function onImgErr(event) {
@@ -1977,6 +2326,69 @@ onMounted(() => {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+.category-type-nav {
+  display: flex;
+  background: var(--bg-card);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  gap: 6px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.cat-type-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 8px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cat-type-btn:hover {
+  color: var(--text-main);
+}
+
+.cat-type-btn.active {
+  background: var(--primary);
+  color: #064e3b;
+}
+
+.category-actions-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.status-alert-box {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.alert-success {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: var(--primary);
+}
+
+.alert-error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: var(--danger);
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 @media (max-width: 900px) {

@@ -300,7 +300,7 @@ func handleMetadata(baseDir string) http.HandlerFunc {
 		}
 
 		metadataDir := filepath.Join(baseDir, "database", "metadata")
-		topics := []string{"categories", "levels", "mechanics", "equipments", "forces", "muscles"}
+		topics := []string{"levels", "mechanics", "equipments", "forces", "muscles"}
 		response := make(map[string]interface{})
 
 		for _, topic := range topics {
@@ -322,6 +322,38 @@ func handleMetadata(baseDir string) http.HandlerFunc {
 			}
 			response[topic] = topicData
 		}
+
+		categoriesDir := filepath.Join(metadataDir, "categories")
+		categoriesData := make(map[string]interface{})
+		if entries, err := os.ReadDir(categoriesDir); err == nil {
+			for _, entry := range entries {
+				if entry.IsDir() {
+					subType := entry.Name()
+					subData := make(map[string]interface{})
+					ptF := filepath.Join(categoriesDir, subType, "pt.json")
+					enF := filepath.Join(categoriesDir, subType, "en.json")
+					if data, err := os.ReadFile(ptF); err == nil {
+						var parsed interface{}
+						if err := json.Unmarshal(data, &parsed); err == nil {
+							subData["pt"] = parsed
+						}
+					}
+					if data, err := os.ReadFile(enF); err == nil {
+						var parsed interface{}
+						if err := json.Unmarshal(data, &parsed); err == nil {
+							subData["en"] = parsed
+						}
+					}
+					categoriesData[subType] = subData
+				}
+			}
+		}
+
+		if typeData, ok := categoriesData["type"].(map[string]interface{}); ok {
+			categoriesData["pt"] = typeData["pt"]
+			categoriesData["en"] = typeData["en"]
+		}
+		response["categories"] = categoriesData
 
 		anatomyFile := filepath.Join(metadataDir, "muscles", "anatomy.json")
 		if data, err := os.ReadFile(anatomyFile); err == nil {
@@ -394,8 +426,8 @@ except Exception:
 
 func handleMetadataCategory(baseDir string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		ptPath := filepath.Join(baseDir, "database", "metadata", "categories", "pt.json")
-		enPath := filepath.Join(baseDir, "database", "metadata", "categories", "en.json")
+		ptPath := filepath.Join(baseDir, "database", "metadata", "categories", "type", "pt.json")
+		enPath := filepath.Join(baseDir, "database", "metadata", "categories", "type", "en.json")
 
 		loadMap := func(path string) map[string]string {
 			m := make(map[string]string)
@@ -531,6 +563,94 @@ func handleMetadataCategory(baseDir string) http.HandlerFunc {
 		default:
 			http.Error(w, `{"error": "método não permitido"}`, http.StatusMethodNotAllowed)
 		}
+	}
+}
+
+func handleCategoryExtract(baseDir string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, `{"error": "método não permitido"}`, http.StatusMethodNotAllowed)
+			return
+		}
+
+		cmd := exec.Command("python3", "scripts/extract_primary_muscle_categories.py", "--base-dir", filepath.Join(baseDir, "database"))
+		cmd.Dir = baseDir
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			http.Error(w, fmt.Sprintf(`{"error": "falha ao extrair categorias: %s"}`, string(out)), http.StatusInternalServerError)
+			return
+		}
+
+		ptPath := filepath.Join(baseDir, "database", "metadata", "categories", "primary_muscle", "pt.json")
+		data, err := os.ReadFile(ptPath)
+		if err != nil {
+			http.Error(w, `{"error": "arquivo extraído não encontrado"}`, http.StatusInternalServerError)
+			return
+		}
+
+		var items []string
+		json.Unmarshal(data, &items)
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": true,
+			"items":   items,
+			"output":  string(out),
+		})
+	}
+}
+
+func handleCategoryTranslate(baseDir string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, `{"error": "método não permitido"}`, http.StatusMethodNotAllowed)
+			return
+		}
+
+		var req struct {
+			CategoryType string `json:"category_type"`
+			Source       string `json:"source"`
+			Target       string `json:"target"`
+		}
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			http.Error(w, `{"error": "corpo JSON inválido"}`, http.StatusBadRequest)
+			return
+		}
+
+		if req.CategoryType == "" {
+			req.CategoryType = "primary_muscle"
+		}
+		if req.Source == "" {
+			req.Source = "pt"
+		}
+		if req.Target == "" {
+			req.Target = "en"
+		}
+
+		cmd := exec.Command("python3", "scripts/translate_categories.py",
+			"--base-dir", filepath.Join(baseDir, "database"),
+			"--category-type", req.CategoryType,
+			"--source", req.Source,
+			"--target", req.Target,
+		)
+		cmd.Dir = baseDir
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			http.Error(w, fmt.Sprintf(`{"error": "falha ao traduzir categoria: %s"}`, string(out)), http.StatusInternalServerError)
+			return
+		}
+
+		tgtPath := filepath.Join(baseDir, "database", "metadata", "categories", req.CategoryType, fmt.Sprintf("%s.json", req.Target))
+		data, _ := os.ReadFile(tgtPath)
+		var parsed interface{}
+		json.Unmarshal(data, &parsed)
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": true,
+			"data":    parsed,
+			"output":  string(out),
+		})
 	}
 }
 
@@ -1043,6 +1163,8 @@ func main() {
 	mux.HandleFunc("/api/exercises", enableCORS(handleExercises(baseDir)))
 	mux.HandleFunc("/api/metadata", enableCORS(handleMetadata(baseDir)))
 	mux.HandleFunc("/api/metadata/category", enableCORS(handleMetadataCategory(baseDir)))
+	mux.HandleFunc("/api/metadata/categories/extract", enableCORS(handleCategoryExtract(baseDir)))
+	mux.HandleFunc("/api/metadata/categories/translate", enableCORS(handleCategoryTranslate(baseDir)))
 	mux.HandleFunc("/api/translate", enableCORS(handleTranslate(baseDir)))
 	mux.HandleFunc("/api/workouts", enableCORS(handleWorkouts(baseDir)))
 	mux.HandleFunc("/api/translations/audit", enableCORS(handleTranslationAudit(baseDir)))
