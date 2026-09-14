@@ -70,8 +70,12 @@ def main():
     }
 
     for topic in topics:
-        pt_path = os.path.join(base_dir, topic, "pt.json")
-        en_path = os.path.join(base_dir, topic, "en.json")
+        if topic == "categories":
+            pt_path = os.path.join(base_dir, "categories", "type", "pt.json")
+            en_path = os.path.join(base_dir, "categories", "type", "en.json")
+        else:
+            pt_path = os.path.join(base_dir, topic, "pt.json")
+            en_path = os.path.join(base_dir, topic, "en.json")
         existing_pt = {}
         existing_en = {}
         if os.path.exists(pt_path):
@@ -142,8 +146,16 @@ def main():
                 metadata_en[topic][k] = lbl_en
 
     for topic in topics:
-        out_pt = os.path.join(base_dir, topic, "pt.json")
-        out_en = os.path.join(base_dir, topic, "en.json")
+        if topic == "categories":
+            out_dir = os.path.join(base_dir, "categories", "type")
+            os.makedirs(out_dir, exist_ok=True)
+            out_pt = os.path.join(out_dir, "pt.json")
+            out_en = os.path.join(out_dir, "en.json")
+        else:
+            out_dir = os.path.join(base_dir, topic)
+            os.makedirs(out_dir, exist_ok=True)
+            out_pt = os.path.join(out_dir, "pt.json")
+            out_en = os.path.join(out_dir, "en.json")
 
         with open(out_pt, "w", encoding="utf-8") as f_pt:
             json.dump(dict(sorted(metadata_pt[topic].items())), f_pt, ensure_ascii=False, indent=2)
@@ -152,6 +164,16 @@ def main():
         with open(out_en, "w", encoding="utf-8") as f_en:
             json.dump(dict(sorted(metadata_en[topic].items())), f_en, ensure_ascii=False, indent=2)
             f_en.write("\n")
+
+    try:
+        from extract_primary_muscle_categories import main as extract_primary_main
+        extract_primary_main()
+    except Exception:
+        try:
+            from scripts.extract_primary_muscle_categories import main as extract_primary_main
+            extract_primary_main()
+        except Exception:
+            pass
 
     print("Metadata extraction completed with dynamic translation synchronization.")
 

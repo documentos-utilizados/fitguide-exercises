@@ -157,3 +157,27 @@ export async function translateText(text, source = 'pt', target = 'en') {
   return res.json()
 }
 
+export async function extractPrimaryMuscleCategories() {
+  const res = await fetch(`${API_BASE}/metadata/categories/extract`, {
+    method: 'POST'
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.error || 'Falha ao extrair categorias')
+  }
+  return res.json()
+}
+
+export async function translateCategories(categoryType = 'primary_muscle', source = 'pt', target = 'en') {
+  const res = await fetch(`${API_BASE}/metadata/categories/translate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ category_type: categoryType, source, target })
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.error || 'Falha ao traduzir categorias')
+  }
+  return res.json()
+}
+
