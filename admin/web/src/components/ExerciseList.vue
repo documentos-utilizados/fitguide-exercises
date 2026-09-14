@@ -20,7 +20,7 @@
 
         <select v-model="selectedCategory">
           <option value="">Todas as Categorias</option>
-          <option v-for="(label, key) in metadata.categories?.pt || {}" :key="key" :value="key">
+          <option v-for="(label, key) in (metadata.categories?.type?.pt || metadata.categories?.pt || {})" :key="key" :value="key">
             {{ label }}
           </option>
         </select>

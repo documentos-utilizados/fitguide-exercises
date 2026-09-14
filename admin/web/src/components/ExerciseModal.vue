@@ -35,7 +35,7 @@
             <label>Categoria *</label>
             <div v-if="!isCreatingNewCategory">
               <select v-model="form.category" @change="onCategoryChange" required>
-                <option v-for="(label, key) in metadata.categories?.pt || {}" :key="key" :value="key">
+                <option v-for="(label, key) in (metadata.categories?.type?.pt || metadata.categories?.pt || {})" :key="key" :value="key">
                   {{ label }} ({{ key }})
                 </option>
                 <option value="__new__">+ Criar Nova Categoria...</option>
@@ -265,13 +265,17 @@ const form = reactive({
 })
 
 const availableMuscles = computed(() => {
+  const primaryCats = props.metadata?.categories?.primary_muscle?.pt
+  if (Array.isArray(primaryCats) && primaryCats.length > 0) {
+    return Array.from(new Set(primaryCats.map(s => (s || '').trim()))).filter(Boolean).sort((a, b) => a.localeCompare(b))
+  }
   const list = Object.values(props.metadata?.muscles?.pt || {})
-  return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b))
+  return Array.from(new Set(list.map(s => (s || '').trim()))).filter(Boolean).sort((a, b) => a.localeCompare(b))
 })
 
 const availableEquipments = computed(() => {
   const list = Object.values(props.metadata?.equipments?.pt || {})
-  return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b))
+  return Array.from(new Set(list.map(s => (s || '').trim()))).filter(Boolean).sort((a, b) => a.localeCompare(b))
 })
 
 const primaryMuscleModel = computed({
