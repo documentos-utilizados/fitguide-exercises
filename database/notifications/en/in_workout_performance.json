@@ -1,0 +1,96 @@
+{
+  "group": "in_workout_performance",
+  "name": "In-Workout Performance",
+  "items": [
+    {
+      "id": "IN_WORKOUT_PR",
+      "title": "New Personal Record!",
+      "messages": [
+        "Congratulations! Max load exceeded on this exercise: %1$s kg!",
+        "New PR reached: %1$s kg! Your progress is showing.",
+        "Excuse me, bestie?! %1$s kg! Eating weight plates for breakfast?",
+        "LIGHTWEIGHT BABY! %1$s kg lifted! The beast is out of the cage!",
+        "%1$s kg! You just humiliated gravity without mercy!",
+        "%1$s kg record! The whole gym stopped to stare (or they should have)!",
+        "Put up %1$s kg! Who hurt you to take it out on the iron like that?",
+        "New %1$s kg PR! Update your gym resume right now!",
+        "%1$s kg?! That's not a workout, that's pure savagery! Unbelievable!",
+        "Call a crane because %1$s kg just went up for a personal record!",
+        "%1$s kg in the bag! The weight tried to fight back and lost badly!",
+        "Historic %1$s kg PR! Put some respect on those gains!"
+      ]
+    },
+    {
+      "id": "IN_WORKOUT_HALFWAY",
+      "title": "Halfway Done",
+      "messages": [
+        "Halfway through the workout! Almost done for today.",
+        "50% of the session is behind you! Keep the pace until the end.",
+        "Halfway there, bestie! Backing out now is strictly forbidden!",
+        "50% done! Already sweated halfway, don't fold on me now!",
+        "Past the halfway mark! The worst is over (okay maybe not, keep pushing)!",
+        "Half the workout is paid for! Hang in there, the mirror rewards you!",
+        "50% down! Quitting halfway is not in your vocabulary, let's go!",
+        "Halfway conquered! Take a breath, fix your posture, and crush the rest!",
+        "50% in the bank! Smooth sailing straight to the pump from here!",
+        "Past the middle! Don't even think about leaving before finishing it all!",
+        "Halfway done! Sweat is dripping, but your gym dignity is shining!",
+        "50% completed! Hold the line, only the second half left!"
+      ]
+    },
+    {
+      "id": "IN_WORKOUT_REST_OVERRUN",
+      "title": "Rest Finished",
+      "messages": [
+        "Rest time completed! Focus and determination for the next set.",
+        "Rest is over! Get ready to start the next set at full strength.",
+        "Hello? Did you come to work out or camp on the machine, bestie? Next set!",
+        "Drop that phone, your muscles are getting cold! Rest time is over!",
+        "Rest was supposed to be seconds, not a whole TV episode! Back to lifting!",
+        "Waiting for the barbell to say please? Hit that next set now!",
+        "Stop staring at the ceiling philosophizing: rest ended ages ago!",
+        "Did you buy a lease on that machine? Start the next set right now!",
+        "Stop texting between sets! Time to pull the next round!",
+        "Rested so long it counts as a nap! Back to the exercise!",
+        "Rest one more minute and you'll have to warm up all over again! Go!",
+        "Wake up, bestie! The timer went off and the iron is waiting!"
+      ]
+    },
+    {
+      "id": "IN_WORKOUT_LAST_EXERCISE",
+      "title": "Final Stretch",
+      "messages": [
+        "Last exercise of the day! Give your all to finish strong.",
+        "Home stretch! Only this exercise left to complete today's workout.",
+        "Last exercise, bestie! Give it your soul, glory awaits right after!",
+        "Last one to close the tab! Put your game face on and crush it!",
+        "Only this one left! Don't save energy now, the shower is right there!",
+        "Final stretch! Finish this exercise like somebody's filming a montage!",
+        "Last one of the day! Folding in the final seconds? Not a chance!",
+        "Just this one left so you can officially say Workout Complete!",
+        "Final stop of the session! Empty the rest of the tank right here!",
+        "You reached the final boss of today's workout! Destroy this last exercise!",
+        "One last exercise and you're officially allowed to complain about sore muscles!",
+        "Finish like a champion! No slacking on the very last exercise!"
+      ]
+    },
+    {
+      "id": "IN_WORKOUT_LOAD_PROGRESSION",
+      "title": "Load Progression Tip",
+      "messages": [
+        "You mastered %1$s kg in recent sessions. How about increasing the load today?",
+        "Great consistency with %1$s kg! Ready to test a heavier load today?",
+        "%1$s kg looks like grocery bags to you now! Up that weight, bestie!",
+        "Getting way too cozy with %1$s kg, huh? Slap another plate on that bar today!",
+        "%1$s kg is light work now! Staying there forever or leveling up today?",
+        "You can lift %1$s kg with your eyes closed! Time to raise the bar today!",
+        "Out of the %1$s kg comfort zone! Increase the load and test your limits!",
+        "%1$s kg is just a warm-up for you now! Ready for heavyweight numbers today?",
+        "Muscles used to %1$s kg don't grow! Shock them with a heavier load today!",
+        "You own %1$s kg! Add more iron and watch the magic happen!",
+        "If %1$s kg goes up with a smile, it's definitely time to add weight!",
+        "Upgrade time: you already graduated from %1$s kg! Bump that load up!"
+      ]
+    }
+  ]
+}

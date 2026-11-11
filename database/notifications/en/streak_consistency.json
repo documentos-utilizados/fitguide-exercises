@@ -1,0 +1,80 @@
+{
+  "group": "streak_consistency",
+  "name": "Streak and Consistency",
+  "items": [
+    {
+      "id": "STREAK_ACTIVE",
+      "title": "Streak on Fire",
+      "messages": [
+        "%1$d consecutive workout days! Keep up the discipline.",
+        "%1$d-day streak active! Your consistency is making all the difference.",
+        "%1$d days in a row training! Keep the momentum going.",
+        "%1$d days without failing! Not even your ex was this consistent, bestie!",
+        "Look at you! %1$d days in a row! Drinking pure focus juice?",
+        "%1$d-day streak! Even the dumbbells know you by first name now.",
+        "%1$d days straight teaching a masterclass in discipline!",
+        "%1$d days in a row! Haters bounce right off those biceps!",
+        "Bulletproof focus for %1$d days! Nobody can stop this machine now.",
+        "%1$d days locked in! Summer body turned into a lifetime lifestyle.",
+        "More loyal to the gym than most people out there: %1$d days straight!",
+        "%1$d days clocking in at the iron temple! Flying high!",
+        "Unstoppable: %1$d consecutive days giving it everything you've got!"
+      ]
+    },
+    {
+      "id": "STREAK_AT_RISK",
+      "title": "Protect Your Streak",
+      "messages": [
+        "Do not lose your %1$d-day streak! Complete today's workout to keep the momentum.",
+        "Your %1$d-day streak is at risk today. There is still time to train!",
+        "Keep your %1$d-day streak alive by finishing today's session!",
+        "Throwing %1$d days of sweat in the trash over laziness, bestie? Wake up!",
+        "Mayday! Your %1$d-day streak is on life support right now!",
+        "Fought for %1$d days just to quit today? Get up and save that streak!",
+        "Your %1$d-day flame is fading! Don't do your gains dirty like that!",
+        "Letting %1$d days of glory turn to dust? Run to the gym right now!",
+        "Slacking alert: %1$d straight days about to go down the drain if you skip today!",
+        "Don't cry when it resets to zero! Save your %1$d-day streak now!",
+        "Breaking news: your %1$d-day streak needs a workout IMMEDIATELY!",
+        "You didn't grind for %1$d days in a row just to fold today, right?",
+        "Drop everything you're doing and go rescue your %1$d-day streak!"
+      ]
+    },
+    {
+      "id": "STREAK_NEW_RECORD",
+      "title": "New Consistency Record",
+      "messages": [
+        "Historic milestone! %1$d consecutive days — your longest streak on FitGuide!",
+        "New record set: %1$d consecutive workout days! Unstoppable discipline.",
+        "%1$d days in a row! You've never gone this far, bestie! Brag away!",
+        "Historic! %1$d days with zero skips! Officially a certified gym rat!",
+        "All-time record of %1$d days! Take a bow, champion!",
+        "%1$d straight days! This is officially your peak gym era!",
+        "Smashed your own record with %1$d days! Laziness is terrified of you.",
+        "Living legend: %1$d consecutive days! Your discipline has never been higher!",
+        "Unstoppable mode unlocked: %1$d historic days of training in a row!",
+        "%1$d days! And the doubters said you wouldn't last a week!",
+        "Respect the grind: %1$d consecutive days breaking your own limits!",
+        "Consistency trophy awarded: %1$d days in a row making history!"
+      ]
+    },
+    {
+      "id": "WEEKLY_GOAL_COMPLETED",
+      "title": "Weekly Goal Completed",
+      "messages": [
+        "Week 100% completed! You finished all your scheduled workouts.",
+        "Weekly schedule complete! Every planned workout for the week is done.",
+        "Aced the whole week, bestie! Zero skips and 100% bragging rights!",
+        "Week closed owing nothing to nobody! Paid in full with interest!",
+        "Not a single missed day this week! That's million-dollar commitment!",
+        "Week successfully conquered! Go flex that pump in peace.",
+        "100% of this week's workouts delivered! Conscience cleaner than spring water.",
+        "Pure discipline: crushed every single planned workout this week!",
+        "Weekly goal smashed! Laziness couldn't even catch your shadow this week.",
+        "Checked off every scheduled day! You own your routine.",
+        "Flawless week! Delivered every single rep you promised yourself.",
+        "Mission accomplished all week long! Rest up and let those muscles grow!"
+      ]
+    }
+  ]
+}

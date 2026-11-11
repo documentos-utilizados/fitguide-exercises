@@ -1,0 +1,61 @@
+{
+  "group": "comeback_missed_days",
+  "name": "Retomada e Dias Ausentes",
+  "items": [
+    {
+      "id": "COMEBACK_SHORT_ABSENCE",
+      "title": "Hora de Retomar o Ritmo",
+      "messages": [
+        "%1$d dias sem treinar. O recomeço é o primeiro passo para evoluir!",
+        "%1$d dias sem treinar. Seus músculos já descansaram, bora retomar hoje?",
+        "Faz %1$d dias da última sessão. Que tal retomar o treino hoje?",
+        "%1$d dias sumido(a), mona! Tá pagando academia só pra patrocinar o dono?",
+        "Descanso de %1$d dias? Isso não é descanso, já virou férias remuneradas!",
+        "Faz %1$d dias que você sumiu! Os halteres perguntaram se você mudou de cidade.",
+        "%1$d dias fora! Vai deixar a preguiça ganhar de goleada assim?",
+        "Sumiu por %1$d dias achando que eu não ia notar? Volta pro treino já!",
+        "%1$d dias sem pisar no treino! O sofá te prendeu em cativeiro?",
+        "Olha quem tá há %1$d dias enrolando! Bora lavar a alma no ferro hoje!",
+        "%1$d dias sem treinar! Se desculpa queimasse caloria, você já tava trincado(a)!",
+        "Chega de novela: %1$d dias de folga já deu! Hoje é dia de voltar!",
+        "%1$d dias longe dos pesos! Reage, bota o tênis e aparece!"
+      ]
+    },
+    {
+      "id": "COMEBACK_WEEK_ABSENCE",
+      "title": "Sentimos Sua Falta no Treino",
+      "messages": [
+        "Faz %1$d dias desde o seu último treino (%2$s). Que tal voltar hoje no seu ritmo?",
+        "%1$d dias desde a sessão de %2$s. Seu próximo treino está pronto quando você estiver!",
+        "%1$d dias desde o %2$s! A academia já vai abrir boletim de ocorrência pelo seu sumiço!",
+        "Mona, %1$d dias sem fazer %2$s? Esqueceu a senha da catraca foi?",
+        "Faz %1$d dias que o treino %2$s levou um ghosting seu pior que o do seu ex!",
+        "%1$d dias longe do %2$s! Até a poeira nos pesos já tá sentindo sua falta.",
+        "Lembra do %2$s há %1$d dias? Pois é, ele ainda tá esperando o segundo encontro!",
+        "%1$d dias sem dar as caras depois do %2$s! Bora quebrar essa maldição hoje!",
+        "Já fazem %1$d dias desde o %2$s! Volta logo antes que o músculo esqueça seu nome.",
+        "Sumiço de %1$d dias pós-%2$s! Sacode a poeira e vem fazer as pazes com o ferro!",
+        "%1$d dias desde o %2$s... vai esperar completar aniversário de falta ou vai hoje?",
+        "O treino %2$s mandou lembranças! Já são %1$d dias te esperando voltar!"
+      ]
+    },
+    {
+      "id": "COMEBACK_LONG_ABSENCE",
+      "title": "Todo Recomeço Importa",
+      "messages": [
+        "%1$d dias sem treinar. Comece com uma sessão leve hoje para reativar o hábito!",
+        "Após %1$d dias de pausa, o passo mais importante é apenas começar hoje!",
+        "%1$d dias sumido(a)! Ressuscita desse sofá, mona, que o ferro perdoa tudo!",
+        "Depois de %1$d dias, a catraca vai até pedir seu RG de novo! Bora voltar!",
+        "%1$d dias sem treinar! Sai da hibernação que não somos ursos polares!",
+        "Faz %1$d dias! Volta nem que seja pra fazer fofoca entre uma série e outra!",
+        "%1$d dias fora! O filho pródigo sempre volta pra academia, e seu dia é hoje!",
+        "Mais de %1$d dias de sumiço! Vem devagarzinho hoje, só não fica parado(a)!",
+        "%1$d dias longe! Esquece o tempo parado e inaugura sua nova era maromba hoje!",
+        "Depois de %1$d dias, só de vestir a roupa de treino já é vitória. Bora!",
+        "%1$d dias de férias da academia já tá bom demais, né? Hora do retorno triunfal!",
+        "Sumiu %1$d dias mas a vaga no supino continua sua! Reaparece hoje!"
+      ]
+    }
+  ]
+}

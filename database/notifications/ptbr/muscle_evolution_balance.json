@@ -1,0 +1,60 @@
+{
+  "group": "muscle_evolution_balance",
+  "name": "Evolução e Equilíbrio Muscular",
+  "items": [
+    {
+      "id": "EVOLUTION_NEGLECTED_MUSCLE",
+      "title": "Equilíbrio Muscular",
+      "messages": [
+        "Faz %1$d dias que você não treina %2$s. Que tal incluir na sessão de hoje?",
+        "Seu grupo muscular %2$s está há %1$d dias sem estímulo. Hora de equilibrar o treino!",
+        "%1$d dias ignorando %2$s, mona? Vai ficar com o shape desproporcional!",
+        "O grupo de %2$s mandou perguntar se você brigou com ele: %1$d dias sem treino!",
+        "Faz %1$d dias que %2$s não vê um halter! Bora parar de pular esse treino?",
+        "%1$d dias sem treinar %2$s! Depois não reclama quando faltar simetria no espelho!",
+        "Alerta de abandono: %2$s está há %1$d dias esperando sua boa vontade!",
+        "Só treina o que gosta, né? %2$s tá há %1$d dias esquecido no churrasco!",
+        "Mais de %1$d dias sem dar atenção para %2$s! Vamos corrigir essa injustiça hoje!",
+        "Se %2$s falasse, já tava chorando há %1$d dias! Inclui no treino de hoje!",
+        "%1$d dias fugindo do treino de %2$s? Eu vi tudo, viu? Bora treinar!",
+        "Shape equilibrado pede %2$s em dia, e já se passaram %1$d dias! Partiu!"
+      ]
+    },
+    {
+      "id": "EVOLUTION_VOLUME_MILESTONE",
+      "title": "Marco Histórico de Volume",
+      "messages": [
+        "Marca histórica: Você já levantou mais de %1$s kg acumulados no FitGuide!",
+        "Novo marco alcançado: %1$s kg de volume total acumulado nos seus treinos!",
+        "%1$s kg acumulados, mona! Você já levantou praticamente um caminhão de mudança!",
+        "Passou de %1$s kg levantados! Haja coluna e disposição, que orgulho!",
+        "%1$s kg no total! Já pode cobrar frete de tanto peso que você carrega!",
+        "Marca lendária de %1$s kg! Você literalmente virou uma empilhadeira humana!",
+        "%1$s kg levantados na raça! Imagina se você tivesse desistido lá atrás?",
+        "Bateu %1$s kg de volume total! Nem o Hulk carregou tanto ferro assim!",
+        "%1$s kg acumulados! Cada quilo aí tem uma gota de suor e zero mimimi!",
+        "Ultrapassou %1$s kg! Se somar tudo, você já levantou um prédio inteiro!",
+        "Respeita os %1$s kg acumulados! Isso é consistência transformada em tonelada!",
+        "%1$s kg na conta! Seu eu do passado tá aplaudindo de pé agora!"
+      ]
+    },
+    {
+      "id": "EVOLUTION_HEALTH_BENEFIT",
+      "title": "Evolução e Saúde",
+      "messages": [
+        "Seu treino de %1$s fortaleceu sua %2$s.",
+        "Ótimo estímulo em %1$s! Isso contribui diretamente para sua %2$s.",
+        "Treinou %1$s e de brinde blindou sua %2$s! Gostoso(a) e saudável, mona!",
+        "Mandou bem em %1$s! Sua %2$s agradece para você não travar no futuro!",
+        "Estímulo pago em %1$s! Além do estética, sua %2$s saiu ganhando hoje!",
+        "Foco em %1$s concluído! Sua %2$s ficou ainda mais forte depois dessa!",
+        "Quem treina %1$s garante %2$s em dia e zero dor nas costas amanhã!",
+        "Show de treino em %1$s! Investimento direto na sua %2$s e longevidade!",
+        "%1$s na conta e %2$s turbinada! Saúde de ferro literalmente!",
+        "Destruiu no treino de %1$s e ainda deu um upgrade na sua %2$s!",
+        "Seu corpo agradece o treino de %1$s: mais %2$s e muito mais disposição!",
+        "Combo perfeito hoje: %1$s trabalhado e %2$s fortalecida com sucesso!"
+      ]
+    }
+  ]
+}

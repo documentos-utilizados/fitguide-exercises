@@ -1,0 +1,61 @@
+{
+  "group": "comeback_missed_days",
+  "name": "Comeback and Missed Days",
+  "items": [
+    {
+      "id": "COMEBACK_SHORT_ABSENCE",
+      "title": "Time to Get Back on Track",
+      "messages": [
+        "%1$d days without training. Restarting is the first step to progress!",
+        "%1$d days without training. Your muscles are rested, ready to get back today?",
+        "It has been %1$d days since your last session. Ready to jump back in today?",
+        "Missing for %1$d days, bestie! Paying gym membership just to sponsor the owner?",
+        "A %1$d-day rest? That's not recovery anymore, that's a paid vacation!",
+        "Gone for %1$d days! The dumbbells asked if you moved to another city.",
+        "%1$d days out! Are you really letting laziness win by a landslide?",
+        "Vanished for %1$d days thinking I wouldn't notice? Get back to training now!",
+        "%1$d days without stepping in the gym! Did the couch take you hostage?",
+        "Look who's been stalling for %1$d days! Time to hit the iron today!",
+        "%1$d days without training! If excuses burned calories, you'd be shredded by now!",
+        "Enough drama: %1$d days off is plenty! Today is comeback day!",
+        "%1$d days away from the weights! Lace up your shoes and show up!"
+      ]
+    },
+    {
+      "id": "COMEBACK_WEEK_ABSENCE",
+      "title": "We Miss You in the Gym",
+      "messages": [
+        "It's been %1$d days since your last workout (%2$s). How about getting back on track today?",
+        "%1$d days since %2$s 's session. Your next workout is ready when you are!",
+        "%1$d days since %2$s! The academy will already open a police report for your disappearance!",
+        "Mona, %1$d days before %2$s? Did you forget the ratchet password?",
+        "It's been __PH0 __ days since your %2$s workout ghosted you worse than your ex!",
+        "%1$d days away from %2$s! Even the dust on the weights is already missing you.",
+        "Remember %2$s __ PH1__ days ago? Yeah, he's still waiting for the second date!",
+        "%1$d days without showing up after %2$s! Let's break this curse today!",
+        "It's been %1$d days since %2$s! Hurry back before the muscle forgets its name.",
+        "Missing %1$d days post%2$s! Shake off the dust and come make peace with the iron!",
+        "%1$d days since %2$s... will you expect to complete the missing anniversary or will you go today?",
+        "Workout %2$s sends its regards! It's been %1$d days waiting for you to come back!"
+      ]
+    },
+    {
+      "id": "COMEBACK_LONG_ABSENCE",
+      "title": "Every Comeback Matters",
+      "messages": [
+        "%1$d days without training. Start with a light session today to reactivate the habit!",
+        "After a %1$d-day break, the most important step is simply starting today!",
+        "Missing for %1$d days! Rise from that couch, bestie, the iron forgives all!",
+        "After %1$d days, the front desk is gonna ask for your ID again! Let's go!",
+        "%1$d days without training! Hibernation season is over, we're not polar bears!",
+        "It's been %1$d days! Come back even if it's just to vibe between sets!",
+        "%1$d days away! The prodigal lifter always returns, and today is your day!",
+        "Over %1$d days M.I.A.! Take it easy today, just don't stay on the couch!",
+        "%1$d days gone! Forget the break and kick off your new gym era today!",
+        "After %1$d days, just putting on your gym clothes is already a win. Let's go!",
+        "%1$d days of gym vacation is more than enough, right? Time for a triumphant return!",
+        "Gone for %1$d days, but your spot on the bench is still yours! Show up today!"
+      ]
+    }
+  ]
+}

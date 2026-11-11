@@ -1,0 +1,60 @@
+{
+  "group": "muscle_evolution_balance",
+  "name": "Muscle Evolution and Balance",
+  "items": [
+    {
+      "id": "EVOLUTION_NEGLECTED_MUSCLE",
+      "title": "Muscle Balance",
+      "messages": [
+        "It has been %1$d days since you trained %2$s. How about including it in today's session?",
+        "Your %2$s muscle group has gone %1$d days without stimulus. Time to balance your training!",
+        "%1$d days ignoring %2$s, bestie? Don't let the physique get lopsided!",
+        "Your %2$s just texted asking if you're mad at it: %1$d days without training!",
+        "It's been %1$d days since %2$s saw a dumbbell! Stop skipping it!",
+        "%1$d days without training %2$s! Don't complain about symmetry in the mirror later!",
+        "Neglect alert: %2$s has been waiting %1$d days for your attention!",
+        "Only training your favorites, huh? %2$s has been left behind for %1$d days!",
+        "Over %1$d days ignoring %2$s! Let's fix that injustice today!",
+        "If %2$s could talk, it would've been crying for %1$d days! Train it today!",
+        "%1$d days dodging %2$s day? I saw that! Let's get to work!",
+        "A balanced physique needs %2$s on point, and it's been %1$d days! Let's go!"
+      ]
+    },
+    {
+      "id": "EVOLUTION_VOLUME_MILESTONE",
+      "title": "Lifetime Volume Milestone",
+      "messages": [
+        "Historic milestone: You have lifted over %1$s kg in total volume on FitGuide!",
+        "New milestone reached: %1$s kg of total cumulative volume across your workouts!",
+        "%1$s kg accumulated, bestie! You've basically lifted a whole moving truck!",
+        "Over %1$s kg lifted! Pure grit and power, take a bow!",
+        "%1$s kg total! You could start charging freight fees for moving this much iron!",
+        "Legendary %1$s kg milestone! You are officially a human forklift!",
+        "%1$s kg lifted through pure hustle! Imagine if you had quit back then?",
+        "Hit %1$s kg in total volume! Not even the Hulk moved this much iron!",
+        "%1$s kg accumulated! Every single kilo has sweat and zero excuses in it!",
+        "Surpassed %1$s kg! Add it all up and you've lifted an entire building!",
+        "Respect the %1$s kg milestone! That's consistency turned into tons of iron!",
+        "%1$s kg in the books! Your past self is giving you a standing ovation right now!"
+      ]
+    },
+    {
+      "id": "EVOLUTION_HEALTH_BENEFIT",
+      "title": "Evolution and Health",
+      "messages": [
+        "Your %1$s workout strengthened your %2$s.",
+        "Great stimulus on %1$s! This directly supports your %2$s.",
+        "Trained %1$s and armored your %2$s as a bonus! Shredded and healthy, bestie!",
+        "Crushed %1$s! Your %2$s thanks you now and in the future!",
+        "Stimulus delivered on %1$s! Beyond aesthetics, your %2$s won big today!",
+        "%1$s focus complete! Your %2$s just leveled up after that session!",
+        "Training %1$s keeps your %2$s on point and future aches away!",
+        "Awesome %1$s session! A direct investment in your %2$s and longevity!",
+        "%1$s in the bank and %2$s supercharged! Iron health literally!",
+        "Smashed the %1$s workout and gave your %2$s a major upgrade!",
+        "Your body thanks you for training %1$s: better %2$s and way more energy!",
+        "Perfect combo today: %1$s worked and %2$s strengthened successfully!"
+      ]
+    }
+  ]
+}

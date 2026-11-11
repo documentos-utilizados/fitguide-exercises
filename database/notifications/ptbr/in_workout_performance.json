@@ -1,0 +1,96 @@
+{
+  "group": "in_workout_performance",
+  "name": "Performance Durante o Treino",
+  "items": [
+    {
+      "id": "IN_WORKOUT_PR",
+      "title": "Novo Recorde Pessoal!",
+      "messages": [
+        "Parabéns! Carga máxima superada neste exercício: %1$s kg!",
+        "Novo PR atingido: %1$s kg! Sua evolução está visível.",
+        "Que isso, mona?! %1$s kg! Tá comendo anilha no café da manhã?",
+        "BIRL! %1$s kg levantados! Sai de casa que o monstro saiu da jaula!",
+        "%1$s kg! Humilhou a gravidade sem dó nem piedade!",
+        "Recorde de %1$s kg! A academia inteira parou pra olhar (ou deveria)!",
+        "Subiu %1$s kg! Quem te magoou pra você descontar desse jeito no ferro?",
+        "Novo PR de %1$s kg! Pode atualizar o currículo maromba agora mesmo!",
+        "%1$s kg?! Isso não é treino, é ignorância pura! Brabo(a) demais!",
+        "Chama o guindaste que subiu %1$s kg de recorde pessoal!",
+        "%1$s kg no bolso! O peso tentou resistir mas não deu nem pro cheiro!",
+        "PR histórico de %1$s kg! Respeita quem puxa ferro de verdade!"
+      ]
+    },
+    {
+      "id": "IN_WORKOUT_HALFWAY",
+      "title": "Metade Concluída",
+      "messages": [
+        "Metade do treino concluída! Falta pouco para o dever cumprido.",
+        "50% da sessão já ficou para trás! Mantenha o ritmo até o fim.",
+        "Metade já foi, mona! Agora é proibido amarelar!",
+        "50% concluído! Já suou metade, não vai arregalar os olhos agora!",
+        "Passou da metade! O pior já foi (mentira, mas finge que sim e continua)!",
+        "Metade do treino tá paga! Aguenta firme que o espelho recompensa!",
+        "Já foi 50%! Desistir no meio do caminho é coisa de frango, bora!",
+        "Metade vencida! Respira fundo, arruma a postura e engole o resto do treino!",
+        "50% na conta! Daqui pra frente é só ladeira abaixo rumo ao pump!",
+        "Já passou do meio! Nem pense em ir embora antes de zerar tudo!",
+        "Metade feita! O suor tá escorrendo mas a dignidade tá intacta!",
+        "50% concluído! Segura a onda que falta só a outra metade!"
+      ]
+    },
+    {
+      "id": "IN_WORKOUT_REST_OVERRUN",
+      "title": "Descanso Finalizado",
+      "messages": [
+        "Tempo de descanso concluído! Foco e determinação para a próxima série.",
+        "Descanso encerrado! Prepare-se para iniciar a próxima série com força total.",
+        "Oi? Veio treinar ou acampar no aparelho, mona? Bora pra série!",
+        "Larga esse WhatsApp que o músculo tá esfriando! Acabou o descanso!",
+        "O descanso era de segundos, não de um episódio inteiro de série! Vai puxar ferro!",
+        "Alô? Tá esperando o aparelho te pedir por favor? Bora pra próxima série!",
+        "Chega de olhar pro teto filosofando: o descanso acabou faz tempo!",
+        "Tem fila no aparelho ou você comprou a máquina? Retoma essa série agora!",
+        "Para de fofocar no celular, criatura! Hora de puxar a próxima série!",
+        "Descansou tanto que já pode chamar de cochilo! Volta pro exercício!",
+        "Se descansar mais um minuto vai ter que aquecer tudo de novo! Bora!",
+        "Acorda, mona! O cronômetro já apitou e o ferro tá esfriando!"
+      ]
+    },
+    {
+      "id": "IN_WORKOUT_LAST_EXERCISE",
+      "title": "Reta Final do Treino",
+      "messages": [
+        "Último exercício de hoje! Dê o seu máximo para fechar com chave de ouro.",
+        "Reta final! Só falta este exercício para concluir o treino de hoje.",
+        "Último exercício, mona! Entrega até a alma que depois é só glória!",
+        "A última pra fechar a conta! Faz cara de mau e esmaga esse exercício!",
+        "Só falta esse! Não economiza força agora que o banho tá logo ali!",
+        "Reta finalíssima! Termina esse exercício como se tivesse alguém filmando!",
+        "Último do dia! Vai falhar agora nos 45 do segundo tempo? Nem pensar!",
+        "Falta só esse pra você poder dizer Tá Pago sem mentir!",
+        "Última parada do treino! Descarrega o resto da bateria nessa série!",
+        "Chegou no chefão final do treino! Destrói esse último exercício!",
+        "Só mais esse exercício e você tá liberado(a) pra reclamar de dor muscular!",
+        "Fecha com chave de ouro! Último exercício não aceita corpo mole!"
+      ]
+    },
+    {
+      "id": "IN_WORKOUT_LOAD_PROGRESSION",
+      "title": "Sugestão de Progressão",
+      "messages": [
+        "Você dominou %1$s kg nas últimas sessões. Que tal tentar aumentar a carga hoje?",
+        "Consistência excelente com %1$s kg! Pronto para testar uma progressão de carga hoje?",
+        "%1$s kg já tá parecendo sacola de supermercado pra você! Sobe esse peso, mona!",
+        "Tá confortável demais com %1$s kg, hein? Bota mais anilha nessa barra hoje!",
+        "%1$s kg já ficou fácil! Vai ficar nesse pesinho pra sempre ou vai evoluir?",
+        "Você já faz %1$s kg até de olhos fechados! Hora de subir a régua hoje!",
+        "Chega de zona de conforto nos %1$s kg! Aumenta essa carga e testa seu limite!",
+        "%1$s kg já virou aquecimento! Bora colocar peso de gente grande hoje?",
+        "Músculo acostumado com %1$s kg não cresce! Dá um susto nele subindo a carga!",
+        "Dominou os %1$s kg! Bora adicionar mais ferro e ver a mágica acontecer!",
+        "Se %1$s kg tá subindo sorrindo, tá na hora de aumentar o peso!",
+        "Hora do upgrade: você já superou a fase dos %1$s kg! Sobe essa carga!"
+      ]
+    }
+  ]
+}
