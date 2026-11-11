@@ -1,0 +1,17 @@
+{
+  "group": "post_workout",
+  "name": "",
+  "items": [
+    {
+      "id": "POST_WORKOUT_CONGRATS",
+      "title": "Você Foi Gigante Hoje!",
+      "messages": [
+        "Você deu um show hoje! Sua dedicação é pura inspiração. Descanse bem, que amanhã tem mais!",
+        "Parabéns pelo treino concluído! Cada gota de suor valeu a pena. Amanhã a gente te espera com tudo!",
+        "Treino finalizado com maestria! Você é uma verdadeira inspiração maromba. Amanhã nos vemos de novo!",
+        "Orgulho da sua determinação hoje! O descanso agora é mais que merecido. Te esperamos amanhã no FitGuide!",
+        "Sensacional o treino de hoje! É essa consistência que constrói resultados gigantes. Até amanhã!"
+      ]
+    }
+  ]
+}
