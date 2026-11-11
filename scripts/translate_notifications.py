@@ -131,11 +131,18 @@ def translate_group(base_dir, group_name):
         json.dump(en_doc, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
+def update_config(base_dir, groups):
     config_path = os.path.join(base_dir, "database", "notifications", "config_notifications.json")
     from datetime import datetime
     now_iso = datetime.now().astimezone().isoformat()
+    if isinstance(groups, str):
+        groups = [groups] if groups else []
+    data = {
+        "last_modified": now_iso,
+        "last_modified_group": groups
+    }
     with open(config_path, "w", encoding="utf-8") as f:
-        json.dump({"last_modified": now_iso, "last_modified_group": group_name}, f, ensure_ascii=False, indent=2)
+        json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
 def main():
@@ -155,11 +162,15 @@ def main():
 
     if args.group:
         translate_group(args.base_dir, args.group)
+        update_config(args.base_dir, [args.group])
     else:
-        for f in os.listdir(pt_dir):
+        modified_groups = []
+        for f in sorted(os.listdir(pt_dir)):
             if f.endswith(".json"):
                 grp = f[:-5]
                 translate_group(args.base_dir, grp)
+                modified_groups.append(grp)
+        update_config(args.base_dir, modified_groups)
     print("SUCCESS")
 
 if __name__ == "__main__":

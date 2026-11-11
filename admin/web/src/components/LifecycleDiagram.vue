@@ -201,7 +201,7 @@
                   <span>Traduzir automaticamente para inglês (EN)</span>
                 </label>
                 <small class="crud-help-text">
-                  Gera a versão em inglês e atualiza o arquivo <code>config_notifications.json</code> com a data, hora e o grupo modificado.
+                  Gera a versão em inglês e atualiza o arquivo <code>config_notifications.json</code> com a data, hora e a lista de grupos modificados.
                 </small>
               </div>
 

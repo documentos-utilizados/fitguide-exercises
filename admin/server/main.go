@@ -859,16 +859,28 @@ func translateNotificationText(baseDir, text string) string {
 	return strings.TrimSpace(string(out))
 }
 
-func updateNotificationConfig(baseDir, group string) {
+func updateNotificationConfig(baseDir string, groups ...string) {
 	configPath := filepath.Join(baseDir, "database", "notifications", "config_notifications.json")
 	now := time.Now().Format(time.RFC3339)
+	var uniqueGroups []string
+	seen := make(map[string]bool)
+	for _, g := range groups {
+		g = strings.TrimSpace(g)
+		if g != "" && !seen[g] {
+			seen[g] = true
+			uniqueGroups = append(uniqueGroups, g)
+		}
+	}
+	if uniqueGroups == nil {
+		uniqueGroups = []string{}
+	}
 	type Config struct {
-		LastModified      string `json:"last_modified"`
-		LastModifiedGroup string `json:"last_modified_group"`
+		LastModified      string   `json:"last_modified"`
+		LastModifiedGroup []string `json:"last_modified_group"`
 	}
 	cfg := Config{
 		LastModified:      now,
-		LastModifiedGroup: group,
+		LastModifiedGroup: uniqueGroups,
 	}
 	b, err := json.MarshalIndent(cfg, "", "  ")
 	if err == nil {
