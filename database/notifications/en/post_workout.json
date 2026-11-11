@@ -1,0 +1,17 @@
+{
+  "group": "post_workout",
+  "name": "",
+  "items": [
+    {
+      "id": "POST_WORKOUT_CONGRATS",
+      "title": "You Were Amazing Today!",
+      "messages": [
+        "You put on a show today! Your dedication is pure inspiration. Rest well, there's more tomorrow!",
+        "Congratulations on the completed workout! Every drop of sweat was worth it. Tomorrow we'll wait for you with everything!",
+        "Training finished with mastery! You are a real maromba inspiration. See you again tomorrow!",
+        "Proud of your determination today! Rest is now more than deserved. We hope to see you tomorrow at FitGuide!",
+        "Today's workout was amazing! It's this consistency that builds giant results. See you tomorrow!"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "group": "workout_call",
+  "name": "Chamada ao Treino",
+  "items": [
+    {
+      "id": "WORKOUT_SCHEDULED_TODAY",
+      "title": "Treino do Dia Planejado",
+      "messages": [
+        "Hoje é dia de treino planejado! Dê o seu melhor na sessão.",
+        "Seu treino de hoje está pronto. Bora manter o plano em dia!",
+        "Dia de treino na agenda! Cada sessão te aproxima do seu objetivo.",
+        "Vamos malhar, mona? O shape não cai do céu!",
+        "Vai falhar na academia que nem falharam contigo? Levanta e bora!",
+        "O treino de hoje tá te olhando e perguntando: e aí, vai encarar ou vai correr?",
+        "Reclama não, veste a roupa de treino e vai no ódio mesmo!",
+        "Shape por Bluetooth ainda não foi inventado. Bora puxar ferro!",
+        "A academia não morde, mas a consciência pesada sim. Partiu treinar!",
+        "Mais um dia para escolher entre ficar gostoso(a) ou ficar dando desculpa.",
+        "Tá esperando um sinal do universo? O sinal sou eu: VAI TREINAR!",
+        "Sabe quem treinou hoje? Todo mundo que quer o shape que você pediu.",
+        "Chora no agachamento que no espelho você sorri. Bora pro treino!"
+      ]
+    },
+    {
+      "id": "WORKOUT_PREFERRED_TIME",
+      "title": "Hora do Seu Treino",
+      "messages": [
+        "Hora do seu treino %1$s! Tudo pronto para começar?",
+        "Chegou o seu horário habitual! O treino %1$s está te esperando.",
+        "Prepare-se: é hora de iniciar sua sessão de %1$s!",
+        "Deu a hora do %1$s, mona! Larga esse sofá agora!",
+        "Relógio bateu: hora de descontar a raiva da vida no treino %1$s!",
+        "O treino %1$s não vai se fazer sozinho. Bora que é sua hora!",
+        "Seu horário sagrado chegou! O %1$s já está aquecendo os motores.",
+        "Para de rolar o feed! É hora de esmagar o treino %1$s.",
+        "Sai de casa, criatura! Hora de encarar o %1$s!",
+        "Terapia é cara, mas o seu treino %1$s começa agora e é de graça!",
+        "Bateu o ponto maromba: %1$s na tela, fone no ouvido e cara fechada!",
+        "Nem vem com preguiça nessa hora: o %1$s tá te chamando!",
+        "Hora de virar monstro no %1$s! Vai lá mostrar quem manda."
+      ]
+    },
+    {
+      "id": "WORKOUT_QUICK_CALL",
+      "title": "Ainda Dá Tempo de Treinar",
+      "messages": [
+        "Dia corrido? Ainda dá tempo de fazer seu treino de %1$d min hoje.",
+        "Reserve %1$d min para você e feche o dia com seu treino concluído!",
+        "Não deixe passar em branco: %1$d min bastam para completar a sessão de hoje.",
+        "Você passa mais de %1$d min vendo meme, vai dizer que não dá pra treinar?",
+        "Antes feito na força do ódio em %1$d min do que não feito, mona!",
+        "O dia tá acabando mas sua dignidade maromba ainda tem salvação: só %1$d min!",
+        "Vai dormir com culpa ou vai gastar %1$d min salvando o treino de hoje?",
+        "Treino vapt-vupt de %1$d min só pra poder postar o famoso Tá Pago!",
+        "%1$d minutinhos não matam ninguém, mas faltar hoje mata seu foco!",
+        "Corre que ainda dá tempo! %1$d min de suor e zero arrependimento.",
+        "Nem que seja no modo turbo: %1$d min e você fecha o dia vencendo!",
+        "Faltar hoje? Jamais! Em %1$d min você resolve essa pendência.",
+        "Levanta nos 45 do segundo tempo: %1$d min e missão cumprida!"
+      ]
+    },
+    {
+      "id": "WORKOUT_DAY_ONE",
+      "title": "Seu Primeiro Passo Começa Hoje",
+      "messages": [
+        "Todo campeão começou no primeiro dia. Que tal inaugurar sua rotina com um treino hoje?",
+        "O melhor momento para começar foi ontem, o segundo melhor é agora! Bora treinar?",
+        "Seu corpo do futuro vai agradecer pelo treino que você fizer hoje. Partiu dar o primeiro passo?",
+        "Zero desculpas, 100% atitude! Escolha um treino e comece sua transformação agora.",
+        "A jornada de grandes conquistas começa com a primeira repetição. Bora treinar hoje?",
+        "Não deixe para amanhã o shape que você pode começar a construir hoje! O FitGuide tá pronto com você.",
+        "Bora transformar vontade em ação? Seu primeiro treino tá te esperando!"
+      ]
+    },
+    {
+      "id": "WORKOUT_OPENED_NO_WORKOUT",
+      "title": "A Gente Viu Você por Aqui!",
+      "messages": [
+        "A gente viu que você abriu o FitGuide e saiu de fininho... Bora voltar e fazer acontecer?",
+        "Deu uma espiadinha no app e fugiu da raia? Ainda dá tempo de mandar aquele treino!",
+        "Vimos que você abriu o app mais cedo e não treinou. Não deixa a preguiça vencer, bora puxar ferro!",
+        "Abriu o app e não treinou? O treino tá sentindo sua falta! Que tal uma sessão rápida agora?",
+        "A gente viu esse check-in relâmpago! Que tal transformar essa olhada em um treino concluído?",
+        "Passou só pra dar um oi? O treino ficou na saudade. Bora botar o corpo pra se mexer!",
+        "Quem abre o FitGuide e não treina não ganha shape! Volta aqui e fecha seu dia vencendo!"
+      ]
+    },
+    {
+      "id": "POST_WORKOUT_CONGRATS",
+      "title": "Você Foi Gigante Hoje!",
+      "messages": [
+        "Você deu um show hoje! Sua dedicação é pura inspiração. Descanse bem, que amanhã tem mais!",
+        "Parabéns pelo treino concluído! Cada gota de suor valeu a pena. Amanhã a gente te espera com tudo!",
+        "Treino finalizado com maestria! Você é uma verdadeira inspiração maromba. Amanhã nos vemos de novo!",
+        "Orgulho da sua determinação hoje! O descanso agora é mais que merecido. Te esperamos amanhã no FitGuide!",
+        "Sensacional o treino de hoje! É essa consistência que constrói resultados gigantes. Até amanhã!",
+        "Mais um dia vencido com sucesso! Você inspira todo mundo ao seu redor com essa disciplina. Amanhã tem mais!",
+        "Missão do dia cumprida com louvor! Recarregue as energias que amanhã um novo desafio te aguarda!"
+      ]
+    },
+    {
+      "id": "POST_WORKOUT_ALL_COMPLETED",
+      "title": "Você Foi Gigante Hoje!",
+      "messages": [
+        "Treino 100% concluído (%1$d de %2$d exercícios)! Sua dedicação é pura inspiração.",
+        "Sensacional! Todos os %1$d exercícios foram finalizados com maestria. Descanse que amanhã tem mais!",
+        "Missão cumprida com louvor: %1$d de %2$d exercícios esmagados hoje! Amanhã a gente te espera com tudo.",
+        "Orgulho da sua determinação! Você zerou os %1$d exercícios planejados. O shape agradece!",
+        "Disciplina exemplar! 100% do treino concluído com todos os %1$d exercícios feitos. Até amanhã!"
+      ]
+    },
+    {
+      "id": "POST_WORKOUT_PARTIAL_COMPLETED",
+      "title": "Você Foi Gigante Hoje!",
+      "messages": [
+        "Você completou %1$d de %2$d exercícios planejados hoje! Cada repetição valeu a pena.",
+        "Mandou bem! %1$d exercícios concluídos com sucesso hoje. Consistência é o segredo do resultado.",
+        "Treino entregue com %1$d exercícios concluídos! O descanso agora é mais que merecido.",
+        "Mais um passo dado com %1$d exercícios feitos! Amanhã voltamos para fechar a conta.",
+        "Boa dedicação hoje (%1$d de %2$d exercícios)! A constância constrói o seu objetivo."
+      ]
+    },
+    {
+      "id": "WORKOUT_ABANDONED",
+      "title": "Treino Incompleto! 👀",
+      "messages": [
+        "Você finalizou o treino sem marcar nenhum exercício. Bora voltar e fazer valer a pena?",
+        "Passou só alguns minutos e não marcou nada? Treino de mentira não dá resultado, bora pra cima!",
+        "Fechou o treino com 0 exercícios feitos? A disciplina é o que te leva longe. Volta lá e treina de verdade!",
+        "Abrir o app e sair sem fazer os exercícios não queima calorias! Ainda dá tempo de treinar hoje.",
+        "Vimos que você saiu sem concluir os exercícios. Não sabote seu shape, bora voltar pro jogo!"
+      ]
+    },
+    {
+      "id": "GYM_WIFI_ARRIVAL",
+      "title": "Chegou no Treino! 💪",
+      "messages": [
+        "Tudo pronto para treinar? Hora de focar e dar o seu melhor!",
+        "Pronto para começar? Nada de enrolar no feed, bora aquecer!",
+        "Você já está no templo sagrado do ferro. Abre o app e vamos bater meta!",
+        "Hora do show! O treino de hoje não vai se fazer sozinho.",
+        "Chegou na academia? O primeiro passo tá dado, agora bora esmagar as séries!",
+        "Ambiente pronto, mente focada. Comece seu treino de hoje agora mesmo!",
+        "Cheiro de anilha e energia lá em cima: hora de buscar a sua melhor versão!",
+        "Você já está no local certo. Deixe as desculpas lá fora e inicie seu treino!",
+        "A academia tá te esperando. Escolha o treino e venha superar seus limites!",
+        "Chegou o momento! Foco total e mente blindada. Vamos com tudo hoje!"
+      ]
+    },
+    {
+      "id": "ONE_HOUR_BEFORE_HABITUAL",
+      "title": "Hora de se Preparar! ⏰",
+      "messages": [
+        "Falta 1 hora para o seu horário de treino! Já prepara a água e o foco.",
+        "Seu horário habitual de treino tá chegando em 1h. Nada de desculpas hoje!",
+        "Contagem regressiva: 1 hora para o treino! O corpo tá pronto, bora pra cima!",
+        "1 hora para o treino! Deixe a roupa pronta e a mente blindada.",
+        "Em 1 hora o treino começa! Mantenha a disciplina e vamos buscar o shape."
+      ]
+    },
+    {
+      "id": "MISSED_MORNING_AFTERNOON",
+      "title": "Ainda Dá Tempo! 🔥",
+      "messages": [
+        "Vi que não foi de manhã, tá a fim de deixar de ser frango pela tarde?"
+      ]
+    },
+    {
+      "id": "MISSED_DAY_NIGHT",
+      "title": "Última Chamada Hoje! ⏰",
+      "messages": [
+        "Vai falhar com a academia que nem fizeram contigo?"
+      ]
+    }
+  ]
+}

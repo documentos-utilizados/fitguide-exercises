@@ -1,0 +1,80 @@
+{
+  "group": "streak_consistency",
+  "name": "Ofensiva e Consistência",
+  "items": [
+    {
+      "id": "STREAK_ACTIVE",
+      "title": "Ofensiva em Chamas",
+      "messages": [
+        "%1$d dias seguidos de treino! Mantenha a disciplina.",
+        "Sequência de %1$d dias ativa! Sua consistência está fazendo a diferença.",
+        "%1$d dias consecutivos treinando! Continue firme no ritmo.",
+        "%1$d dias sem falhar! Nem seu ex teve tanta constância assim, mona!",
+        "Olha elaaa! %1$d dias seguidos! Tá tomando chá de foco?",
+        "%1$d dias de ofensiva! Até os halteres já te chamam pelo nome.",
+        "Quem te viu e quem te vê: %1$d dias seguidos dando aula de disciplina!",
+        "%1$d dias seguidos! A inveja bate no seu bíceps e volta!",
+        "Foco blindado há %1$d dias! Nem tenta parar essa máquina agora.",
+        "%1$d dias no foco! O projeto verão virou projeto vida inteira.",
+        "Mais fiel ao treino do que muita gente por aí: %1$d dias seguidos!",
+        "%1$d dias batendo cartão na maromba! Tá voando baixo!",
+        "Ninguém segura quem tá há %1$d dias seguidos entregando tudo!"
+      ]
+    },
+    {
+      "id": "STREAK_AT_RISK",
+      "title": "Proteja Sua Sequência",
+      "messages": [
+        "Não perca sua sequência de %1$d dias! Faça seu treino de hoje para manter o ritmo.",
+        "Sua ofensiva de %1$d dias está em risco hoje. Ainda dá tempo de treinar!",
+        "Mantenha sua marca de %1$d dias seguidos viva concluindo o treino de hoje!",
+        "Vai jogar %1$d dias de suor no lixo por preguiça, mona? Reage!",
+        "Socorro! Sua ofensiva de %1$d dias está respirando por aparelhos!",
+        "Lutou %1$d dias pra morrer na praia hoje? Levanta e vai salvar essa sequência!",
+        "O foguinho de %1$d dias tá quase apagando! Não faz essa covardia com o seu shape!",
+        "Vai deixar %1$d dias de glória virarem pó? Corre pra treinar agora!",
+        "Alerta de vacilo: %1$d dias seguidos prestes a ir pelo ralo se você não for hoje!",
+        "Depois não chora quando voltar pro zero! Salva esses %1$d dias já!",
+        "Plantão urgente: sua sequência de %1$d dias precisa de um treino AGORA!",
+        "Você não ralou %1$d dias seguidos pra desistir justo hoje, né?",
+        "Para tudo o que tá fazendo e vai salvar seus %1$d dias de ofensiva!"
+      ]
+    },
+    {
+      "id": "STREAK_NEW_RECORD",
+      "title": "Novo Recorde de Consistência",
+      "messages": [
+        "Nova marca histórica! %1$d dias seguidos — sua maior sequência no FitGuide!",
+        "Recorde batido: %1$d dias consecutivos de treino! Disciplina impecável.",
+        "%1$d dias seguidos! Nunca chegou tão longe, mona! Pode se achar!",
+        "Histórico! %1$d dias sem furar! Quem diria que você ia virar rato(a) de academia!",
+        "Recorde absoluto de %1$d dias! Já pode pedir música no Fantástico!",
+        "%1$d dias seguidos! Esse é oficialmente o seu auge maromba!",
+        "Bateu o próprio recorde com %1$d dias! A preguiça tem medo de você.",
+        "Lenda viva: %1$d dias consecutivos! Nunca sua disciplina esteve tão alta!",
+        "Desbloqueou o modo imparável: %1$d dias seguidos de treino histórico!",
+        "%1$d dias! Os invejosos disseram que não durava uma semana!",
+        "Respeita a trajetória: %1$d dias seguidos quebrando a própria banca!",
+        "Troféu constância entregue: %1$d dias seguidos fazendo história!"
+      ]
+    },
+    {
+      "id": "WEEKLY_GOAL_COMPLETED",
+      "title": "Meta Semanal Concluída",
+      "messages": [
+        "Semana 100% concluída! Você cumpriu todos os treinos planejados.",
+        "Agenda da semana completa! Todos os treinos planejados foram concluídos.",
+        "Gabaritou a semana, mona! Zero faltas e 100% de moral!",
+        "Semana fechada sem dever nada pra ninguém! Tá pago com juros!",
+        "Nem um diazinho de furo nessa semana! Isso que é compromisso de milhões!",
+        "Semana concluída com sucesso! Já pode desfilar o pump em paz.",
+        "100% dos treinos da semana entregues! A consciência tá mais limpa que água mineral.",
+        "Surra de disciplina: fechou todos os treinos planejados da semana!",
+        "Meta semanal batida! Nem a preguiça conseguiu te alcançar essa semana.",
+        "Check em todos os dias planejados! Quem manda na sua rotina é você.",
+        "Semana perfeita! Entregou absolutamente tudo o que prometeu nos treinos.",
+        "Dever cumprido na semana inteira! Descansa que o músculo cresce no orgulho!"
+      ]
+    }
+  ]
+}

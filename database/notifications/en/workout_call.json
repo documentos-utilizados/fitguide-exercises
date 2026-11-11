@@ -1,0 +1,176 @@
+{
+  "group": "workout_call",
+  "name": "Workout Call",
+  "items": [
+    {
+      "id": "WORKOUT_SCHEDULED_TODAY",
+      "title": "Scheduled Workout Today",
+      "messages": [
+        "Today is a scheduled workout day! Give your best in this session.",
+        "Your workout for today is ready. Let's keep the plan on track!",
+        "Workout day on the schedule! Every session brings you closer to your goal.",
+        "Let's work out, bestie! Gains don't fall from the sky!",
+        "Are you gonna fail at the gym like they failed you? Get up and go!",
+        "Today's workout is staring at you asking: are you in or running away?",
+        "No excuses, put your gym clothes on and go lift angry if you have to!",
+        "Bluetooth gains haven't been invented yet. Time to hit the iron!",
+        "The gym doesn't bite, but a guilty conscience does. Let's go train!",
+        "Another day to choose between getting shredded or making excuses.",
+        "Waiting for a sign from the universe? I am the sign: GO WORK OUT!",
+        "Guess who trained today? Everyone who wants the physique you asked for.",
+        "Cry during squats so you can smile in the mirror. Let's go!"
+      ]
+    },
+    {
+      "id": "WORKOUT_PREFERRED_TIME",
+      "title": "Time for Your Workout",
+      "messages": [
+        "Time for your %1$s workout! Ready to get started?",
+        "Your usual training time is here! %1$s is waiting for you.",
+        "Get ready: it's time to start your %1$s session!",
+        "It's %1$s o'clock, bestie! Drop that couch right now!",
+        "Clock struck: time to take all your life drama out on %1$s!",
+        "Workout %1$s isn't going to lift itself. It's your time!",
+        "Your sacred gym hour has arrived! %1$s is warming up for you.",
+        "Stop doomscrolling! It's time to crush %1$s.",
+        "Get out of the house! Time to face %1$s head-on!",
+        "Therapy is expensive, but your %1$s workout starts now for free!",
+        "Clock in at the iron temple: %1$s on screen, headphones on, beast mode!",
+        "Don't even try being lazy right now: %1$s is calling your name!",
+        "Time to go beast mode on %1$s! Show those weights who's boss."
+      ]
+    },
+    {
+      "id": "WORKOUT_QUICK_CALL",
+      "title": "Still Time to Train",
+      "messages": [
+        "Busy day? There is still time to knock out your %1$d min workout today.",
+        "Take %1$d min for yourself and finish the day with your workout done!",
+        "Don't skip today: %1$d min is all it takes to complete today's session.",
+        "You spend more than %1$d min watching memes, don't tell me you can't train!",
+        "Better done in %1$d min out of pure spite than skipped, bestie!",
+        "The day is ending, but your gym dignity can still be saved in %1$d min!",
+        "Going to bed with guilt or spending %1$d min saving today's workout?",
+        "Quick %1$d min express session just so you can flex that it's done!",
+        "%1$d little minutes won't kill you, but skipping today kills your momentum!",
+        "Run, there's still time! %1$d min of sweat and zero regrets.",
+        "Even in turbo mode: %1$d min and you close the day as a winner!",
+        "Skip today? Never! In %1$d min you settle this score.",
+        "Buzzer-beater time: %1$d min and mission accomplished!"
+      ]
+    },
+    {
+      "id": "WORKOUT_DAY_ONE",
+      "title": "Your First Step Starts Today",
+      "messages": [
+        "Every champion started on day one. How about kicking off your routine with a workout today?",
+        "The best time to start was yesterday, the second best is now! Let's train?",
+        "Your future self will thank you for the workout you do today. Ready to take the first step?",
+        "Zero excuses, 100% attitude! Pick a workout and start your transformation right now.",
+        "The journey to greatness begins with your first repetition. Let's train today!",
+        "Don't put off until tomorrow the fitness you can start building today! FitGuide is ready with you.",
+        "Ready to turn intention into action? Your first workout is waiting for you!"
+      ]
+    },
+    {
+      "id": "WORKOUT_OPENED_NO_WORKOUT",
+      "title": "We Saw You Around Here!",
+      "messages": [
+        "We noticed you opened FitGuide and slipped away... How about jumping back in and making it happen?",
+        "Took a quick peek at the app and backed out? There is still time to get that workout in!",
+        "We saw you opened the app earlier and didn't train. Don't let laziness win, time to move!",
+        "Opened the app and didn't work out? Today's workout misses you! How about a quick session now?",
+        "We caught that lightning-fast check-in! How about turning that peek into a completed workout?",
+        "Just stopped by to say hi? Your workout is waiting. Let's get your body moving!",
+        "Opening FitGuide without training won't get you gains! Come back and finish the day strong!"
+      ]
+    },
+    {
+      "id": "POST_WORKOUT_CONGRATS",
+      "title": "You Were Amazing Today!",
+      "messages": [
+        "You put on a great show today! Your dedication is pure inspiration. Rest well, tomorrow brings more!",
+        "Congratulations on finishing today's workout! Every drop of sweat was worth it. See you tomorrow ready to go!",
+        "Workout completed like a pro! You are a true fitness inspiration. See you again tomorrow!",
+        "Proud of your determination today! Your rest is well-earned. We look forward to seeing you tomorrow on FitGuide!",
+        "Sensational performance today! This consistency builds massive results. See you tomorrow!",
+        "Another day conquered! You inspire everyone around you with your discipline. Tomorrow we go again!",
+        "Daily mission completed with flying colors! Recharge those batteries, a fresh challenge awaits tomorrow!"
+      ]
+    },
+    {
+      "id": "POST_WORKOUT_ALL_COMPLETED",
+      "title": "You Were Amazing Today!",
+      "messages": [
+        "Workout 100% complete (%1$d of %2$d exercises)! You were amazing today.",
+        "Sensational! All %1$d exercises finished like a pro. Rest up, tomorrow brings more!",
+        "Mission accomplished: %1$d of %2$d exercises crushed today! See you tomorrow ready to go.",
+        "Proud of your determination! You completed all %1$d planned exercises. Great job!",
+        "Exemplary discipline! 100% completed with all %1$d exercises done. See you tomorrow!"
+      ]
+    },
+    {
+      "id": "POST_WORKOUT_PARTIAL_COMPLETED",
+      "title": "You Were Amazing Today!",
+      "messages": [
+        "You completed %1$d of %2$d planned exercises today! Every rep counted toward your goal.",
+        "Well done! %1$d exercises completed successfully today. Consistency is the key to results.",
+        "Workout delivered with %1$d exercises done! Your rest is well-earned.",
+        "Another step forward with %1$d exercises finished! Tomorrow we come back stronger.",
+        "Great effort today (%1$d of %2$d exercises)! Keep showing up and making progress."
+      ]
+    },
+    {
+      "id": "WORKOUT_ABANDONED",
+      "title": "Incomplete Workout! 👀",
+      "messages": [
+        "You finished the workout without completing any exercises. Ready to get back and make it count?",
+        "Only stayed a few minutes and marked nothing? Pretend workouts don't build results, let's train for real!",
+        "Workout closed with 0 exercises done? Discipline is what builds champions. Get back in there!",
+        "Opening the app and leaving without doing exercises won't burn calories! There's still time today.",
+        "We saw you left without completing your exercises. Don't sabotage your gains, let's crush it!"
+      ]
+    },
+    {
+      "id": "GYM_WIFI_ARRIVAL",
+      "title": "Ready to Train! 💪",
+      "messages": [
+        "Ready to crush your workout? Time to focus and give it your all!",
+        "Ready to get started? Put the feed away, time to warm up and get to work!",
+        "You're already in the iron paradise. Open your workout and let's crush it!",
+        "Game time! Today's workout isn't going to finish itself.",
+        "Made it to the gym? The hardest step is done, now let's get those sets in!",
+        "Environment set, mind locked in. Start your workout right now!",
+        "Weights clanking and energy high: time to chase your best self!",
+        "You're in the right place. Leave excuses at the door and start training!",
+        "The gym is waiting for you. Pick your workout and push past your limits!",
+        "The moment has arrived! Total focus and determination. Let's go!"
+      ]
+    },
+    {
+      "id": "ONE_HOUR_BEFORE_HABITUAL",
+      "title": "Time to Get Ready! ⏰",
+      "messages": [
+        "1 hour until your usual workout time! Grab your water and get ready.",
+        "Your workout hour is coming up in 1 hour. No excuses today!",
+        "Countdown: 1 hour to training! Mind focused, let's get after it!",
+        "1 hour to workout! Get your gear ready and head in locked in.",
+        "In 1 hour training begins! Stay disciplined and earn that progress."
+      ]
+    },
+    {
+      "id": "MISSED_MORNING_AFTERNOON",
+      "title": "Still Have Time! 🔥",
+      "messages": [
+        "Saw you didn't go this morning, feel like dropping the excuses this afternoon?"
+      ]
+    },
+    {
+      "id": "MISSED_DAY_NIGHT",
+      "title": "Last Call Today! ⏰",
+      "messages": [
+        "Going to flake on the gym like they flaked on you?"
+      ]
+    }
+  ]
+}

@@ -181,3 +181,44 @@ export async function translateCategories(categoryType = 'primary_muscle', sourc
   return res.json()
 }
 
+export async function fetchNotifications() {
+  const res = await fetch(`${API_BASE}/notifications`)
+  if (!res.ok) throw new Error('Falha ao carregar notificações')
+  return res.json()
+}
+
+export async function saveNotificationItem(payload) {
+  const res = await fetch(`${API_BASE}/notifications/item`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.error || 'Falha ao salvar item de notificação')
+  }
+  return res.json()
+}
+
+export async function deleteNotificationItem(group, id) {
+  const res = await fetch(`${API_BASE}/notifications/item?group=${encodeURIComponent(group)}&id=${encodeURIComponent(id)}`, {
+    method: 'DELETE'
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.error || 'Falha ao remover item de notificação')
+  }
+  return res.json()
+}
+
+export async function translateNotifications(group = '') {
+  const url = group ? `${API_BASE}/notifications/translate?group=${encodeURIComponent(group)}` : `${API_BASE}/notifications/translate`
+  const res = await fetch(url, { method: 'POST' })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.error || 'Falha ao traduzir notificações')
+  }
+  return res.json()
+}
+
+

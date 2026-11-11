@@ -15,6 +15,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"time"
 )
 
 type ServerConfig struct {
@@ -62,6 +63,37 @@ type BuildResponse struct {
 	Success bool   `json:"success"`
 	Output  string `json:"output"`
 	Error   string `json:"error,omitempty"`
+}
+
+type NotificationItem struct {
+	ID       string   `json:"id"`
+	Title    string   `json:"title"`
+	Messages []string `json:"messages"`
+}
+
+type NotificationGroupDoc struct {
+	Group string             `json:"group"`
+	Name  string             `json:"name"`
+	Items []NotificationItem `json:"items"`
+}
+
+type NotificationGroupResponse struct {
+	Group  string               `json:"group"`
+	NamePt string               `json:"name_pt"`
+	NameEn string               `json:"name_en"`
+	Pt     NotificationGroupDoc `json:"pt"`
+	En     NotificationGroupDoc `json:"en"`
+}
+
+type SaveNotificationItemPayload struct {
+	Group         string   `json:"group"`
+	ID            string   `json:"id"`
+	OriginalID    string   `json:"original_id,omitempty"`
+	TitlePt       string   `json:"title_pt"`
+	TitleEn       string   `json:"title_en,omitempty"`
+	MessagesPt    []string `json:"messages_pt"`
+	MessagesEn    []string `json:"messages_en,omitempty"`
+	AutoTranslate bool     `json:"auto_translate"`
 }
 
 type CategoryPayload struct {
@@ -814,6 +846,280 @@ func handleWorkouts(baseDir string) http.HandlerFunc {
 	}
 }
 
+func translateNotificationText(baseDir, text string) string {
+	if strings.TrimSpace(text) == "" {
+		return ""
+	}
+	cmd := exec.Command("python3", "scripts/translate_notifications.py", "--text", text)
+	cmd.Dir = baseDir
+	out, err := cmd.Output()
+	if err != nil || len(out) == 0 {
+		return text
+	}
+	return strings.TrimSpace(string(out))
+}
+
+func updateNotificationConfig(baseDir, group string) {
+	configPath := filepath.Join(baseDir, "database", "notifications", "config_notifications.json")
+	now := time.Now().Format(time.RFC3339)
+	type Config struct {
+		LastModified      string `json:"last_modified"`
+		LastModifiedGroup string `json:"last_modified_group"`
+	}
+	cfg := Config{
+		LastModified:      now,
+		LastModifiedGroup: group,
+	}
+	b, err := json.MarshalIndent(cfg, "", "  ")
+	if err == nil {
+		os.WriteFile(configPath, append(b, '\n'), 0644)
+	}
+}
+
+func handleNotifications(baseDir string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ptDir := filepath.Join(baseDir, "database", "notifications", "ptbr")
+		enDir := filepath.Join(baseDir, "database", "notifications", "en")
+
+		if r.Method == http.MethodGet {
+			files, err := os.ReadDir(ptDir)
+			if err != nil {
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte("[]"))
+				return
+			}
+
+			var responses []NotificationGroupResponse
+			for _, f := range files {
+				if !strings.HasSuffix(f.Name(), ".json") {
+					continue
+				}
+				ptContent, err := os.ReadFile(filepath.Join(ptDir, f.Name()))
+				if err != nil {
+					continue
+				}
+				var ptDoc NotificationGroupDoc
+				if err := json.Unmarshal(ptContent, &ptDoc); err != nil {
+					continue
+				}
+
+				var enDoc NotificationGroupDoc
+				enContent, err := os.ReadFile(filepath.Join(enDir, f.Name()))
+				if err == nil {
+					json.Unmarshal(enContent, &enDoc)
+				}
+
+				responses = append(responses, NotificationGroupResponse{
+					Group:  ptDoc.Group,
+					NamePt: ptDoc.Name,
+					NameEn: enDoc.Name,
+					Pt:     ptDoc,
+					En:     enDoc,
+				})
+			}
+
+			sort.Slice(responses, func(i, j int) bool {
+				return responses[i].Group < responses[j].Group
+			})
+
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(responses)
+			return
+		}
+
+		http.Error(w, `{"error": "method not allowed"}`, http.StatusMethodNotAllowed)
+	}
+}
+
+func handleNotificationItem(baseDir string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ptDir := filepath.Join(baseDir, "database", "notifications", "ptbr")
+		enDir := filepath.Join(baseDir, "database", "notifications", "en")
+
+		switch r.Method {
+		case http.MethodPost, http.MethodPut:
+			var payload SaveNotificationItemPayload
+			if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
+				http.Error(w, `{"error": "invalid JSON body"}`, http.StatusBadRequest)
+				return
+			}
+
+			if strings.TrimSpace(payload.Group) == "" || strings.TrimSpace(payload.ID) == "" {
+				http.Error(w, `{"error": "group and id are required"}`, http.StatusBadRequest)
+				return
+			}
+
+			ptPath := filepath.Join(ptDir, fmt.Sprintf("%s.json", payload.Group))
+			enPath := filepath.Join(enDir, fmt.Sprintf("%s.json", payload.Group))
+
+			var ptDoc NotificationGroupDoc
+			ptData, err := os.ReadFile(ptPath)
+			if err == nil {
+				json.Unmarshal(ptData, &ptDoc)
+			}
+			if ptDoc.Group == "" {
+				ptDoc.Group = payload.Group
+			}
+
+			var enDoc NotificationGroupDoc
+			enData, err := os.ReadFile(enPath)
+			if err == nil {
+				json.Unmarshal(enData, &enDoc)
+			}
+			if enDoc.Group == "" {
+				enDoc.Group = payload.Group
+			}
+
+			if payload.AutoTranslate {
+				if strings.TrimSpace(payload.TitlePt) != "" && strings.TrimSpace(payload.TitleEn) == "" {
+					payload.TitleEn = translateNotificationText(baseDir, payload.TitlePt)
+				}
+				if len(payload.MessagesEn) == 0 && len(payload.MessagesPt) > 0 {
+					payload.MessagesEn = make([]string, len(payload.MessagesPt))
+					for idx, msg := range payload.MessagesPt {
+						payload.MessagesEn[idx] = translateNotificationText(baseDir, msg)
+					}
+				} else if len(payload.MessagesEn) < len(payload.MessagesPt) {
+					for idx := len(payload.MessagesEn); idx < len(payload.MessagesPt); idx++ {
+						tr := translateNotificationText(baseDir, payload.MessagesPt[idx])
+						payload.MessagesEn = append(payload.MessagesEn, tr)
+					}
+				} else if len(payload.MessagesEn) > len(payload.MessagesPt) {
+					payload.MessagesEn = payload.MessagesEn[:len(payload.MessagesPt)]
+				}
+			}
+
+			targetID := payload.ID
+			if payload.OriginalID != "" {
+				targetID = payload.OriginalID
+			}
+
+			foundPt := false
+			for i, item := range ptDoc.Items {
+				if item.ID == targetID {
+					ptDoc.Items[i] = NotificationItem{
+						ID:       payload.ID,
+						Title:    payload.TitlePt,
+						Messages: payload.MessagesPt,
+					}
+					foundPt = true
+					break
+				}
+			}
+			if !foundPt {
+				ptDoc.Items = append(ptDoc.Items, NotificationItem{
+					ID:       payload.ID,
+					Title:    payload.TitlePt,
+					Messages: payload.MessagesPt,
+				})
+			}
+
+			foundEn := false
+			for i, item := range enDoc.Items {
+				if item.ID == targetID {
+					enDoc.Items[i] = NotificationItem{
+						ID:       payload.ID,
+						Title:    payload.TitleEn,
+						Messages: payload.MessagesEn,
+					}
+					foundEn = true
+					break
+				}
+			}
+			if !foundEn {
+				enDoc.Items = append(enDoc.Items, NotificationItem{
+					ID:       payload.ID,
+					Title:    payload.TitleEn,
+					Messages: payload.MessagesEn,
+				})
+			}
+
+			ptBytes, _ := json.MarshalIndent(ptDoc, "", "  ")
+			os.WriteFile(ptPath, append(ptBytes, '\n'), 0644)
+
+			enBytes, _ := json.MarshalIndent(enDoc, "", "  ")
+			os.WriteFile(enPath, append(enBytes, '\n'), 0644)
+
+			updateNotificationConfig(baseDir, payload.Group)
+
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(map[string]interface{}{
+				"success": true,
+				"item_pt": NotificationItem{ID: payload.ID, Title: payload.TitlePt, Messages: payload.MessagesPt},
+				"item_en": NotificationItem{ID: payload.ID, Title: payload.TitleEn, Messages: payload.MessagesEn},
+			})
+
+		case http.MethodDelete:
+			group := r.URL.Query().Get("group")
+			id := r.URL.Query().Get("id")
+			if strings.TrimSpace(group) == "" || strings.TrimSpace(id) == "" {
+				http.Error(w, `{"error": "group and id parameters are required"}`, http.StatusBadRequest)
+				return
+			}
+
+			ptPath := filepath.Join(ptDir, fmt.Sprintf("%s.json", group))
+			enPath := filepath.Join(enDir, fmt.Sprintf("%s.json", group))
+
+			removeFromDoc := func(path string) {
+				data, err := os.ReadFile(path)
+				if err != nil {
+					return
+				}
+				var doc NotificationGroupDoc
+				if err := json.Unmarshal(data, &doc); err != nil {
+					return
+				}
+				var filtered []NotificationItem
+				for _, item := range doc.Items {
+					if item.ID != id {
+						filtered = append(filtered, item)
+					}
+				}
+				doc.Items = filtered
+				b, _ := json.MarshalIndent(doc, "", "  ")
+				os.WriteFile(path, append(b, '\n'), 0644)
+			}
+
+			removeFromDoc(ptPath)
+			removeFromDoc(enPath)
+
+			updateNotificationConfig(baseDir, group)
+
+			w.Header().Set("Content-Type", "application/json")
+			w.Write([]byte(`{"success": true}`))
+
+		default:
+			http.Error(w, `{"error": "method not allowed"}`, http.StatusMethodNotAllowed)
+		}
+	}
+}
+
+func handleNotificationTranslate(baseDir string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, `{"error": "method not allowed"}`, http.StatusMethodNotAllowed)
+			return
+		}
+
+		group := r.URL.Query().Get("group")
+		args := []string{"scripts/translate_notifications.py"}
+		if group != "" {
+			args = append(args, "--group", group)
+		}
+
+		cmd := exec.Command("python3", args...)
+		cmd.Dir = baseDir
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			http.Error(w, fmt.Sprintf(`{"error": "falha na tradução: %s"}`, string(out)), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"success": true}`))
+	}
+}
+
 func handleTranslationAudit(baseDir string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
@@ -1167,6 +1473,9 @@ func main() {
 	mux.HandleFunc("/api/metadata/categories/translate", enableCORS(handleCategoryTranslate(baseDir)))
 	mux.HandleFunc("/api/translate", enableCORS(handleTranslate(baseDir)))
 	mux.HandleFunc("/api/workouts", enableCORS(handleWorkouts(baseDir)))
+	mux.HandleFunc("/api/notifications/item", enableCORS(handleNotificationItem(baseDir)))
+	mux.HandleFunc("/api/notifications/translate", enableCORS(handleNotificationTranslate(baseDir)))
+	mux.HandleFunc("/api/notifications", enableCORS(handleNotifications(baseDir)))
 	mux.HandleFunc("/api/translations/audit", enableCORS(handleTranslationAudit(baseDir)))
 	mux.HandleFunc("/api/translations/compare", enableCORS(handleTranslationCompare(baseDir)))
 	mux.HandleFunc("/api/upload-image", enableCORS(handleUploadImage(baseDir)))
